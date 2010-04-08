@@ -1,216 +1,156 @@
 Zencoder API PHP Library
 ==========================
 
-Author:  [Steve Heffernan](http://www.steveheffernan.com) (steve (a) sevenwire () c&#1;om)  
-Company: [Sevenwire - Web Application Development](http://sevenwire.com)  
-Version: 1.1  
-Date:    08-31-2009  
-Repository: <http://github.com/flixcloud/flix_cloud-php/>
+Author:  [Steve Heffernan](http://www.steveheffernan.com) (steve (a) zencoder (.) c&#1;om)
+Company: [Zencoder - Online Video Encoder](http://zencoder.com)
+Version: 1.0
+Date:    2010-04-02
+Repository: <http://github.com/zencoder/zencoder-php/>
 
-For more details on the FlixCloud API requirements visit  
-<http://flixcloud.com/api>
-
-There are three main functions: **Job Requests**, **Notification Handling**, and **Checking Job Status**
+For more details on the Zencoder API requirements visit
+<http://zencoder.com/docs/api>
 
 
-TRANSCODING JOB REQUEST
-------------------------
-The FlixCloudJob object uses cURL to send an XML formatted job request to
-https://www.flixcloud.com/jobs. It then uses the SimpleXMLElement library
-to parse any returned XML.
+ENCODING JOB
+------------
+The ZencoderJob object creates an encoding job using [cURL](http://zencoder.com/docs/glossary/curl/)
+to send [JSON](http://zencoder.com/docs/glossary/json/) formatted parameters to Zencoder's encoding API.
 
- **API key is required and can be found at <https://flixcloud.com/settings>**  
- **Recipe ID is required and can be found at <http://flixcloud.com/overviews/recipes>**
+### Step 1
+Visit the [API builder](https://app.zencoder.com/api_builder) in your account,
+and execute a successful encoding job.
 
+### Step 2
+Copy the successful JSON string, starting with the first curly brace "{",
+and pass it as the parameters for a new ZencoderJob object. Execute the script on your server to test that it works.
 
-### EXAMPLE 1 (using params hash)
+#### Example
+    <pre>
+    <?php
 
-    require_once("FlixCloud.php");
+    // Make sure this points to a copy of Zencoder.php on the same server as this script.
+    require_once("zencoder-php/Zencoder.php");
 
-    $fcj = new FlixCloudJob("2j1l:kd3add:0:ivzf:2e1y", array(
-      "recipe_id"           => 99,
+    // New Encoding Job
+    $encoding_job = new ZencoderJob('
+      {
+        "api_key": "93h630j1dsyshjef620qlkavnmzui3",
+        "input": "s3://bucket-name/file-name.avi"
+        "outputs": [
+          {
+            "label": "web"
+          }
+        ]
+      }
+    ');
 
-      "input_url"           => "http://www.example.com/videos/input.mpg",
-      // "input_user"          => "username", // Optional
-      // "input_password"      => "password", // Optional
+    // Check if it worked
+    if ($encoding_job->created) {
+      // Success
+      echo "w00t! \n\n";
+      echo "Job ID: ".$encoding_job->id."\n";
+      echo "Output '".$encoding_job->outputs["web"]->label."' ID: ".$encoding_job->outputs["web"]->id."\n";
+      // Store Job/Output IDs to update their status when notified or to check their progress.
+    } else {
+      // Failed
+      echo "Fail :(\n\n";
+      echo "Errors:\n";
+      foreach($encoding_job->errors as $error) {
+        echo $error."\n";
+      }
+    }
 
-      "output_url"          => "sftp://www.example.com/httpdocs/videos/output.flv",
-      "output_user"         => "username",
-      "output_password"     => "password",
+    echo "\nAll Job Attributes:\n";
+    var_dump($encoding_job);
 
-      // If your recipe uses a watermark
-      "watermark_url"       => "http://www.example.com/videos/watermark.png",
-      // "watermark_user"      => "username", // Optional
-      // "watermark_password"  => "password", // Optional
+    ?>
+    </pre>
 
-      // If your recipe uses thumbnails
-      "thumbnail_url"       => "sftp://www.example.com/httpdocs/videos/thumbs/",
-      "thumbnail_prefix"    => "thumb_",
-      "thumbnail_user"      => "username",
-      "thumbnail_password"  => "password",
+### Step 3
+Modify the above script to meet your needs.  
+Your [API Request History](https://app.zencoder.com/api_requests) may come in handy.  
+You can revisit your [API builder](https://app.zencoder.com/api_builder) to add/update parameters of the JSON.  
 
-      // "notification_url" => "http://www.example.com/notification.php", // Optional. Can be set in account settings.
-      // "pass_through" => "Blah blah", // Optional. Allows you to pass back a specific value with the notification.
-      // "insecure"         => true,  // Use if certificate won't verify
-      // "send"             => false, // Use if you don't want to send job immeditely.
+You can translate the JSON string into nested associative arrays so that you can dynamically change attributes like "input".  
+The previous JSON example would become:
 
+    $encoding_job = new ZencoderJob(array(
+      "api_key" => "93h630j1dsyshjef620qlkavnmzui3",
+      "input" => "s3://bucket-name/file-name.avi",
+      "outputs" => array(
+        array(
+          "label" => "web"
+        )
+      )
     ));
-
-    if($fcj->success) {
-      // Job was successfully requested. Store job ID and start time if needed.
-      echo "Success. Job ID is ".$fcj->id." Submitted at ".$fcj->initialized_job_at;
-    } else {
-      // Do something with the errors
-      foreach($fcj->errors as $error) {
-        echo $error;
-      }
-    }
-
-
-### EXAMPLE 2 (setting properties separately)
-
-    require_once("FlixCloud.php");
-
-    // First parameter is API key, second is Recipe ID
-    $fcj = new FlixCloudJob("2j1l:kd3add:0:ivzf:2e1y");
-    $fcj->recipe_id = 99;
-    $fcj->set_input("http://www.example.com/videos/input.mpg"); // Add user/password array if needed
-    $fcj->set_output("sftp://www.example.com/httpdocs/videos/output.flv", array("user" => "username", "password" => "password"));
-    $fcj->set_watermark("http://www.example.com/videos/watermark.png"); // Add user/password array if needed
-    $fcj->set_thumbnail("sftp://www.example.com/httpdocs/videos/thumbs/", array("prefix" => "thumb_", "user" => "username", "password" => "password"));
-
-    if($fcj->send()) {
-      // Job was successfully requested. Store job ID if needed.
-      echo "Success. Job ID is ".$fcj->id." Submitted at ".$fcj->initialized_job_at;
-    } else {
-      // Do something with the errors
-      foreach($fcj->errors as $error) {
-        echo $error;
-      }
-    }
 
 
 
 NOTIFICATION HANDLING
 ----------------------
-The FlixCloudNotificationHandler class is used to capture and parse XML data sent from
-FlixCloud when a job has been completed.
+The ZencoderOutputNotification class is used to capture and parse JSON data sent from
+Zencoder to your app when an output file has been completed.
 
-The possible states of the FlixCloudJobNotification object are "successful\_job",
-"cancelled\_job", or "failed\_job". A callback function allows you to respond accordingly.
 
-**Notification URL must be set in <https://flixcloud.com/settings>**  
-**A file following the example below should be at that URL**
 
-### EXAMPLE
+### Step 1
+Create a script to receive notifications, and upload it to a location on your server that is publicly accessible.
 
-    require_once("FlixCloud.php");
+#### Example
+    <?php
 
-    $job_notification = FlixCloudNotificationHandler::catch_and_parse();
+    // Make sure this points to a copy of Zencoder.php on the same server as this script.
+    require("Zencoder.php");
 
-    switch ($job_notification->state) {
-        case "successful_job":
+    // Catch notification
+    $notification = ZencoderOutputNotification::catch_and_parse();
 
-          echo $job_notification->id."\n";
+    // Check output/job state
+    if($notification->output->state == "finished") {
+      echo "w00t!\n";
 
-          echo $job_notification->output->url."\n";
-          echo $job_notification->output->cost."\n";
-
-          echo $job_notification->input->url."\n";
-          echo $job_notification->input->cost."\n";
-
-          // echo $job_notification->watermark->url."\n";
-          // echo $job_notification->thumbnail->url."\n";
-          // echo $job_notification->pass_through."\n";
-
-          // Other info available. See FlixCloudJobNotification code.
-
-          break;
-        case "cancelled_job":
-          // Do something else
-          break;
-        case "failed_job":
-          echo $job_notification->error_message;
-          break;
-        default:
+      // If you're encoding to multiple outputs and only care when all of the outputs are finished
+      // you can check if the entire job is finished.
+      if($notification->job->state == "finished") {
+        echo "Dubble w00t!";
+      }
+    } elseif ($notification->output->state == "cancelled") {
+      echo "Cancelled!\n";
+    } else {
+      echo "Fail!\n";
+      echo $notification->output->error_message."\n";
+      echo $notification->output->error_link;
     }
 
+    ?>
+
+### Step 2
+In the parameters for an encoding job, add the URL for your script to the notifications array of each output you want to be notified for. 
+Then submit the job to test if it works.  
+
+**You can view the results at:**  
+<https://app.zencoder.com/notifications>
+
+#### Example
+    ...
+    "outputs" => array(
+      array(
+        "label" => "web",
+        "notifications" => array("http://example.com.com/encoding/notification.php")
+      ),
+      array(
+        "label" => "iPhone",
+        "notifications" => array("http://example.com.com/encoding/notification.php")
+      )
+    )
+    ...
 
 
-CHECKING JOB STATUS
--------------------
-The easiest way to check a job's overall status is to use the following function. The first argument is the API key. The second argument is the job ID that you want to check.
-
-    require_once("FlixCloud.php");
-    $job_status = get_flix_cloud_job_status("2j1l:kd3add:0:ivzf:2e1y", "12345");
-
-There is actually more status info you can pull from the API, like progress for certain tasks. My guess is most people will just need the overall status of the job (i.e Transcoding, Uploading Output Files, Failed Job, etc.), so I haven't built in anything to specifically handle the individual tasks yet, however all of that info is available in the hash created from the XML in the FlixCloudJobStatusChecker object used in the following example. Check the API docs to see the specific info available.
-
-    require_once("FlixCloud.php");
-    $status_checker = new FlixCloudJobStatusChecker("2j1l:kd3add:0:ivzf:2e1y", "12345");
-    $job_status = $status_checker->get_job_status();
-    
-    // Example of extra info
-    $transcoding_task_state = $status_checker->$result_hash["transcoding-task"]["state"][0];
-    $transcoding_task_progress = $status_checker->$result_hash["transcoding-task"]["state"][1];
-    
-    $input_file_upload_task_state = $status_checker->$result_hash["input-media-file-task"]["state"][0];
-    $input_file_upload_task_progress = $status_checker->$result_hash["input-media-file-task"]["state"][1];
-
-
+### Step 3
+Modify the above script to meet your needs.  
+Your [notifications page](https://app.zencoder.com/notifications) will come in handy.
 
 VERSIONS
 ---------
 
-    Version 1.1.0 - 08/31/09    Added Status Checking (Class and basic function).
-                                Added Notification URL setting.
-                                Added Pass Through.
-                                Changed require() to require_once() in readme examples. Not a required update.
-
-    Version 1.0.8 - 07/08/09    Added thumbnail support for Job. (With help from Aaron Boushley)
-                                Added thumnail info to Notification.
-                                Removed User/Password validation on files. It blocked blank values, which could be valid.
-                                Added handling of multi-level errors from XML response (flattened array)
-                                Removed backward compatibility in Notification for $fcjn->input_media_file syntax, now must use $fcjn->input->url;
-
-    Version 1.0.7 - 04/17/09    Updated notification object to match new XML version
-
-    Version 1.0.6 - 04/14/09    Cleaned up the documentation a little.
-
-    Version 1.0.5 - 04/06/09    Added options for pointing to the certificate or certificate directory.
-
-    Version 1.0.4 - 04/06/09    Added option to connect insecurely incase SSL cert isn't working. (Like curl -k)
-
-    Version 1.0.3 - 04/06/09    Added backward compatability for recipe as second argument
-                                Added Curl error checking
-                                Added more detailed unknown error reporting
-                                Formatted XML a little
-
-    Version 1.0.2 - 04/05/09    * Now requiring API key on object creation, and added an optional params hash
-                                  for setting file info and sending on creation (example 2). *
-                                * Recipe is no longer second argument *
-                                * Broke up notification handling into 2 objects (see example) *
-                                    FlixCloudNotificationHandler => Catch and parse XML
-                                    FlixCloudJobNotification => Holds job notification info.
-                                Added escaping of special characters when creating XML tags.
-                                Removed protocol checking for now, because may want to just let the API do that.
-                                On job->send changed status code handling to a switch statement.
-
-    Version 1.0.1 - 04/02/09    Fixed acceptable protocols for some of the file types.
-
-
-
-NOTES:
--------
-Suggestions -> (steve (a) sevenwire () c&#1;om)
-
-### Windows
-If you're using the curl command line tool on Windows, curl will search
-for a CA cert file named "curl-ca-bundle.crt" in these directories and in
-this order:
-  1. application's directory
-  2. current working directory
-  3. Windows System directory (e.g. C:\windows\system32)
-  4. Windows Directory (e.g. C:\windows)
-  5. all directories along %PATH%
-[link](http://curl.haxx.se/docs/sslcerts.html)
+    Version 1.0 - 2010-04-02    Jobs and Notifications.

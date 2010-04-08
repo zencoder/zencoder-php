@@ -2,529 +2,210 @@
 /*
 
   Zencoder API PHP Library
-  Version: 0.1
-  Author: Steve Heffernan <steve@zencoder.com>
+  Version: 1.0
   See the README file for info on how to use this library.
 
 */
+define('ZENCODER_LIBRARY_NAME',  "ZencoderPHP");
+define('ZENCODER_LIBRARY_VERSION',  "1.0");
 
+// Add JSON functions for PHP < 5.2.0
+if(!function_exists('json_encode')) {
+  require_once('lib/JSON.php');
+  $GLOBALS['JSON_OBJECT'] = new Services_JSON(SERVICES_JSON_LOOSE_TYPE);
+  function json_encode($value) { return $GLOBALS['JSON_OBJECT']->encode($value); }
+  function json_decode($value) { return $GLOBALS['JSON_OBJECT']->decode($value); }
+}
 
-// FlixCloud Transcoding Job
 class ZencoderJob {
 
-  var $api_key;     // Provided at https://flixcloud.com/settings
-  var $recipe_id;   // Can be found at http://flixcloud.com/overviews/recipes
-  var $api_url = "https://www.flixcloud.com/jobs";
-
-  var $input;       // FlixCloudJobInputFile Object
-  var $output;      // FlixCloudJobOutputFile Object
-  var $watermark;   // FlixCloudJobWatermarkFile Object
-  var $thumbnail;   // FlixCloudJobThumbnailFile Object
-
-  var $notification_url; // Sets notification URL if supplied.
-  var $pass_through; // Allows user to pass an internally used value back with notification.
-  
-  // cURL Options
-  var $timeout = 0; // Time in seconds to timeout send request. 0 is no timeout.
-
-  // Dealing with the certificate. Still a sketchy area.
-  // If you learn anything from working with it let me know.
-  var $insecure;    // Bypasses verifying the certificate if needed. Like curl -k or --insecure. Still somewhat secure.
-  var $certificate; // Full path to the www.flixcloud.com.pem certificate. Not required most of the time. Look up CURLOPT_CAINFO for more info.
-  var $certificate_dir; // Directory where certs live. Not required most of the time. Look up CURLOPT_CAPATH for more info.
-
-  var $success;
+  var $create_url = "https://app.zencoder.com/api/jobs";
+  var $create_params = array();
+  var $create_json;
+  var $created = false;
   var $errors = array();
 
-  var $status_code; // Used for testing
-  var $result;      // Used for testing
-  var $final_xml;   // Used for testing
-
-  var $id;                  // Provided after job has been sent
-  var $initialized_job_at;  // Provided after job has been sent
-
-  // Initialize. API key is required. Option to load up job info on initialize using params hash.
-  function FlixCloudJob($api_key, $params = "") {
-    $this->api_key = $api_key;
-    if (is_array($params)) {
-      if($params["recipe_id"]) $this->recipe_id = $params["recipe_id"];
-
-      if($params["input_url"]) $this->set_input($params["input_url"], array("user" => $params["input_user"], "password" => $params["input_password"]));
-      if($params["output_url"]) $this->set_output($params["output_url"], array("user" => $params["output_user"], "password" => $params["output_password"]));
-      if($params["watermark_url"]) $this->set_watermark($params["watermark_url"], array("user" => $params["watermark_user"], "password" => $params["watermark_password"]));
-      if($params["thumbnail_url"]) $this->set_thumbnail($params["thumbnail_url"], array("prefix" => $params["thumbnail_prefix"], "user" => $params["thumbnail_user"], "password" => $params["thumbnail_password"]));
-      
-      if($params["notification_url"]) $this->notification_url = $params["notification_url"];
-      if($params["pass_through"]) $this->pass_through = $params["pass_through"];
-
-      if($params["insecure"]) $this->insecure = true;
-      if($params["certificate"]) $this->certificate = $params["certificate"];
-
-      if($params["api_url"]) $this->api_url = $params["api_url"];
-
-      // If params array is used it sends by default
-      if($params["send"] !== false) $this->send();
-    } elseif(intval($params) > 0) {
-      $this->recipe_id = $params; // Backwards compatible for when recipe was second arg.
-    }
-  }
-
-  // Create input file object from URL and option user credentials
-  function set_input($url, $params = array()) {
-    $this->input = new FlixCloudJobInputFile($url, $params);
-  }
-
-  // Create output file object from URL and option user credentials
-  function set_output($url, $params = array()) {
-    $this->output = new FlixCloudJobOutputFile($url, $params);
-  }
-
-  // Create watermark file object from URL and option user credentials
-  function set_watermark($url, $params = array()) {
-    $this->watermark = new FlixCloudJobWatermarkFile($url, $params);
-  }
-
-  // Create thumbnail file object from URL and option user credentials
-  function set_thumbnail($url, $params = array()) {
-    $this->thumbnail = new FlixCloudJobThumbnailFile($url, $params);
-  }
-
-  // Check that all required info is available and valid. Used before sending.
-  function validate() {
-    if ( !function_exists("curl_version")) $this->errors[] = "cURL is not installed.";
-    if ( !$this->api_key) $this->errors[] = "API key is required.";
-    if ( !$this->recipe_id || intval($this->recipe_id) <= 0) $this->errors[] = "Recipe ID is required and must be an integer.";
-    // Validate the different file types.
-    foreach(array($this->input, $this->output, $this->watermark, $this->thumbnail) as $job_file) {
-      if($job_file) {
-        if ( !$job_file->validate()) $this->errors = array_merge($this->errors, $job_file->errors);
-      }
-    }
-
-    // Return false if any errors.
-    if(count($this->errors) > 0) return false;
-    return true;
-  }
-
-  // Send job request to FlixCloud
-  function send() {
-    $this->success = false;
-    if ( !$this->validate()) return false;
-
-    $this->final_xml = $this->get_job_xml();
-
-    // Set up cURL connection
-    $ch = curl_init($this->api_url);
-    curl_setopt_array($ch, array(
-      CURLOPT_RETURNTRANSFER => 1,
-      CURLOPT_HEADER => 0, // Don't return the header in result
-      CURLOPT_HTTPHEADER => array("Accept: text/xml", "Content-type: application/xml"), // Required headers
-      CURLOPT_POST => 1,
-      CURLOPT_POSTFIELDS => $this->final_xml, // XML data
-      CURLOPT_CONNECTTIMEOUT => $this->timeout,
-    ));
-
-    if($this->certificate) {
-      curl_setopt($ch, CURLOPT_CAINFO, $this->certificate);
-      curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
-    }
-
-    if($this->certificate_dir) {
-      curl_setopt($ch, CURLOPT_CAPATH, $this->certificate_dir);
-      curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
-    }
-
-    if($this->insecure) {
-      curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-      curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-    }
-
-    // Execute send
-    $this->result = curl_exec($ch);
-
-    if (curl_errno($ch)) {
-      $this->errors[] = "Curl error (".curl_errno($ch)."): ".curl_error($ch);
-      return false;
-    }
-
-    // Store the HTTP status code given (201, 400, etc.)
-    $this->status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-
-    // Close cURL connection;
-    curl_close($ch);
-
-    // Respond based on HTTP status code.
-    switch ($this->status_code) {
-      case "201": // Successful
-        // Parse returned XML and get vars array
-        $xml_obj = get_object_vars(new SimpleXMLElement($this->result));
-        // Set job ID
-        $this->id = $xml_obj["id"];
-        // Set job's initialized time in UTC using the format YYYY-MM-DDTHH:MM:SSZ
-        $this->initialized_job_at = $xml_obj["initialized-job-at"];
-        $this->success = true;
-        return true;
-
-      case "200":
-        $xml_obj = get_object_vars(new SimpleXMLElement($this->result));
-        $this->errors[] = $xml_obj["error"];
-        $this->array_flatten($this->errors);
-        return false;
-
-      case "302":
-        $this->errors[] = "Redirection occurred (302). There's an error in the API URL.";
-        return false;
-
-      case "400":
-        $xml_obj = get_object_vars(new SimpleXMLElement($this->result));
-        $this->errors[] = $xml_obj["description"].$xml_obj["error"];
-        return false;
-
-      case "401":
-        $this->errors[] = "Access denied (401). Probably a bad API key.";
-        return false;
-
-      case "404":
-        $this->errors[] = "Page not found (404). The API url may be wrong, or the site is down.";
-        return false;
-
-      case "500":
-        $this->errors[] = "The server returned an error (500). The API may be down.";
-        return false;
-
-      default:
-        $temp_status_code = ($this->status_code) ? $this->status_code : "none";
-        $temp_result = ($this->result) ? "\"".$this->result."\"" : "empty";
-        $this->errors[] = "An unknown error has occurred."." Status Code: ".$temp_status_code.". Result ".$temp_result;
-        return false;
-    }
-  }
-
-  // Organize job data needed for API into a hash, then convert to XML.
-  function get_job_xml() {
-
-    // Watermark is optional. If left blank it won't be included in XML.
-    if($this->watermark) {
-      $watermark_hash = $this->watermark->get_data_hash();
-    }
-
-    // Thumbnail is optional. If left blank it won't be included in XML.
-    if($this->thumbnail) {
-      $thumbnail_hash = $this->thumbnail->get_data_hash();
-    }
-
-    // API XML in hash form
-    // If key is an integer (0 included) value will be added to XML as is.
-    $xml_hash = array(
-      0 => '<?xml version="1.0" encoding="UTF-8"?>',
-      "api-request"       => array(
-        "api-key"           => $this->api_key,
-        "recipe-id"         => $this->recipe_id,
-        "file-locations"  => array(
-          "input"           => $this->input->get_data_hash(),
-          "output"          => $this->output->get_data_hash(),
-          "watermark"       => $watermark_hash,
-          "thumbnails"      => $thumbnail_hash,
-        ),
-      ),
-    );
-    
-    if($this->notification_url) {
-      $xml_hash["api-request"]["notification-url"] = $this->notification_url;
-    }
-    
-    if($this->pass_through) {
-      $xml_hash["api-request"]["pass-through"] = $this->pass_through;
-    }
-    
-    return $this->hash_to_xml($xml_hash);
-  }
-
-  // Create XML from a hash
-  // Does some uneccessary formatting of the XML, but it's nice for debugging.
-  function hash_to_xml($hash, $starting_indent = 0) {
-    $xml = "";
-    $indent = "";
-    for($i=0; $i<$starting_indent; $i++) { $indent .= "  "; }
-    foreach($hash as $tag_name => $tag_contents) {
-      $xml .= $indent;
-      // If key is an integer (0 included) value will be added to XML as is.
-      if (is_int($tag_name)) {
-        $xml .= $tag_contents."\n";
-      } elseif (is_array($tag_contents)) {
-        $xml .= $this->tag($tag_name, "\n".$this->hash_to_xml($tag_contents, $starting_indent+1).$indent)."\n";
-      } elseif ($tag_contents) {
-        $xml .= $this->tag($tag_name, htmlspecialchars($tag_contents))."\n";
-      }
-    }
-
-    return $xml;
-  }
-
-  // Create a simple XML tag from a name and content. Escape special characters (&<>).
-  function tag($tag_name, $tag_content) {
-    return '<'.$tag_name.'>'.$tag_content.'</'.$tag_name.'>';
-  }
-
-  // Flatten a basic array. Kinda surpised PHP doesn't have this.
-  function array_flatten(&$array) {
-    foreach($array as $key => $val) {
-      if(is_array($val)) {
-        unset($array[$key]);
-        $this->array_flatten($val);
-        $array = array_merge($array, $val);
-      }
-    }
-    return $array;
-  }
-
-}
-
-// Class for holding media file info (file url, user, pass)
-class FlixCloudJobFile {
-
-  var $name = "base"; // Used in errors
-  var $url;      // Location of file including tranfer protocol (http, ftp, etc.)
-  var $user;          // Username
-  var $password;      // Password
-  var $protocol;      // Set and used in validating.
-  var $errors = array();
-
-  // Info received from notification
-  var $width;     // In pixels
-  var $height;    // In pixels
-  var $size;      // In bytes
-  var $duration;  // In milliseconds
-  var $cost;      // In millicents
+  // Attributes
+  var $id;
+  var $outputs = array();
 
   // Initialize
-  function FlixCloudJobFile($url, $params = array()) {
-    $this->url = trim($url);
-    $this->set_attributes($params);
+  function ZencoderJob($params, $options = array()) {
+
+    // Build using params if not sending request
+    if($options["build"]) {
+      $this->update_attributes($params);
+      return true;
+    }
+
+    // Get JSON
+    if(is_string($params)) {
+      $this->create_json = trim($params);
+      $this->create_params = json_decode($params, true);
+    } else if(is_array($params)) {
+      $this->create_json = json_encode($params);
+      $this->create_params = $params;
+    }
+
+    $this->created = $this->create();
   }
 
-  // Validate that all needed data is available.
-  function validate() {
-    if( !$this->url) $this->errors[] = $this->name." file url required.";
+  // Send Job Request to API
+  function create() {
 
-    // Return false if any errors.
-    if(count($this->errors) > 0) return false;
-    return true;
-  }
+    // Send request
+    $connection = new ZencoderCURL($this->create_url, $this->create_json);
 
-  // Check if protocal supplied matches an accepted protocol for the file type
-  function check_protocol() {
-    preg_match ("/^[^:]+/i", $this->url, $matches);
-    $this->protocol = $matches[0];
-    if( !in_array($this->protocol, $this->acceptable_protocols)) {
+    // Check for connection errors
+    if ($connection->connected == false) {
+      $this->errors[] = $connection->error;
       return false;
     }
-    return true;
-  }
 
-  // Return a hash of values to be turned into XML later
-  function get_data_hash() {
-    $hash = array("url" => $this->url);
-    if($this->user) {
-      $hash["parameters"] = array(
-        "user" => $this->user,
-        "password" => $this->password
-      );
+    // Parse returned JSON
+    $parsed_results = json_decode($connection->results, true);
+
+    // Return based on HTTP status code
+    if($connection->status_code == "201") {
+      $this->update_attributes($parsed_results);
+      return true;
+    } else {
+      // Get job request errors if any
+      if(is_array($parsed_results["errors"])) {
+        foreach($parsed_results["errors"] as $error) {
+          $this->errors[] = $error;
+        }
+      } else {
+        $this->errors[] = "Unknown Error\n\nHTTP Status Code: ".$connection->status_code."\n";"Raw Results: \n".$connection->results;
+      }
+      return false;
     }
-    return $hash;
   }
 
-  function set_attributes($hash) {
-    if(is_array($hash)) {
-      foreach($hash as $key => $value) {
-        if(strpos($key, "-")) $key = str_replace("-", "_", $key);
-        $this->$key = $value;
+  // Add/Update attributes on the job object.
+  function update_attributes($attributes = array()) {
+    foreach($attributes as $attr_name => $attr_value) {
+      // Create output file objects
+      if($attr_name == "outputs" && is_array($attr_value)) {
+        $this->create_outputs($attr_value);
+      } elseif (!function_exists($this->$attr_name)) {
+        $this->$attr_name = $attr_value;
+      }
+    }
+  }
+
+  // Create output file objects from returned parameters.
+  // Use the Label for the key if avaiable.
+  function create_outputs($outputs = array()) {
+    foreach($outputs as $output_attrs) {
+      if($output_attrs["label"]) {
+        $this->outputs[$output_attrs["label"]] = new ZencoderOutputFile($output_attrs);
+      } else {
+        $this->outputs[] = new ZencoderOutputFile($output_attrs);
       }
     }
   }
 }
 
-// Input File Data Object
-class FlixCloudJobInputFile extends FlixCloudJobFile {
-  var $name = "Input";
-  //var $acceptable_protocols = array("http", "https", "ftp", "sftp", "s3");
-}
 
-// Output File Data Object
-class FlixCloudJobOutputFile extends FlixCloudJobFile {
-  var $name = "Output";
-  //var $acceptable_protocols = array("ftp", "sftp", "s3");
-}
+class ZencoderOutputFile {
 
-// Watermark File Data Object
-class FlixCloudJobWatermarkFile extends FlixCloudJobFile {
-  var $name = "Watermark";
-  //var $acceptable_protocols = array("http", "https", "ftp", "sftp", "s3");
-}
+  var $id;
+  var $label;
+  var $url;
+  var $state;
+  var $error_message;
+  var $error_link;
 
-// Thumbnail File Data Object
-class FlixCloudJobThumbnailFile extends FlixCloudJobFile {
-  var $name = "Thumbnail";
-  var $prefix;
+  function ZencoderOutputFile($attributes = array()) {
+    $this->update_attributes($attributes);
+  }
 
-  // Info received from notification
-  var $total_size;
-  var $number_of_thumbnails;
-
-  function get_data_hash() {
-    $hash = array("url" => $this->url);
-    $hash["prefix"] = $this->prefix;
-
-    if($this->user) {
-      $hash["parameters"] = array(
-        "user" => $this->user,
-        "password" => $this->password
-      );
+  // Add/Update attributes on the file object.
+  function update_attributes($attributes = array()) {
+    foreach($attributes as $attr_name => $attr_value) {
+      if(!function_exists($this->$attr_name)) {
+        $this->$attr_name = $attr_value;
+      }
     }
-    return $hash;
   }
 }
 
-class FlixCloudNotificationHandler {
+
+class ZencoderOutputNotification {
+
+  var $output;
+  var $job;
+
+  function ZencoderOutputNotification($params) {
+    if($params["output"]) $this->output = new ZencoderOutputFile($params["output"]);
+    if($params["job"]) $this->job = new ZencoderJob($params["job"], array("build" => true));
+  }
+
   function catch_and_parse() {
-    $incoming = file_get_contents('php://input');
-	$incoming = trim($incoming);
-    $hash = get_object_vars(new SimpleXMLElement($incoming));
-    return new FlixCloudJobNotification($hash);
+    $notificiation_data = json_decode(trim(file_get_contents('php://input')), true);
+    return new ZencoderOutputNotification($notificiation_data);
   }
 }
 
-// Class for catching and parsing XML data sent from FlixCloud when job is finished.
-// Notification URL must be set in https://flixcloud.com/settings
-class FlixCloudJobNotification {
 
-  var $original_hash;          // From XML object
+// Connection class
+class ZencoderCURL {
 
-  var $id;                     // The job's ID
-  var $initialized_job_at;     // When the job was initialized. UTC YYYY-MM-DDTHH:MM:SSZ
-  var $recipe_name;            // Name of recipe used
-  var $recipe_id;              // ID of recipe
-  var $state;                  // failed_job, cancelled_job, or successful_job
-  var $error_message;          // Error message if there was one.
-  var $finished_job_at;        // When the job finished. UTC YYYY-MM-DDTHH:MM:SSZ
-  var $pass_through;           // User defined value passed from job request
+  var $url;
+  var $options = array(
+    CURLOPT_RETURNTRANSFER => 1, // Return content of the url
+    CURLOPT_HEADER => 0, // Don't return the header in result
+    CURLOPT_HTTPHEADER => array("Content-Type: application/json", "Accept: application/json"),
+    CURLOPT_CONNECTTIMEOUT => 0, // Time in seconds to timeout send request. 0 is no timeout.
+    CURLOPT_FOLLOWLOCATION => 1, // Follow redirects.
+  );
 
-  // FlixCloudJobFile Objects
-  var $input;                 // $fcjn->input->url      (url, width, height, size, duration, cost)
-  var $output;                // $fcjn->output->url,    (url, width, height, size, duration, cost)
-  var $watermark;             // $fcjn->watermark->url  (url, size, cost)
-  var $thumbnail;             // $fcjn->thumbnail->url  (url, total_size, number_of_thumbnails, cost)
+  var $connected;
+  var $results;
+  var $status_code;
+  var $error;
 
-  function FlixCloudJobNotification($hash) {
+  // Initialize
+  function ZencoderCURL($url, $data, $options = array()) {
+    $this->url = $url;
 
-    $this->original_hash = $hash;
+    // Add library details to request
+    $this->options[CURLOPT_HTTPHEADER][] = "Zencoder-Library-Name: ".ZENCODER_LIBRARY_NAME;
+    $this->options[CURLOPT_HTTPHEADER][] = "Zencoder-Library-Version: ".ZENCODER_LIBRARY_VERSION;
 
-    // Set attributes from XML on object
-    // Creat job file objects from file info
-    foreach($hash as $hash_key => $hash_value) {
-      $method_name = "set_".str_replace("-", "_", $hash_key);
-      if(method_exists($this, $method_name)) {
-        $this->$method_name($hash_value);
-      } else {
-        $var_name = str_replace("-", "_", $hash_key);
-        $this->$var_name = trim($hash_value);
-      }
+    // If posting data
+    if($data) {
+      $this->options[CURLOPT_POST] = 1;
+      $this->options[CURLOPT_POSTFIELDS] = $data;
     }
-  }
 
-  function set_input_media_file($hash_value) {
-    $this->input = new FlixCloudJobInputFile($hash_value["url"], get_object_vars($hash_value));
-  }
+    // Add cURL options to defaults (can't use array_merge)
+    foreach($options as $option_key => $option) {
+      $this->options[$option_key] = $option;
+    }
 
-  function set_output_media_file($hash_value) {
-    $this->output = new FlixCloudJobOutputFile($hash_value["url"], get_object_vars($hash_value));
-  }
+    // Initialize session
+    $ch = curl_init($this->url);
 
-  function set_watermark_file($hash_value) {
-    $this->watermark = new FlixCloudJobWatermarkFile($hash_value["url"], get_object_vars($hash_value));
-  }
+    // Set transfer options
+    curl_setopt_array($ch, $this->options);
 
-  function set_thumbnail_media_file($hash_value) {
-    $this->thumbnail = new FlixCloudJobThumbnailFile($hash_value["url"], get_object_vars($hash_value));
-  }
+    // Execute session and store returned results
+    $this->results = curl_exec($ch);
 
-}
+    // Store the HTTP status code given (201, 404, etc.)
+    $this->status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
+    // Check for cURL error
+    if (curl_errno($ch)) {
+      $this->error = 'cURL connection error ('.curl_errno($ch).'): '.htmlspecialchars(curl_error($ch)).' <a href="http://www.google.com/search?q='.urlencode("curl error ".curl_error($ch)).'">Search</a>';
+      $this->connected = false;
+    } else {
+      $this->connected = true;
+    }
 
-// Class for checking the status of a job and its tasks.
-class FlixCloudJobStatusChecker {
-
-  var $api_key;
-  var $job_id;
-
-  var $result;
-  var $result_hash;
-  var $errors = array();
-  var $check_successful;
-
-  function FlixCloudJobStatusChecker($api_key, $job_id) {
-    $this->api_key = $api_key;
-    $this->job_id = $job_id;
-    $this->check_successful = $this->send();
-  }
-
-  function send() {
-
-    // Set up cURL connection
-    $ch = curl_init("https://www.flixcloud.com/jobs/".$this->job_id."/status");
-    curl_setopt_array($ch, array(
-      CURLOPT_RETURNTRANSFER => 1,
-      CURLOPT_HEADER => 0, // Don't return the header in result
-      CURLOPT_HTTPHEADER => array("Accept: text/xml", "Content-type: application/xml"), // Required headers
-      CURLOPT_POST => 0,
-      CURLOPT_CONNECTTIMEOUT => 0
-    ));
-
-    // Bypass cert check for status check to avoid issues
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-
-    // HTTP Basic Auth
-    curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-    curl_setopt($ch, CURLOPT_USERPWD, 'user:'.$this->api_key);
-
-    // Execute
-    $this->result = curl_exec($ch);
-
-    // Close cURL connection;
+    // Close session
     curl_close($ch);
-
-    if($this->result) {
-      if(strpos($this->result, "Access denied.") > -1) {
-        $this->errors[] = $this->result;
-        return false;
-      } else {
-        $this->result_hash = get_object_vars(new SimpleXMLElement($this->result));
-        return true;
-      }
-    } else {
-      if (curl_errno($ch)) {
-        $this->errors[] = "Curl error (".curl_errno($ch)."): ".curl_error($ch);
-      }
-      return false;
-    }
   }
-
-  function get_job_status() {
-    if($this->check_successful) {
-      return $this->result_hash["task-state"];
-    } else {
-      return false;
-    }
-  }
-
 }
-
-// Function that makes checking the overall status of a job a little simpler.
-function get_flix_cloud_job_status($api_id, $job_id) {
-  $checker = new FlixCloudJobStatusChecker($api_id, $job_id);
-  $status = $checker->get_job_status();
-  return ($status) ? $status : "Status Unavailable";
-}
-
-?>
