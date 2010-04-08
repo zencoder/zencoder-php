@@ -1,13 +1,13 @@
 Zencoder API PHP Library
 ==========================
 
-Author:  [Steve Heffernan](http://www.steveheffernan.com) (steve (a) zencoder (.) c&#1;om)
-Company: [Zencoder - Online Video Encoder](http://zencoder.com)
-Version: 1.0
-Date:    2010-04-02
-Repository: <http://github.com/zencoder/zencoder-php/>
+Author:  [Steve Heffernan](http://www.steveheffernan.com) (steve (a) zencoder (.) c&#1;om)  
+Company: [Zencoder - Online Video Encoder](http://zencoder.com)  
+Version: 1.0  
+Date:    2010-04-02  
+Repository: <http://github.com/zencoder/zencoder-php/>  
 
-For more details on the Zencoder API requirements visit
+For more details on the Zencoder API requirements visit  
 <http://zencoder.com/docs/api>
 
 
