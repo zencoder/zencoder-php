@@ -3,8 +3,8 @@ Zencoder API PHP Library
 
 Author:  [Steve Heffernan](http://www.steveheffernan.com) (steve (a) zencoder (.) c&#1;om)  
 Company: [Zencoder - Online Video Encoder](http://zencoder.com)  
-Version: 1.0  
-Date:    2010-04-02  
+Version: 1.1  
+Date:    2010-06-04  
 Repository: <http://github.com/zencoder/zencoder-php/>  
 
 For more details on the Zencoder API requirements visit  
@@ -85,6 +85,49 @@ The previous JSON example would become:
     ));
 
 
+GENERAL API REQUESTS
+--------------------
+A general API request can be used for all API functionality including **Job Listing**, **Job Details**, **Account Creation**, **Account Details** (even Job Creation if desired). See the [API docs](http://zencoder.com/docs/api/) for all possible API requests.
+The first argument is the **API URL**.  
+The second argument is your **API Key**.  
+The third argument is the **request parameters** if needed. It can either be a JSON string or an array of parameters.
+
+
+#### Example Job List Request
+
+    $request = new ZencoderRequest(
+      'https://app.zencoder/api/jobs',
+      '93h630j1dsyshjef620qlkavnmzui3'
+    );
+
+    if ($request->successful) {
+      print_r($request->results);
+    } else {
+      foreach($request->errors as $error) {
+        echo $error."\n";
+      }
+    }
+
+#### Example Account Creation Request
+
+    $request = new ZencoderRequest(
+      'https://app.zencoder/api/account', 
+      false, // API key isn't needed for new account creation
+      array(
+        "terms_of_service" => "1",
+        "email" => "test@example.com",
+        "password" => "1234"
+      )
+    );
+
+    if ($request->successful) {
+      print_r($request->results);
+    } else {
+      foreach($request->errors as $error) {
+        echo $error."\n";
+      }
+    }
+
 
 NOTIFICATION HANDLING
 ----------------------
@@ -152,5 +195,5 @@ Your [notifications page](https://app.zencoder.com/notifications) will come in h
 
 VERSIONS
 ---------
-
+    Version 1.1 - 2010-06-04    Added General API Requests
     Version 1.0 - 2010-04-02    Jobs and Notifications.

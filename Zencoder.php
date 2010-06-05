@@ -19,9 +19,9 @@ if(!function_exists('json_encode')) {
 
 class ZencoderJob {
 
-  var $create_url = "https://app.zencoder.com/api/jobs";
-  var $create_params = array();
-  var $create_json;
+  var $new_job_url = "https://zencoder-staging.heroku.com/api/jobs";
+  var $new_job_params = array();
+  var $new_job_json;
   var $created = false;
   var $errors = array();
 
@@ -38,46 +38,20 @@ class ZencoderJob {
       return true;
     }
 
-    // Get JSON
-    if(is_string($params)) {
-      $this->create_json = trim($params);
-      $this->create_params = json_decode($params, true);
-    } else if(is_array($params)) {
-      $this->create_json = json_encode($params);
-      $this->create_params = $params;
-    }
-
+    $this->new_job_params = $params;
     $this->created = $this->create();
   }
 
   // Send Job Request to API
   function create() {
-
     // Send request
-    $connection = new ZencoderCURL($this->create_url, $this->create_json);
+    $request = new ZencoderRequest($this->new_job_url, false, $this->new_job_params);
 
-    // Check for connection errors
-    if ($connection->connected == false) {
-      $this->errors[] = $connection->error;
-      return false;
-    }
-
-    // Parse returned JSON
-    $parsed_results = json_decode($connection->results, true);
-
-    // Return based on HTTP status code
-    if($connection->status_code == "201") {
-      $this->update_attributes($parsed_results);
+    if($request->successful) {
+      $this->update_attributes($request->results);
       return true;
     } else {
-      // Get job request errors if any
-      if(is_array($parsed_results["errors"])) {
-        foreach($parsed_results["errors"] as $error) {
-          $this->errors[] = $error;
-        }
-      } else {
-        $this->errors[] = "Unknown Error\n\nHTTP Status Code: ".$connection->status_code."\n";"Raw Results: \n".$connection->results;
-      }
+      $this->errors = array_merge($this->errors, $request->errors);
       return false;
     }
   }
@@ -107,7 +81,6 @@ class ZencoderJob {
   }
 }
 
-
 class ZencoderOutputFile {
 
   var $id;
@@ -131,28 +104,66 @@ class ZencoderOutputFile {
   }
 }
 
+// General API request class
+class ZencoderRequest {
 
-class ZencoderOutputNotification {
+  var $successful = false;
+  var $errors = array();
+  var $raw_results;
+  var $results;
 
-  var $output;
-  var $job;
+  function ZencoderRequest($url, $api_key = "", $params = "") {
 
-  function ZencoderOutputNotification($params) {
-    if($params["output"]) $this->output = new ZencoderOutputFile($params["output"]);
-    if($params["job"]) $this->job = new ZencoderJob($params["job"], array("build" => true));
-  }
+    // Add api_key to url if supplied
+    if($api_key) {
+      $url .= "?api_key=".$api_key;
+    }
 
-  function catch_and_parse() {
-    $notificiation_data = json_decode(trim(file_get_contents('php://input')), true);
-    return new ZencoderOutputNotification($notificiation_data);
+    // Get JSON
+    if(is_string($params)) {
+      $json = trim($params);
+    } else if(is_array($params)) {
+      $json = json_encode($params);
+    } else {
+      $json = false;
+    }
+
+    // Create request
+    $request = new ZencoderCURL($url, $json);
+
+    // Check for connection errors
+    if ($request->connected == false) {
+      $this->errors[] = $request->error;
+      return;
+    }
+
+    $status_code = intval($request->status_code);
+    $this->raw_results = $request->results;
+
+    // Parse returned JSON
+    $this->results = json_decode($this->raw_results, true);
+
+    // Return based on HTTP status code
+    if($status_code >= 200 && $status_code <= 206) {
+      $this->successful = true;
+    } else {
+      // Get job request errors if any
+      if(is_array($this->results["errors"])) {
+        foreach($this->results["errors"] as $error) {
+          $this->errors[] = $error;
+        }
+      } else {
+        $this->errors[] = "Unknown Error\n\nHTTP Status Code: ".$request->status_code."\n"."Raw Results: \n".$request->raw_results;
+      }
+    }
   }
 }
 
-
-// Connection class
+// ZencoderCURL
+// The connection class to perform the actual request to the surver
+// using cURL http://php.net/manual/en/book.curl.php
 class ZencoderCURL {
 
-  var $url;
   var $options = array(
     CURLOPT_RETURNTRANSFER => 1, // Return content of the url
     CURLOPT_HEADER => 0, // Don't return the header in result
@@ -167,17 +178,16 @@ class ZencoderCURL {
   var $error;
 
   // Initialize
-  function ZencoderCURL($url, $data, $options = array()) {
-    $this->url = $url;
+  function ZencoderCURL($url, $json, $options = array()) {
 
     // Add library details to request
     $this->options[CURLOPT_HTTPHEADER][] = "Zencoder-Library-Name: ".ZENCODER_LIBRARY_NAME;
     $this->options[CURLOPT_HTTPHEADER][] = "Zencoder-Library-Version: ".ZENCODER_LIBRARY_VERSION;
 
     // If posting data
-    if($data) {
+    if($json) {
       $this->options[CURLOPT_POST] = 1;
-      $this->options[CURLOPT_POSTFIELDS] = $data;
+      $this->options[CURLOPT_POSTFIELDS] = $json;
     }
 
     // Add cURL options to defaults (can't use array_merge)
@@ -186,7 +196,7 @@ class ZencoderCURL {
     }
 
     // Initialize session
-    $ch = curl_init($this->url);
+    $ch = curl_init($url);
 
     // Set transfer options
     curl_setopt_array($ch, $this->options);
@@ -207,5 +217,22 @@ class ZencoderCURL {
 
     // Close session
     curl_close($ch);
+  }
+}
+
+// Capture incoming notifications from Zencoder to your app
+class ZencoderOutputNotification {
+
+  var $output;
+  var $job;
+
+  function ZencoderOutputNotification($params) {
+    if($params["output"]) $this->output = new ZencoderOutputFile($params["output"]);
+    if($params["job"]) $this->job = new ZencoderJob($params["job"], array("build" => true));
+  }
+
+  function catch_and_parse() {
+    $notificiation_data = json_decode(trim(file_get_contents('php://input')), true);
+    return new ZencoderOutputNotification($notificiation_data);
   }
 }
