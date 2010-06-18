@@ -21,7 +21,6 @@ class ZencoderJob {
 
   var $new_job_url = "https://app.zencoder.com/api/jobs";
   var $new_job_params = array();
-  var $new_job_json;
   var $created = false;
   var $errors = array();
 
@@ -37,7 +36,8 @@ class ZencoderJob {
       $this->update_attributes($params);
       return true;
     }
-
+    
+    if($options["url"]) $this->new_job_url = $options["url"];
     $this->new_job_params = $params;
     $this->created = $this->create();
   }
@@ -153,7 +153,7 @@ class ZencoderRequest {
           $this->errors[] = $error;
         }
       } else {
-        $this->errors[] = "Unknown Error\n\nHTTP Status Code: ".$request->status_code."\n"."Raw Results: \n".$request->raw_results;
+        $this->errors[] = "Unknown Error\n\nHTTP Status Code: ".$request->status_code."\n"."Raw Results: \n".$this->raw_results;
       }
     }
   }
