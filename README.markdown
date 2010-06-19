@@ -96,7 +96,7 @@ The third argument is the **request parameters** if needed. It can either be a J
 #### Example Job List Request
 
     $request = new ZencoderRequest(
-      'https://app.zencoder/api/jobs',
+      'https://app.zencoder.com/api/jobs',
       '93h630j1dsyshjef620qlkavnmzui3'
     );
 
@@ -111,7 +111,7 @@ The third argument is the **request parameters** if needed. It can either be a J
 #### Example Account Creation Request
 
     $request = new ZencoderRequest(
-      'https://app.zencoder/api/account', 
+      'https://app.zencoder.com/api/account', 
       false, // API key isn't needed for new account creation
       array(
         "terms_of_service" => "1",

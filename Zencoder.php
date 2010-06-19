@@ -112,7 +112,7 @@ class ZencoderRequest {
   var $raw_results;
   var $results;
 
-  function ZencoderRequest($url, $api_key = "", $params = "") {
+  function ZencoderRequest($url, $api_key = "", $params = "", $options = "") {
 
     // Add api_key to url if supplied
     if($api_key) {
@@ -209,6 +209,11 @@ class ZencoderCURL {
 
     // Check for cURL error
     if (curl_errno($ch)) {
+      if (curl) {
+        
+      } else {
+        
+      }
       $this->error = 'cURL connection error ('.curl_errno($ch).'): '.htmlspecialchars(curl_error($ch)).' <a href="http://www.google.com/search?q='.urlencode("curl error ".curl_error($ch)).'">Search</a>';
       $this->connected = false;
     } else {
