@@ -209,11 +209,11 @@ class ZencoderCURL {
 
     // Check for cURL error
     if (curl_errno($ch)) {
-      if (curl) {
-        
-      } else {
-        
-      }
+      // if (curl) {
+      //   
+      // } else {
+      //   
+      // }
       $this->error = 'cURL connection error ('.curl_errno($ch).'): '.htmlspecialchars(curl_error($ch)).' <a href="http://www.google.com/search?q='.urlencode("curl error ".curl_error($ch)).'">Search</a>';
       $this->connected = false;
     } else {
