@@ -35,7 +35,7 @@ and pass it as the parameters for a new ZencoderJob object. Execute the script o
     $encoding_job = new ZencoderJob('
       {
         "api_key": "93h630j1dsyshjef620qlkavnmzui3",
-        "input": "s3://bucket-name/file-name.avi"
+        "input": "s3://bucket-name/file-name.avi",
         "outputs": [
           {
             "label": "web"
