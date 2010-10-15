@@ -26,6 +26,9 @@ class ZencoderJob {
 
   // Attributes
   var $id;
+  var $test;
+  var $state;
+
   var $outputs = array();
 
   // Initialize
