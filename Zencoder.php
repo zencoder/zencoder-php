@@ -173,6 +173,9 @@ class ZencoderCURL {
     CURLOPT_HTTPHEADER => array("Content-Type: application/json", "Accept: application/json"),
     CURLOPT_CONNECTTIMEOUT => 0, // Time in seconds to timeout send request. 0 is no timeout.
     CURLOPT_FOLLOWLOCATION => 1, // Follow redirects.
+    // Dealing with the certificate. Still a sketchy area.
+    CURLOPT_SSL_VERIFYPEER => 0, // Turn off verification, curl -k or --insecure
+    CURLOPT_SSL_VERIFYHOST => 0
   );
 
   var $connected;
@@ -212,11 +215,6 @@ class ZencoderCURL {
 
     // Check for cURL error
     if (curl_errno($ch)) {
-      // if (curl) {
-      //   
-      // } else {
-      //   
-      // }
       $this->error = 'cURL connection error ('.curl_errno($ch).'): '.htmlspecialchars(curl_error($ch)).' <a href="http://www.google.com/search?q='.urlencode("curl error ".curl_error($ch)).'">Search</a>';
       $this->connected = false;
     } else {
