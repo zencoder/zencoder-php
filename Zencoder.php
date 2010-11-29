@@ -172,7 +172,7 @@ class ZencoderCURL {
     CURLOPT_HEADER => 0, // Don't return the header in result
     CURLOPT_HTTPHEADER => array("Content-Type: application/json", "Accept: application/json"),
     CURLOPT_CONNECTTIMEOUT => 0, // Time in seconds to timeout send request. 0 is no timeout.
-    CURLOPT_FOLLOWLOCATION => 1, // Follow redirects.
+    // CURLOPT_FOLLOWLOCATION => 0, // Follow redirects. (stopped because it was causing an error in safe mode)
     // Dealing with the certificate. Still a sketchy area.
     CURLOPT_SSL_VERIFYPEER => 0, // Turn off verification, curl -k or --insecure
     CURLOPT_SSL_VERIFYHOST => 0
