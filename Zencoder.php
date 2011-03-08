@@ -35,12 +35,12 @@ class ZencoderJob {
   function ZencoderJob($params, $options = array()) {
 
     // Build using params if not sending request
-    if($options["build"]) {
+    if(isset($options["build"])) {
       $this->update_attributes($params);
       return true;
     }
     
-    if($options["url"]) $this->new_job_url = $options["url"];
+    if(isset($options["url"])) $this->new_job_url = $options["url"];
     $this->new_job_params = $params;
     $this->created = $this->create();
   }
@@ -75,7 +75,7 @@ class ZencoderJob {
   // Use the Label for the key if avaiable.
   function create_outputs($outputs = array()) {
     foreach($outputs as $output_attrs) {
-      if($output_attrs["label"]) {
+      if(isset($output_attrs["label"])) {
         $this->outputs[$output_attrs["label"]] = new ZencoderOutputFile($output_attrs);
       } else {
         $this->outputs[] = new ZencoderOutputFile($output_attrs);
@@ -233,8 +233,8 @@ class ZencoderOutputNotification {
   var $job;
 
   function ZencoderOutputNotification($params) {
-    if($params["output"]) $this->output = new ZencoderOutputFile($params["output"]);
-    if($params["job"]) $this->job = new ZencoderJob($params["job"], array("build" => true));
+    if(isset($params["output"])) $this->output = new ZencoderOutputFile($params["output"]);
+    if(isset($params["job"])) $this->job = new ZencoderJob($params["job"], array("build" => true));
   }
 
   function catch_and_parse() {
