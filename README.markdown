@@ -5,7 +5,7 @@ Author:  [Steve Heffernan](http://www.steveheffernan.com) (steve (a) zencoder (.
 Company: [Zencoder - Online Video Encoder](http://zencoder.com)  
 Version: 1.2
 Date:    2011-08-06
-Repository: <http://github.com/mchristopher/zencoder-php/>  
+Repository: <http://github.com/zencoder/zencoder-php/>  
 
 For more details on the Zencoder API requirements visit  
 <http://zencoder.com/docs/api>
