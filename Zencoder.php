@@ -7,7 +7,7 @@
 
 */
 define('ZENCODER_LIBRARY_NAME',  "ZencoderPHP");
-define('ZENCODER_LIBRARY_VERSION',  "1.2");
+define('ZENCODER_LIBRARY_VERSION',  "1.3");
 
 // Add JSON functions for PHP < 5.2.0
 if(!function_exists('json_encode')) {
@@ -179,7 +179,7 @@ class ZencoderCURL {
     CURLOPT_CONNECTTIMEOUT => 0, // Time in seconds to timeout send request. 0 is no timeout.
     CURLOPT_FOLLOWLOCATION => 1, // Follow redirects.
     CURLOPT_SSL_VERIFYPEER => 1,
-    CURLOPT_SSL_VERIFYHOST => 1
+    CURLOPT_SSL_VERIFYHOST => 2
   );
 
   var $connected;
@@ -253,7 +253,7 @@ class ZencoderOutputNotification {
     if(!empty($params["job"])) $this->job = new ZencoderJob($params["job"], array("build" => true));
   }
 
-  function catch_and_parse() {
+  static function catch_and_parse() {
     $notificiation_data = json_decode(trim(file_get_contents('php://input')), true);
     return new ZencoderOutputNotification($notificiation_data);
   }
