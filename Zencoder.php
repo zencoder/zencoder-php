@@ -7,7 +7,7 @@
 
 */
 define('ZENCODER_LIBRARY_NAME',  "ZencoderPHP");
-define('ZENCODER_LIBRARY_VERSION',  "1.3");
+define('ZENCODER_LIBRARY_VERSION',  "1.4");
 
 // Add JSON functions for PHP < 5.2.0
 if(!function_exists('json_encode')) {
@@ -124,8 +124,10 @@ class ZencoderRequest {
 
     // Add api_key to url if supplied
     if($api_key) {
-      $url .= "?api_key=".$api_key;
+      $url .= (substr_count($url, '?') > 0) ? "&api_key=" : "?api_key=";
+      $url .= $api_key;
     }
+    echo $url;die;
 
     // Get JSON
     if(is_string($params)) {
