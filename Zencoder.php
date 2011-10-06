@@ -127,7 +127,6 @@ class ZencoderRequest {
       $url .= (substr_count($url, '?') > 0) ? "&api_key=" : "?api_key=";
       $url .= $api_key;
     }
-    echo $url;die;
 
     // Get JSON
     if(is_string($params)) {
