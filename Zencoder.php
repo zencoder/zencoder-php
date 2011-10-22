@@ -7,7 +7,7 @@
 
 */
 define('ZENCODER_LIBRARY_NAME',  "ZencoderPHP");
-define('ZENCODER_LIBRARY_VERSION',  "1.4");
+define('ZENCODER_LIBRARY_VERSION',  "1.5");
 
 // Add JSON functions for PHP < 5.2.0
 if(!function_exists('json_encode')) {
@@ -177,6 +177,7 @@ class ZencoderCURL {
     CURLOPT_RETURNTRANSFER => 1, // Return content of the url
     CURLOPT_HEADER => 0, // Don't return the header in result
     CURLOPT_HTTPHEADER => array("Content-Type: application/json", "Accept: application/json"),
+    CURLOPT_USERAGENT => ZENCODER_LIBRARY_NAME + " " + ZENCODER_LIBRARY_VERSION,
     CURLOPT_CONNECTTIMEOUT => 0, // Time in seconds to timeout send request. 0 is no timeout.
     CURLOPT_FOLLOWLOCATION => 1, // Follow redirects.
     CURLOPT_SSL_VERIFYPEER => 1,
