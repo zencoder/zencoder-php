@@ -195,6 +195,7 @@ Your [notifications page](https://app.zencoder.com/notifications) will come in h
 
 VERSIONS
 ---------
+    Version 1.6 - 2011-10-24    Fixed issue with user agents in cURL
     Version 1.4 - 2011-10-06    Fixed error with adding api_key to URL
     Version 1.3 - 2011-09-21    Fixed bundled SSL certification chain and made catch_and_parse() static
     Version 1.2 - 2011-08-06    Added fixes for PHP Notices and SSL handling
