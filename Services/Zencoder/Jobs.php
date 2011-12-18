@@ -8,7 +8,6 @@
 */
 
 class Services_Zencoder_Jobs extends Services_Zencoder_Base {
-  public $id, $test, $state, $outputs = array();
 
   public function create($params = NULL) {
     if(is_string($params)) {
@@ -19,7 +18,11 @@ class Services_Zencoder_Jobs extends Services_Zencoder_Base {
       throw new Services_Zencoder_Exception(
         'Job parameters required to create job.');
     }
-    return $request = $this->proxy->createData("jobs", $json);
+    $request = $this->proxy->createData("jobs", $json);
+    if ($request) {
+      return new Services_Zencoder_Job($request);
+    }
+    throw new Services_Zencoder_Exception('Unable to create job');
   }
 
   public function index() {

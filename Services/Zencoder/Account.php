@@ -7,8 +7,8 @@
 
 */
 
-class Services_Zencoder_Output {
-  public $id, $label, $url, $state, $error_message, $error_link;
+class Services_Zencoder_Account {
+  public $id;
 
   public function __construct($params) {
     $this->update_attributes($params);
