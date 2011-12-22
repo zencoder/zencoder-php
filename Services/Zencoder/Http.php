@@ -33,8 +33,8 @@ class Services_Zencoder_Http {
       CURLOPT_POSTFIELDS        => NULL,
       CURLOPT_CONNECTTIMEOUT    => 30,
       CURLOPT_TIMEOUT           => 30,
-      CURLOPT_SSL_VERIFYPEER    => 0,
-      CURLOPT_SSL_VERIFYHOST    => 0
+      CURLOPT_SSL_VERIFYPEER    => 0, #1
+      CURLOPT_SSL_VERIFYHOST    => 0 #2
     );
 
     foreach ($req_headers as $k => $v) $opts[CURLOPT_HTTPHEADER][] = "$k: $v";
@@ -95,7 +95,7 @@ class Services_Zencoder_Http {
           } else throw new Services_Zencoder_HttpException(curl_error($curl));
         } else throw new Services_Zencoder_HttpException(curl_error($curl));
       } else throw new Services_Zencoder_HttpException('Unable to initialize cURL');
-    } catch (ErrorException $e) {
+    } catch (Services_Zencoder_HttpException $e) {
       if (is_resource($curl)) curl_close($curl);
       if (isset($buf) && is_resource($buf)) fclose($buf);
       throw $e;
