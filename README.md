@@ -1,14 +1,14 @@
 Zencoder API PHP Library
 ==========================
 
-Author:  [Steve Heffernan](http://www.steveheffernan.com) (steve (a) zencoder (.) c&#1;om)
-Company: [Zencoder - Online Video Encoder](http://zencoder.com)  
-Version: 1.3
-Date:    2011-09-21
+Author:  [Michael Christopher] (m (a) zencoder (.) c&#1;om)
+Company: [Zencoder - Online Video Encoder](http://www.zencoder.com)  
+Version: 2.0
+Date:    2012-01-02
 Repository: <http://github.com/zencoder/zencoder-php/>  
 
 For more details on the Zencoder API requirements visit  
-<http://zencoder.com/docs/api>
+<http://app.zencoder.com/docs/api>
 
 
 ENCODING JOB
@@ -29,12 +29,14 @@ and pass it as the parameters for a new ZencoderJob object. Execute the script o
     <?php
 
     // Make sure this points to a copy of Zencoder.php on the same server as this script.
-    require_once("zencoder-php/Zencoder.php");
+    require_once('Services/Zencoder.php');
+
+    // Initialize the Services_Zencoder class
+    $zencoder = new Services_Zencoder('93h630j1dsyshjef620qlkavnmzui3');
 
     // New Encoding Job
-    $encoding_job = new ZencoderJob('
+    $encoding_job = $zencoder->jobs->create('
       {
-        "api_key": "93h630j1dsyshjef620qlkavnmzui3",
         "input": "s3://bucket-name/file-name.avi",
         "outputs": [
           {
@@ -45,11 +47,11 @@ and pass it as the parameters for a new ZencoderJob object. Execute the script o
     ');
 
     // Check if it worked
-    if ($encoding_job->created) {
+    if ($encoding_job) {
       // Success
       echo "w00t! \n\n";
       echo "Job ID: ".$encoding_job->id."\n";
-      echo "Output '".$encoding_job->outputs["web"]->label."' ID: ".$encoding_job->outputs["web"]->id."\n";
+      echo "Output ID: ".$encoding_job->outputs['web']->id."\n";
       // Store Job/Output IDs to update their status when notified or to check their progress.
     } else {
       // Failed
@@ -74,8 +76,7 @@ You can revisit your [API builder](https://app.zencoder.com/api_builder) to add/
 You can translate the JSON string into nested associative arrays so that you can dynamically change attributes like "input".  
 The previous JSON example would become:
 
-    $encoding_job = new ZencoderJob(array(
-      "api_key" => "93h630j1dsyshjef620qlkavnmzui3",
+    $encoding_job = $zencoder->jobs->create(array(
       "input" => "s3://bucket-name/file-name.avi",
       "outputs" => array(
         array(
@@ -83,50 +84,6 @@ The previous JSON example would become:
         )
       )
     ));
-
-
-GENERAL API REQUESTS
---------------------
-A general API request can be used for all API functionality including **Job Listing**, **Job Details**, **Account Creation**, **Account Details** (even Job Creation if desired). See the [API docs](http://zencoder.com/docs/api/) for all possible API requests.
-The first argument is the **API URL**.  
-The second argument is your **API Key**.  
-The third argument is the **request parameters** if needed. It can either be a JSON string or an array of parameters.
-
-
-#### Example Job List Request
-
-    $request = new ZencoderRequest(
-      'https://app.zencoder.com/api/jobs',
-      '93h630j1dsyshjef620qlkavnmzui3'
-    );
-
-    if ($request->successful) {
-      print_r($request->results);
-    } else {
-      foreach($request->errors as $error) {
-        echo $error."\n";
-      }
-    }
-
-#### Example Account Creation Request
-
-    $request = new ZencoderRequest(
-      'https://app.zencoder.com/api/account', 
-      false, // API key isn't needed for new account creation
-      array(
-        "terms_of_service" => "1",
-        "email" => "test@example.com",
-        "password" => "1234"
-      )
-    );
-
-    if ($request->successful) {
-      print_r($request->results);
-    } else {
-      foreach($request->errors as $error) {
-        echo $error."\n";
-      }
-    }
 
 
 NOTIFICATION HANDLING
@@ -143,10 +100,13 @@ Create a script to receive notifications, and upload it to a location on your se
     <?php
 
     // Make sure this points to a copy of Zencoder.php on the same server as this script.
-    require("Zencoder.php");
+    require_once('Services/Zencoder.php');
+
+    // Initialize the Services_Zencoder class
+    $zencoder = new Services_Zencoder('93h630j1dsyshjef620qlkavnmzui3');
 
     // Catch notification
-    $notification = ZencoderOutputNotification::catch_and_parse();
+    $notification = zencoder->notifications->parseIncoming();
 
     // Check output/job state
     if($notification->output->state == "finished") {
@@ -195,6 +155,7 @@ Your [notifications page](https://app.zencoder.com/notifications) will come in h
 
 VERSIONS
 ---------
+    Version 2.0 - 2012-01-02    Complete refactoring of library
     Version 1.6 - 2011-10-24    Fixed issue with user agents in cURL
     Version 1.4 - 2011-10-06    Fixed error with adding api_key to URL
     Version 1.3 - 2011-09-21    Fixed bundled SSL certification chain and made catch_and_parse() static
