@@ -5,13 +5,16 @@ Author:  [Michael Christopher] (m (a) zencoder (.) c&#1;om)
 Company: [Zencoder - Online Video Encoder](http://www.zencoder.com)  
 Version: 2.0
 Date:    2012-01-02
-Repository: <http://github.com/zencoder/zencoder-php/>  
+Repository: <http://github.com/zencoder/zencoder-php/>
 
-For more details on the Zencoder API requirements visit  
+Parts of this library are based on <http://github.com/twilio/twilio-php>
+
+For more details on the Zencoder API requirements visit
 <http://app.zencoder.com/docs/api>
 
 To start working with the library, create a new instance of the Services_Zencoder class, passing
 your API Key as the 1st parameter.
+
     $zencoder = new Services_Zencoder('93h630j1dsyshjef620qlkavnmzui3');
 
 Once you have created the object, you can use it to interact with the API. For full information,
