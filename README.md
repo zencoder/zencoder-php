@@ -10,6 +10,21 @@ Repository: <http://github.com/zencoder/zencoder-php/>
 For more details on the Zencoder API requirements visit  
 <http://app.zencoder.com/docs/api>
 
+To start working with the library, create a new instance of the Services_Zencoder class, passing
+your API Key as the 1st parameter.
+    $zencoder = new Services_Zencoder('93h630j1dsyshjef620qlkavnmzui3');
+
+Once you have created the object, you can use it to interact with the API. For full information,
+see the Documentation folder, but here is a quick overview of some of the functions that can be
+called:
+
+    $zencoder->accounts->create($array);
+    $zencoder->jobs->create($array);
+    $zencoder->jobs->progress($job_id);
+    $zencoder->inputs->details($input_id);
+    $zencoder->outputs->details($output_id);
+    $zencoder->notifications->parseIncoming();
+
 
 ENCODING JOB
 ------------
@@ -84,7 +99,6 @@ The previous JSON example would become:
         )
       )
     ));
-
 
 NOTIFICATION HANDLING
 ----------------------

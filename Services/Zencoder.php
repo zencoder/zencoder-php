@@ -57,6 +57,16 @@ class Services_Zencoder extends Services_Zencoder_Base
       $api_version = 'v2',
       $api_host = 'https://app.zencoder.com'
   ) {
+    // Check that library dependencies are met
+    if (strnatcmp(phpversion(),'5.2.0') < 0) {
+        throw new Services_Zencoder_Exception('PHP version 5.2 or higher is required.');
+    }
+    if (!function_exists('json_encode')) {
+        throw new Services_Zencoder_Exception('JSON support must be enabled.');
+    }
+    if (!function_exists('curl_init')) {
+        throw new Services_Zencoder_Exception('cURL extension must be enabled.');
+    }
     $this->version = $api_version;
     $this->http = new Services_Zencoder_Http(
         $api_host,
@@ -120,7 +130,7 @@ class Services_Zencoder extends Services_Zencoder_Base
         ? $this->_processResponse($this->http->post($this->_getApiPath($opts) . $path, $headers))
         : $this->_processResponse(
             $this->http->post(
-                $path,
+                $this->_getApiPath($opts) . $path,
                 $headers,
                 $body
             )
@@ -143,7 +153,7 @@ class Services_Zencoder extends Services_Zencoder_Base
         ? $this->_processResponse($this->http->put($this->_getApiPath($opts) . $path, $headers))
         : $this->_processResponse(
             $this->http->put(
-                $path,
+                $this->_getApiPath($opts) . $path,
                 $headers,
                 $body
             )
@@ -187,10 +197,8 @@ class Services_Zencoder extends Services_Zencoder_Base
         return $decoded;
     }
     throw new Services_Zencoder_Exception(
-        (int)$decoded->status,
-        $decoded->message,
-        isset($decoded->code) ? $decoded->code : null,
-        isset($decoded->more_info) ? $decoded->more_info : null
+        "Invalid HTTP status code: " . $status
+        . ", body: " . $body
     );
   }
 }
