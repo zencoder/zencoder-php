@@ -175,7 +175,7 @@ class Services_Zencoder extends Services_Zencoder_Base
   private function _processResponse($response)
   {
     list($status, $headers, $body) = $response;
-    if ($status == 204) {
+    if ( $status == 204 || (($status == 200 || $status == 201) && trim($body) == "")) {
         return TRUE;
     }
     if (empty($headers['Content-Type'])) {
