@@ -118,7 +118,7 @@ Create a script to receive notifications, and upload it to a location on your se
     $zencoder = new Services_Zencoder('93h630j1dsyshjef620qlkavnmzui3');
 
     // Catch notification
-    $notification = zencoder-&gt;notifications-&gt;parseIncoming();
+    $notification = $zencoder-&gt;notifications-&gt;parseIncoming();
 
     // Check output/job state
     if($notification-&gt;output-&gt;state == &quot;finished&quot;) {
