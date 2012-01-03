@@ -45,8 +45,8 @@ class Services_Zencoder_Http {
       CURLOPT_POSTFIELDS        => NULL,
       CURLOPT_CONNECTTIMEOUT    => 30,
       CURLOPT_TIMEOUT           => 30,
-      CURLOPT_SSL_VERIFYPEER    => 0, #1
-      CURLOPT_SSL_VERIFYHOST    => 0 #2
+      CURLOPT_SSL_VERIFYPEER    => 1,
+      CURLOPT_SSL_VERIFYHOST    => 2
     );
 
     foreach ($req_headers as $k => $v) $opts[CURLOPT_HTTPHEADER][] = "$k: $v";

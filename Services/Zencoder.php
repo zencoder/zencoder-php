@@ -51,11 +51,13 @@ class Services_Zencoder extends Services_Zencoder_Base
     * @param string               $api_key      API Key
     * @param string               $api_version  API version
     * @param string               $api_host     API host
+    * @param bool                 $debug        Enable debug mode
     */
     public function __construct(
         $api_key = NULL,
         $api_version = 'v2',
-        $api_host = 'https://app.zencoder.com'
+        $api_host = 'https://app.zencoder.com',
+        $debug = false
     )
     {
         // Check that library dependencies are met
@@ -74,7 +76,7 @@ class Services_Zencoder extends Services_Zencoder_Base
             array("curlopts" => array(
                 CURLOPT_USERAGENT => self::USER_AGENT,
                 CURLOPT_CAINFO => dirname(__FILE__) . "/zencoder_ca_chain.crt",
-                ), "api_key" => $api_key)
+                ), "api_key" => $api_key, "debug" => $debug)
             );
         $this->accounts = new Services_Zencoder_Accounts($this);
         $this->inputs = new Services_Zencoder_Inputs($this);
