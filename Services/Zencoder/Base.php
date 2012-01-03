@@ -1,11 +1,14 @@
 <?php
-/*
-
-  Zencoder API PHP Library
-  Version: 2.0
-  See the README file for info on how to use this library.
-
-*/
+/**
+ * Zencoder API client interface.
+ *
+ * @category Services
+ * @package  Services_Zencoder
+ * @author   Michael Christopher <m@zencoder.com>
+ * @version  2.0
+ * @license  http://creativecommons.org/licenses/MIT/MIT
+ * @link     http://github.com/zencoder/zencoder-php
+ */
 
 abstract class Services_Zencoder_Base
     implements Services_Zencoder_HttpProxy {
@@ -17,23 +20,23 @@ abstract class Services_Zencoder_Base
     $this->proxy = $proxy;
   }
 
-  public function createData($path, $body = "")
+  public function createData($path, $body = "", array $opts = array())
   {
-      return $this->proxy->createData($path, $params);
+      return $this->proxy->createData($path, $body, $opts);
   }
 
-  public function retrieveData($path, array $params = array())
+  public function retrieveData($path, array $params = array(), array $opts = array())
   {
-      return $this->proxy->retrieveData($path, $params);
+      return $this->proxy->retrieveData($path, $params, $opts);
   }
 
-  public function updateData($path, $body = "")
+  public function updateData($path, $body = "", array $opts = array())
   {
-      return $this->proxy->updateData($path, $params);
+      return $this->proxy->updateData($path, $body, $opts);
   }
 
-  public function deleteData($path)
+  public function deleteData($path, array $opts = array())
   {
-      return $this->proxy->deleteData($path, $params);
+      return $this->proxy->deleteData($path, $opts);
   }
 }

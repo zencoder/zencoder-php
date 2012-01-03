@@ -1,16 +1,28 @@
 <?php
-/*
-
-  Zencoder API PHP Library
-  Version: 2.0
-  See the README file for info on how to use this library.
-
-  Based on Services_Twilio_TinyHttp from https://github.com/twilio/twilio-php/blob/master/Services/Twilio/TinyHttp.php.
-  Copyright 2011, Neuman Vong. BSD License.
-
-*/
+/**
+ * Zencoder API client interface.
+ *
+ * @category Services
+ * @package  Services_Zencoder
+ * @author   Michael Christopher <m@zencoder.com>
+ * @version  2.0
+ * @license  http://creativecommons.org/licenses/MIT/MIT
+ * @link     http://github.com/zencoder/zencoder-php
+ */
 
 class Services_Zencoder_HttpException extends Services_Zencoder_Exception {}
+
+  /**
+   * Zencoder API client interface.
+   *
+   * @category Services
+   * @package  Services_Zencoder
+   * @author   Michael Christopher <m@zencoder.com>
+   * @version  2.0
+   * @license  http://creativecommons.org/licenses/MIT/MIT
+   * @link     http://github.com/zencoder/zencoder-php
+   * @access   private
+   */
 
 class Services_Zencoder_Http {
   protected $api_key, $scheme, $host, $debug, $curlopts;

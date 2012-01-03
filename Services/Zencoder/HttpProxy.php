@@ -1,16 +1,19 @@
 <?php
-/*
-
-  Zencoder API PHP Library
-  Version: 2.0
-  See the README file for info on how to use this library.
-
-*/
+/**
+ * Zencoder API client interface.
+ *
+ * @category Services
+ * @package  Services_Zencoder
+ * @author   Michael Christopher <m@zencoder.com>
+ * @version  2.0
+ * @license  http://creativecommons.org/licenses/MIT/MIT
+ * @link     http://github.com/zencoder/zencoder-php
+ */
 
 interface Services_Zencoder_HttpProxy
 {
-  function createData($key, $body = "");
-  function retrieveData($key, array $params = array());
-  function updateData($key, $body = "");
-  function deleteData($key);
+  function createData($key, $body = "", array $opts = array());
+  function retrieveData($key, array $params = array(), array $opts = array());
+  function updateData($key, $body = "", array $opts = array());
+  function deleteData($key, array $opts = array());
 }

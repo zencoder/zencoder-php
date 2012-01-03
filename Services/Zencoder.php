@@ -1,23 +1,22 @@
 <?php
-/*
-
-  Zencoder API PHP Library
-  Version: 2.0
-  See the README file for info on how to use this library.
-
-*/
-
-class Services_Zencoder_Exception extends ErrorException {}
+/**
+ * Zencoder API client interface.
+ *
+ * @category Services
+ * @package  Services_Zencoder
+ * @author   Michael Christopher <m@zencoder.com>
+ * @version  2.0
+ * @license  http://creativecommons.org/licenses/MIT/MIT
+ * @link     http://github.com/zencoder/zencoder-php
+ * @access   private
+ */
 
 function Services_Zencoder_autoload($className) {
-    if (substr($className, 0, 17) != 'Services_Zencoder') {
-        return false;
-    }
+    if (substr($className, 0, 17) != 'Services_Zencoder') {return false;}
     $file = str_replace('_', '/', $className);
     $file = str_replace('Services/', '', $file);
     return include dirname(__FILE__) . "/$file.php";
 }
-
 spl_autoload_register('Services_Zencoder_autoload');
 
 /**
@@ -26,18 +25,28 @@ spl_autoload_register('Services_Zencoder_autoload');
  * @category Services
  * @package  Services_Zencoder
  * @author   Michael Christopher <m@zencoder.com>
+ * @version  2.0
  * @license  http://creativecommons.org/licenses/MIT/MIT
  * @link     http://github.com/zencoder/zencoder-php
  */
+
+class Services_Zencoder_Exception extends ErrorException {}
+
 class Services_Zencoder extends Services_Zencoder_Base
 {
   const USER_AGENT = 'ZencoderPHP v2.0';
 
+  /**
+  * Contains the HTTP communication class
+  */
   protected $http;
+  /**
+  * Contains the default API version
+  */
   protected $version;
 
   /**
-   * Constructor.
+   * Initialize the Services_Zencoder class and sub-classes.
    *
    * @param string               $api_key      API Key
    * @param string               $api_version  API version
@@ -68,16 +77,16 @@ class Services_Zencoder extends Services_Zencoder_Base
    *
    * @param string $path   Path to the resource
    * @param array  $params Query string parameters
+   * @param array  $opts   Optional overrides
    *
    * @return object The object representation of the resource
    */
-  public function retrieveData($path, array $params = array())
+  public function retrieveData($path, array $params = array(), array $opts = array())
   {
-    $path = "/api/$this->version/$path.json";
     return empty($params)
-        ? $this->_processResponse($this->http->get($path))
+        ? $this->_processResponse($this->http->get($this->_getApiPath($opts) . $path))
         : $this->_processResponse(
-            $this->http->get("$path?" . http_build_query($params, '', '&'))
+            $this->http->get($this->_getApiPath($opts) . $path . "?" . http_build_query($params, '', '&'))
         );
   }
 
@@ -86,13 +95,13 @@ class Services_Zencoder extends Services_Zencoder_Base
    *
    * @param string $path   Path to the resource
    * @param array  $params Query string parameters
+   * @param array  $opts   Optional overrides
    *
    * @return object The object representation of the resource
    */
-  public function deleteData($path)
+  public function deleteData($path, array $opts = array())
   {
-    $path = "/api/$this->version/$path.json";
-    return $this->_processResponse($this->http->delete($path));
+    return $this->_processResponse($this->http->delete($this->_getApiPath($opts) . $path));
   }
 
   /**
@@ -100,15 +109,15 @@ class Services_Zencoder extends Services_Zencoder_Base
    *
    * @param string $path   Path to the resource
    * @param array  $params Query string parameters
+   * @param array  $opts   Optional overrides
    *
    * @return object The object representation of the resource
    */
-  public function createData($path, $body = "")
+  public function createData($path, $body = "", array $opts = array())
   {
-    $path = "/api/$this->version/$path";
     $headers = array('Content-Type' => 'application/json');
     return empty($body)
-        ? $this->_processResponse($this->http->post($path, $headers))
+        ? $this->_processResponse($this->http->post($this->_getApiPath($opts) . $path, $headers))
         : $this->_processResponse(
             $this->http->post(
                 $path,
@@ -123,15 +132,15 @@ class Services_Zencoder extends Services_Zencoder_Base
    *
    * @param string $path   Path to the resource
    * @param array  $params Query string parameters
+   * @param array  $opts   Optional overrides
    *
    * @return object The object representation of the resource
    */
-  public function updateData($path, $body = "")
+  public function updateData($path, $body = "", array $opts = array())
   {
-    $path = "/api/$this->version/$path";
     $headers = array('Content-Type' => 'application/json');
     return empty($params)
-        ? $this->_processResponse($this->http->put($path, $headers))
+        ? $this->_processResponse($this->http->put($this->_getApiPath($opts) . $path, $headers))
         : $this->_processResponse(
             $this->http->put(
                 $path,
@@ -139,6 +148,18 @@ class Services_Zencoder extends Services_Zencoder_Base
                 $body
             )
         );
+  }
+
+  private function _getApiPath($opts = array())
+  {
+    return isset($opts['no_transform'])
+      ? ""
+      : "/api/" . (
+        isset($opts['api_version'])
+          ? $opts['api_version']
+          : $this->version
+        )
+      . "/";
   }
 
   private function _processResponse($response)

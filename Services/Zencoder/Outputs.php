@@ -1,20 +1,37 @@
 <?php
-/*
-
-  Zencoder API PHP Library
-  Version: 2.0
-  See the README file for info on how to use this library.
-
-*/
+/**
+ * Zencoder API client interface.
+ *
+ * @category Services
+ * @package  Services_Zencoder
+ * @author   Michael Christopher <m@zencoder.com>
+ * @version  2.0
+ * @license  http://creativecommons.org/licenses/MIT/MIT
+ * @link     http://github.com/zencoder/zencoder-php
+ */
 
 class Services_Zencoder_Outputs extends Services_Zencoder_Base {
-  public $id, $label, $url, $state, $error_message, $error_link;
-
-  public function details($output_id) {
-    return $this->proxy->retrieveData("outputs/$output_id");
+  /**
+   * Return details of a specific output
+   *
+   * @param integer $output_id  ID of the output file you want details for
+   * @param array   $params    Optional overrides
+   *
+   * @return Services_Zencoder_Output The object representation of the resource
+   */
+  public function details($output_id, $params = array()) {
+    return new Services_Zencoder_Output($this->proxy->retrieveData("outputs/$output_id.json", array(), $params));
   }
 
-  public function progress($output_id) {
-    return $this->proxy->retrieveData("outputs/$output_id/progress");
+  /**
+   * Return progress of a specific output
+   *
+   * @param integer $output_id  ID of the output file you want progress for
+   * @param array   $params    Optional overrides
+   *
+   * @return Services_Zencoder_Progress The object representation of the resource
+   */
+  public function progress($output_id, $params = array()) {
+    return new Services_Zencoder_Progress($this->proxy->retrieveData("outputs/$output_id/progress.json", array(), $params));
   }
 }

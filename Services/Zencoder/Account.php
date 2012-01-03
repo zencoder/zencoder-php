@@ -1,24 +1,13 @@
 <?php
-/*
+/**
+ * Zencoder API client interface.
+ *
+ * @category Services
+ * @package  Services_Zencoder
+ * @author   Michael Christopher <m@zencoder.com>
+ * @version  2.0
+ * @license  http://creativecommons.org/licenses/MIT/MIT
+ * @link     http://github.com/zencoder/zencoder-php
+ */
 
-  Zencoder API PHP Library
-  Version: 2.0
-  See the README file for info on how to use this library.
-
-*/
-
-class Services_Zencoder_Account {
-  public $id;
-
-  public function __construct($params) {
-    $this->update_attributes($params);
-  }
-
-  private function update_attributes($attributes = array()) {
-    foreach($attributes as $attr_name => $attr_value) {
-      if(!function_exists($this->$attr_name)) {
-        $this->$attr_name = $attr_value;
-      }
-    }
-  }
-}
+class Services_Zencoder_Account extends Services_Zencoder_Object {}
