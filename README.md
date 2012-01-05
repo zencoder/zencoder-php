@@ -9,6 +9,9 @@ Repository: <http://github.com/zencoder/zencoder-php/>
 
 Parts of this library are based on <http://github.com/twilio/twilio-php>
 
+For more details on v2 of the Zencoder API visit
+<http://blog.zencoder.com/2012/01/05/announcing-zencoder-api-v2/>
+
 For more details on the Zencoder API requirements visit
 <http://app.zencoder.com/docs/api>
 
