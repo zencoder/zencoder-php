@@ -73,7 +73,7 @@ class Services_Zencoder extends Services_Zencoder_Base
             $api_host,
             array("curlopts" => array(
                 CURLOPT_USERAGENT => self::USER_AGENT,
-                CURLOPT_CAINFO => dirname(__FILE__) . "/zencoder_ca_chain.crt",
+                CURLOPT_CAINFO => dirname(__FILE__) . "/Zencoder/zencoder_ca_chain.crt",
                 ), "api_key" => $api_key, "debug" => $debug)
             );
         $this->accounts = new Services_Zencoder_Accounts($this);
