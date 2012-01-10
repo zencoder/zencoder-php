@@ -3,8 +3,8 @@ Zencoder API PHP Library
 
 Author:  [Michael Christopher] (m (a) zencoder (.) c&#1;om)
 Company: [Zencoder - Online Video Encoder](http://www.zencoder.com)  
-Version: 2.0
-Date:    2012-01-02
+Version: 2.0.1
+Date:    2012-01-10
 Repository: <http://github.com/zencoder/zencoder-php/>
 
 Parts of this library are based on <http://github.com/twilio/twilio-php>
@@ -30,6 +30,9 @@ called:
     $zencoder->inputs->details($input_id);
     $zencoder->outputs->details($output_id);
     $zencoder->notifications->parseIncoming();
+
+Any errors will throw a Services_Zencoder_Exception. You can call getErrors() on an exception
+and it will return any errors received from the Zencoder API.
 
 
 ENCODING JOB
@@ -175,10 +178,11 @@ Your [notifications page](https://app.zencoder.com/notifications) will come in h
 
 VERSIONS
 ---------
-    Version 2.0 - 2012-01-02    Complete refactoring of library
-    Version 1.6 - 2011-10-24    Fixed issue with user agents in cURL
-    Version 1.4 - 2011-10-06    Fixed error with adding api_key to URL
-    Version 1.3 - 2011-09-21    Fixed bundled SSL certification chain and made catch_and_parse() static
-    Version 1.2 - 2011-08-06    Added fixes for PHP Notices and SSL handling
-    Version 1.1 - 2010-06-04    Added General API Requests
-    Version 1.0 - 2010-04-02    Jobs and Notifications.
+    Version 2.0.1 - 2012-01-10    Added ability to get error info from API
+    Version 2.0   - 2012-01-02    Complete refactoring of library
+    Version 1.6   - 2011-10-24    Fixed issue with user agents in cURL
+    Version 1.4   - 2011-10-06    Fixed error with adding api_key to URL
+    Version 1.3   - 2011-09-21    Fixed bundled SSL certification chain and made catch_and_parse() static
+    Version 1.2   - 2011-08-06    Added fixes for PHP Notices and SSL handling
+    Version 1.1   - 2010-06-04    Added General API Requests
+    Version 1.0   - 2010-04-02    Jobs and Notifications.

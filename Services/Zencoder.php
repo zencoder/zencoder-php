@@ -30,11 +30,9 @@ spl_autoload_register('Services_Zencoder_autoload');
  * @link     http://github.com/zencoder/zencoder-php
  */
 
-class Services_Zencoder_Exception extends ErrorException {}
-
 class Services_Zencoder extends Services_Zencoder_Base
 {
-    const USER_AGENT = 'ZencoderPHP v2.0';
+    const USER_AGENT = 'ZencoderPHP v2.0.1';
 
     /**
     * Contains the HTTP communication class
@@ -171,8 +169,7 @@ class Services_Zencoder extends Services_Zencoder_Base
                 isset($opts['api_version'])
                 ? $opts['api_version']
                 : $this->version
-            )
-        . "/";
+            ) . "/";
     }
 
     private function _processResponse($response)
@@ -182,7 +179,7 @@ class Services_Zencoder extends Services_Zencoder_Base
             return TRUE;
         }
         if (empty($headers['Content-Type'])) {
-            throw new Services_Zencoder_Exception('Response header is missing Content-Type');
+            throw new Services_Zencoder_Exception('Response header is missing Content-Type', $body);
         }
         switch ($headers['Content-Type']) {
             case 'application/json':
@@ -191,7 +188,7 @@ class Services_Zencoder extends Services_Zencoder_Base
                 break;
         }
         throw new Services_Zencoder_Exception(
-            'Unexpected content type: ' . $headers['Content-Type']);
+            'Unexpected content type: ' . $headers['Content-Type'], $body);
     }
 
     private function _processJsonResponse($status, $headers, $body)
@@ -201,8 +198,7 @@ class Services_Zencoder extends Services_Zencoder_Base
             return $decoded;
         }
         throw new Services_Zencoder_Exception(
-            "Invalid HTTP status code: " . $status
-            . ", body: " . $body
+            "Invalid HTTP status code: " . $status, $body
         );
     }
 }
