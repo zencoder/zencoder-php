@@ -5,14 +5,25 @@
  * @category Services
  * @package  Services_Zencoder
  * @author   Michael Christopher <m@zencoder.com>
- * @version  2.0
+ * @version  Release: 2.0.2
  * @license  http://creativecommons.org/licenses/MIT/MIT
  * @link     http://github.com/zencoder/zencoder-php
  */
 
 class Services_Zencoder_Notification extends Services_Zencoder_Object
 {
-    public $output, $job;
+    /**
+    * The output that the notification references
+    * 
+    * @var Services_Zencoder_Output
+    */
+    public $output;
+    /**
+    * The job that the notification references
+    * 
+    * @var Services_Zencoder_Job
+    */
+    public $job;
 
     public function __construct($params)
     {

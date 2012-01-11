@@ -5,7 +5,7 @@
  * @category Services
  * @package  Services_Zencoder
  * @author   Michael Christopher <m@zencoder.com>
- * @version  2.0
+ * @version  Release: 2.0.2
  * @license  http://creativecommons.org/licenses/MIT/MIT
  * @link     http://github.com/zencoder/zencoder-php
  */
@@ -14,18 +14,26 @@ class Services_Zencoder_Job extends Services_Zencoder_Object
 {
     /**
     * Array of the outputs on the job
+    * 
+    * @var array
     */
     public $outputs = array();
     /**
     * Array of the thumbnails on the job
+    * 
+    * @var array
     */
     public $thumbnails = array();
     /**
     * Services_Zencoder_Input object containing information on the input file
+    * 
+    * @var Services_Zencoder_Input
     */
     public $input;
     /**
     * A copy of the raw API response for debug purposes
+    * 
+    * @var mixed
     */
     protected $raw_response;
 

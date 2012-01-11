@@ -5,9 +5,11 @@
  * @category Services
  * @package  Services_Zencoder
  * @author   Michael Christopher <m@zencoder.com>
- * @version  2.0
+ * @version  Release: 2.0.2
  * @license  http://creativecommons.org/licenses/MIT/MIT
  * @link     http://github.com/zencoder/zencoder-php
  */
 
-class Services_Zencoder_Output extends Services_Zencoder_Object {}
+class Services_Zencoder_Output extends Services_Zencoder_Object
+{
+}

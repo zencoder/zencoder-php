@@ -6,13 +6,12 @@
  * @package  Services_Zencoder
  * @author   Michael Christopher <m@zencoder.com>
  * @license  http://creativecommons.org/licenses/MIT/MIT MIT
- * @version  Release: 2.0
+ * @version  Release: 2.0.2
  * @link     http://github.com/zencoder/zencoder-php
  */
 
 class Services_Zencoder_Progress extends Services_Zencoder_Object
 {
-
     public function __construct($params)
     {
         $this->_updateAttributes($params);
