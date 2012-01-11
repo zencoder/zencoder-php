@@ -10,7 +10,8 @@
  * @link     http://github.com/zencoder/zencoder-php
  */
 
-class Services_Zencoder_Jobs extends Services_Zencoder_Base {
+class Services_Zencoder_Jobs extends Services_Zencoder_Base
+{
   /**
    * Create a new job
    *
@@ -93,17 +94,5 @@ class Services_Zencoder_Jobs extends Services_Zencoder_Base {
    */
   public function cancel($job_id, $params = array()) {
     return $this->proxy->updateData("jobs/$job_id/cancel", "", $params);
-  }
-
-  /**
-   * Delete a job
-   *
-   * @param integer  $job_id  ID of the job you want to delete
-   * @param array    $params  Optional overrides
-   *
-   * @return bool If the operation was successful
-   */
-  public function delete($job_id, $params = array()) {
-    return $this->proxy->deleteData("jobs/$job_id", $params);
   }
 }

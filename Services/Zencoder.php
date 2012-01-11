@@ -5,7 +5,7 @@
  * @category Services
  * @package  Services_Zencoder
  * @author   Michael Christopher <m@zencoder.com>
- * @version  2.0
+ * @version  2.0.2
  * @license  http://creativecommons.org/licenses/MIT/MIT
  * @link     http://github.com/zencoder/zencoder-php
  * @access   private
@@ -25,23 +25,68 @@ spl_autoload_register('Services_Zencoder_autoload');
  * @category Services
  * @package  Services_Zencoder
  * @author   Michael Christopher <m@zencoder.com>
- * @version  2.0
+ * @version  2.0.2
  * @license  http://creativecommons.org/licenses/MIT/MIT
  * @link     http://github.com/zencoder/zencoder-php
  */
 
 class Services_Zencoder extends Services_Zencoder_Base
 {
-    const USER_AGENT = 'ZencoderPHP v2.0.1';
+    const USER_AGENT = 'ZencoderPHP v2.0.2';
 
     /**
     * Contains the HTTP communication class
+    * 
+    * @var Services_Zencoder_Http
     */
     protected $http;
     /**
     * Contains the default API version
+    * 
+    * @var string
     */
     protected $version;
+
+    /**
+    * Provides access the Zencoder Accounts API
+    * 
+    * Valid functions: create, details, integration, live
+    *
+    * @var Services_Zencoder_Accounts
+    */
+    public $accounts;
+    /**
+    * Provides access the Zencoder Inputs API
+    *
+    * Valid functions: details, progress
+    *
+    * @var Services_Zencoder_Inputs
+    */
+    public $inputs;
+    /**
+    * Provides access the Zencoder Jobs API
+    *
+    * Valid functions: create, index, details, progress, resubmit, cancel
+    *
+    * @var Services_Zencoder_Jobs
+    */
+    public $jobs;
+    /**
+    * Provides access the Zencoder Notifications API
+    *
+    * Valid functions: parseIncoming
+    *
+    * @var Services_Zencoder_Notifications
+    */
+    public $notifications;
+    /**
+    * Provides access the Zencoder Outputs API
+    *
+    * Valid functions: details, progress
+    *
+    * @var Services_Zencoder_Outputs
+    */
+    public $outputs;
 
     /**
     * Initialize the Services_Zencoder class and sub-classes.

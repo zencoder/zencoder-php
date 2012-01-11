@@ -27,10 +27,12 @@
 <p class="short-description">Zencoder API client interface.</p>
 	<ul class="tags">
 				<li><span class="field">author:</span> Michael Christopher &lt;<a href="mailto:m@zencoder.com">m@zencoder.com</a>&gt;</li>
-				<li><span class="field">version:</span> 2.0</li>
+				<li><span class="field">version:</span> 2.0.2</li>
+				<li><span class="field">link:</span> <a href="http://github.com/zencoder/zencoder-php">http://github.com/zencoder/zencoder-php</a></li>
+				<li><span class="field">license:</span> <a href="http://creativecommons.org/licenses/MIT/MIT">http://creativecommons.org/licenses/MIT/MIT</a></li>
 			</ul>
 		<p class="notes">
-			Located in <a class="field" href="_Zencoder.php.html">/Zencoder.php</a> (line <span class="field">35</span>)
+			Located in <a class="field" href="_Zencoder.php.html">/Zencoder.php</a> (line <span class="field">33</span>)
 		</p>
 		
 				
@@ -58,7 +60,7 @@
 		<div class="info-box-body">
 			<div class="const-summary">
 								<div class="const-title">
-					<a href="#USER_AGENT" title="details" class="const-name">USER_AGENT</a> = 					<span class="var-type"> 'ZencoderPHP v2.0'</span>
+					<a href="#USER_AGENT" title="details" class="const-name">USER_AGENT</a> = 					<span class="var-type"> 'ZencoderPHP v2.0.2'</span>
 
 				</div>
 							</div>
@@ -79,12 +81,32 @@
 					</div>
 		<div class="info-box-body">
 			<div class="var-summary">
-																																<div class="var-title">
-					<span class="var-type">mixed</span>
+																																																																								<div class="var-title">
+					<span class="var-type"><a href="../Services_Zencoder/Services_Zencoder_Accounts.html">Services_Zencoder_Accounts</a></span>
+					<a href="#$accounts" title="details" class="var-name">$accounts</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">Services_Zencoder_Http</span>
 					<a href="#$http" title="details" class="var-name">$http</a>
 				</div>
 																<div class="var-title">
-					<span class="var-type">mixed</span>
+					<span class="var-type"><a href="../Services_Zencoder/Services_Zencoder_Inputs.html">Services_Zencoder_Inputs</a></span>
+					<a href="#$inputs" title="details" class="var-name">$inputs</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type"><a href="../Services_Zencoder/Services_Zencoder_Jobs.html">Services_Zencoder_Jobs</a></span>
+					<a href="#$jobs" title="details" class="var-name">$jobs</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type"><a href="../Services_Zencoder/Services_Zencoder_Notifications.html">Services_Zencoder_Notifications</a></span>
+					<a href="#$notifications" title="details" class="var-name">$notifications</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type"><a href="../Services_Zencoder/Services_Zencoder_Outputs.html">Services_Zencoder_Outputs</a></span>
+					<a href="#$outputs" title="details" class="var-name">$outputs</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">string</span>
 					<a href="#$version" title="details" class="var-name">$version</a>
 				</div>
 											</div>
@@ -150,12 +172,35 @@
 							
 					</div>
 		<div class="info-box-body">
-			<a name="var$http" id="$http"><!-- --></A>
+			<a name="var$accounts" id="$accounts"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type"><a href="../Services_Zencoder/Services_Zencoder_Accounts.html">Services_Zencoder_Accounts</a></span>
+			<span class="var-name">$accounts</span>
+						(line <span class="line-number">57</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Provides access the Zencoder Accounts API</p>
+<p class="description"><p>Valid functions: create, details, integration, live</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$http" id="$http"><!-- --></A>
 <div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
-			<span class="var-type">mixed</span>
+			<span class="var-type">Services_Zencoder_Http</span>
 			<span class="var-name">$http</span>
 						(line <span class="line-number">42</span>)
 		</span>
@@ -172,14 +217,106 @@
 		
 
 </div>
+<a name="var$inputs" id="$inputs"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type"><a href="../Services_Zencoder/Services_Zencoder_Inputs.html">Services_Zencoder_Inputs</a></span>
+			<span class="var-name">$inputs</span>
+						(line <span class="line-number">65</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Provides access the Zencoder Inputs API</p>
+<p class="description"><p>Valid functions: details, progress</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$jobs" id="$jobs"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type"><a href="../Services_Zencoder/Services_Zencoder_Jobs.html">Services_Zencoder_Jobs</a></span>
+			<span class="var-name">$jobs</span>
+						(line <span class="line-number">73</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Provides access the Zencoder Jobs API</p>
+<p class="description"><p>Valid functions: create, index, details, progress, resubmit, cancel</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$notifications" id="$notifications"><!-- --></A>
+<div class="oddrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type"><a href="../Services_Zencoder/Services_Zencoder_Notifications.html">Services_Zencoder_Notifications</a></span>
+			<span class="var-name">$notifications</span>
+						(line <span class="line-number">81</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Provides access the Zencoder Notifications API</p>
+<p class="description"><p>Valid functions: parseIncoming</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$outputs" id="$outputs"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type"><a href="../Services_Zencoder/Services_Zencoder_Outputs.html">Services_Zencoder_Outputs</a></span>
+			<span class="var-name">$outputs</span>
+						(line <span class="line-number">89</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Provides access the Zencoder Outputs API</p>
+<p class="description"><p>Valid functions: details, progress</p></p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
 <a name="var$version" id="$version"><!-- --></A>
 <div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
-			<span class="var-type">mixed</span>
+			<span class="var-type">string</span>
 			<span class="var-name">$version</span>
-						(line <span class="line-number">46</span>)
+						(line <span class="line-number">48</span>)
 		</span>
 	</div>
 
@@ -224,7 +361,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">Constructor __construct</span> (line <span class="line-number">56</span>)
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">99</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -267,7 +404,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">createData</span> (line <span class="line-number">129</span>)
+		<span class="method-title">createData</span> (line <span class="line-number">172</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -311,7 +448,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">deleteData</span> (line <span class="line-number">115</span>)
+		<span class="method-title">deleteData</span> (line <span class="line-number">158</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -352,7 +489,7 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">retrieveData</span> (line <span class="line-number">97</span>)
+		<span class="method-title">retrieveData</span> (line <span class="line-number">140</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -393,7 +530,7 @@
 <div class="evenrow">
 	
 	<div class="method-header">
-		<span class="method-title">updateData</span> (line <span class="line-number">152</span>)
+		<span class="method-title">updateData</span> (line <span class="line-number">195</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
@@ -468,8 +605,8 @@
 	<div class="const-header">
 		<span class="const-title">
 			<span class="const-name">USER_AGENT</span>
-			 = <span class="const-default"> 'ZencoderPHP v2.0'</span>
-			(line <span class="line-number">37</span>)
+			 = <span class="const-default"> 'ZencoderPHP v2.0.2'</span>
+			(line <span class="line-number">35</span>)
 		</span>
 	</div>
 
@@ -482,7 +619,7 @@
 	</div>
 
 	<p class="notes" id="credit">
-		Documentation generated on Tue, 03 Jan 2012 14:11:39 -0800 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.4</a>
+		Documentation generated on Wed, 11 Jan 2012 14:46:17 -0800 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.4</a>
 	</p>
 	</div></body>
 </html>

@@ -55,7 +55,7 @@
 								</div>
 		<div class="info-box-body">
 			<div class="var-summary">
-																																								<div class="var-title">
+																																																<div class="var-title">
 					<span class="var-type">mixed</span>
 					<a href="#$input" title="details" class="var-name">$input</a>
 				</div>
@@ -66,6 +66,10 @@
 																<div class="var-title">
 					<span class="var-type">mixed</span>
 					<a href="#$raw_response" title="details" class="var-name">$raw_response</a>
+				</div>
+																<div class="var-title">
+					<span class="var-type">mixed</span>
+					<a href="#$thumbnails" title="details" class="var-name">$thumbnails</a>
 				</div>
 											</div>
 		</div>
@@ -87,7 +91,7 @@
 												<div class="method-definition">
 											<span class="method-result">Services_Zencoder_Job</span>
 										<a href="#__construct" title="details" class="method-name">__construct</a>
-											(<span class="var-type"></span>&nbsp;<span class="var-name">$params</span>)
+											(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$params</span>)
 									</div>
 								</div>
 		</div>
@@ -107,17 +111,18 @@
 					</div>
 		<div class="info-box-body">
 			<a name="var$input" id="$input"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$input</span>
-						(line <span class="line-number">15</span>)
+						(line <span class="line-number">26</span>)
 		</span>
 	</div>
 
 	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Services_Zencoder_Input object containing information on the input file</p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
 			</ul>
@@ -128,17 +133,18 @@
 
 </div>
 <a name="var$outputs" id="$outputs"><!-- --></A>
-<div class="oddrow">
+<div class="evenrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$outputs</span>
-			 = <span class="var-default">array()</span>			(line <span class="line-number">14</span>)
+			 = <span class="var-default">array()</span>			(line <span class="line-number">18</span>)
 		</span>
 	</div>
 
 	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Array of the outputs on the job</p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
 			</ul>
@@ -149,19 +155,42 @@
 
 </div>
 <a name="var$raw_response" id="$raw_response"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
 			<span class="var-type">mixed</span>
 			<span class="var-name">$raw_response</span>
-						(line <span class="line-number">16</span>)
+						(line <span class="line-number">30</span>)
 		</span>
 	</div>
 
 	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">A copy of the raw API response for debug purposes</p>
 	<ul class="tags">
 				<li><span class="field">access:</span> protected</li>
+			</ul>
+	
+	
+		
+		
+
+</div>
+<a name="var$thumbnails" id="$thumbnails"><!-- --></A>
+<div class="evenrow">
+
+	<div class="var-header">
+		<span class="var-title">
+			<span class="var-type">mixed</span>
+			<span class="var-name">$thumbnails</span>
+			 = <span class="var-default">array()</span>			(line <span class="line-number">22</span>)
+		</span>
+	</div>
+
+	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Array of the thumbnails on the job</p>
+	<ul class="tags">
+				<li><span class="field">access:</span> public</li>
 			</ul>
 	
 	
@@ -189,10 +218,11 @@
 <div class="oddrow">
 	
 	<div class="method-header">
-		<span class="method-title">Constructor __construct</span> (line <span class="line-number">18</span>)
+		<span class="method-title">Constructor __construct</span> (line <span class="line-number">37</span>)
 	</div> 
 	
 	<!-- ========== Info from phpDoc block ========= -->
+<p class="short-description">Create a new Services_Zencoder_Job object.</p>
 	<ul class="tags">
 				<li><span class="field">access:</span> public</li>
 			</ul>
@@ -202,13 +232,13 @@
 		<span class="method-name">
 			__construct
 		</span>
-					(<span class="var-type"></span>&nbsp;<span class="var-name">$params</span>)
+					(<span class="var-type">mixed</span>&nbsp;<span class="var-name">$params</span>)
 			</div>
 	
 			<ul class="parameters">
 					<li>
-				<span class="var-type"></span>
-				<span class="var-name">$params</span>			</li>
+				<span class="var-type">mixed</span>
+				<span class="var-name">$params</span><span class="var-description">: API response</span>			</li>
 				</ul>
 		
 			<hr class="separator" />
@@ -232,7 +262,7 @@
 
 
 	<p class="notes" id="credit">
-		Documentation generated on Tue, 03 Jan 2012 14:11:39 -0800 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.4</a>
+		Documentation generated on Wed, 11 Jan 2012 14:46:16 -0800 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.4</a>
 	</p>
 	</div></body>
 </html>

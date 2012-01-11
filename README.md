@@ -3,8 +3,8 @@ Zencoder API PHP Library
 
 Author:  [Michael Christopher] (m (a) zencoder (.) c&#1;om)
 Company: [Zencoder - Online Video Encoder](http://www.zencoder.com)  
-Version: 2.0.1
-Date:    2012-01-10
+Version: 2.0.2
+Date:    2012-01-11
 Repository: <http://github.com/zencoder/zencoder-php/>
 
 Parts of this library are based on <http://github.com/twilio/twilio-php>
@@ -178,6 +178,7 @@ Your [notifications page](https://app.zencoder.com/notifications) will come in h
 
 VERSIONS
 ---------
+    Version 2.0.1 - 2012-01-11    Fixed job creation response object, added documentation to variables
     Version 2.0.1 - 2012-01-10    Added ability to get error info from API
     Version 2.0   - 2012-01-02    Complete refactoring of library
     Version 1.6   - 2011-10-24    Fixed issue with user agents in cURL
