@@ -178,7 +178,7 @@ Your [notifications page](https://app.zencoder.com/notifications) will come in h
 
 VERSIONS
 ---------
-    Version 2.0.1 - 2012-01-11    Fixed job creation response object, added documentation to variables
+    Version 2.0.2 - 2012-01-11    Fixed job creation response object, added documentation to variables
     Version 2.0.1 - 2012-01-10    Added ability to get error info from API
     Version 2.0   - 2012-01-02    Complete refactoring of library
     Version 1.6   - 2011-10-24    Fixed issue with user agents in cURL
