@@ -67,35 +67,34 @@ and pass it as the parameters for a new ZencoderJob object. Execute the script o
     // Make sure this points to a copy of Zencoder.php on the same server as this script.
     require_once('Services/Zencoder.php');
 
-    // Initialize the Services_Zencoder class
-    $zencoder = new Services_Zencoder('93h630j1dsyshjef620qlkavnmzui3');
+    try {
+      // Initialize the Services_Zencoder class
+      $zencoder = new Services_Zencoder('93h630j1dsyshjef620qlkavnmzui3');
 
-    // New Encoding Job
-    $encoding_job = $zencoder-&gt;jobs-&gt;create('
-      {
-        &quot;input&quot;: &quot;s3://bucket-name/file-name.avi&quot;,
-        &quot;outputs&quot;: [
-          {
-            &quot;label&quot;: &quot;web&quot;
-          }
-        ]
-      }
-    ');
+      // New Encoding Job
+      $encoding_job = $zencoder-&gt;jobs-&gt;create('
+        {
+          &quot;input&quot;: &quot;s3://bucket-name/file-name.avi&quot;,
+          &quot;outputs&quot;: [
+            {
+              &quot;label&quot;: &quot;web&quot;
+            }
+          ]
+        }
+      ');
 
-    // Check if it worked
-    if ($encoding_job) {
-      // Success
+      // Success if we got here
       echo &quot;w00t! \n\n&quot;;
       echo &quot;Job ID: &quot;.$encoding_job-&gt;id.&quot;\n&quot;;
       echo &quot;Output ID: &quot;.$encoding_job-&gt;outputs['web']-&gt;id.&quot;\n&quot;;
       // Store Job/Output IDs to update their status when notified or to check their progress.
-    } else {
-      // Failed
+    } catch (Services_Zencoder_Exception $e) {
+      // If were here, an error occured
       echo &quot;Fail :(\n\n&quot;;
       echo &quot;Errors:\n&quot;;
-      foreach($encoding_job-&gt;errors as $error) {
-        echo $error.&quot;\n&quot;;
-      }
+      foreach ($e-&gt;errors as $error) echo $error.&quot;\n&quot;;
+      echo &quot;Full exception dump:\n\n&quot;;
+      print_r($e);
     }
 
     echo &quot;\nAll Job Attributes:\n&quot;;
@@ -201,7 +200,7 @@ VERSIONS
     Version 1.0   - 2010-04-02    Jobs and Notifications.
 </pre>
 	<p class="notes" id="credit">
-		Documentation generated on Wed, 11 Jan 2012 14:56:53 -0800 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.4</a>
+		Documentation generated on Mon, 16 Jan 2012 11:22:31 -0800 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.4</a>
 	</p>
 	</body>
 </html>

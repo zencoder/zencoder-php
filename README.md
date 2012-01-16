@@ -55,35 +55,34 @@ and pass it as the parameters for a new ZencoderJob object. Execute the script o
     // Make sure this points to a copy of Zencoder.php on the same server as this script.
     require_once('Services/Zencoder.php');
 
-    // Initialize the Services_Zencoder class
-    $zencoder = new Services_Zencoder('93h630j1dsyshjef620qlkavnmzui3');
+    try {
+      // Initialize the Services_Zencoder class
+      $zencoder = new Services_Zencoder('93h630j1dsyshjef620qlkavnmzui3');
 
-    // New Encoding Job
-    $encoding_job = $zencoder->jobs->create('
-      {
-        "input": "s3://bucket-name/file-name.avi",
-        "outputs": [
-          {
-            "label": "web"
-          }
-        ]
-      }
-    ');
+      // New Encoding Job
+      $encoding_job = $zencoder->jobs->create('
+        {
+          "input": "s3://bucket-name/file-name.avi",
+          "outputs": [
+            {
+              "label": "web"
+            }
+          ]
+        }
+      ');
 
-    // Check if it worked
-    if ($encoding_job) {
-      // Success
+      // Success if we got here
       echo "w00t! \n\n";
       echo "Job ID: ".$encoding_job->id."\n";
       echo "Output ID: ".$encoding_job->outputs['web']->id."\n";
       // Store Job/Output IDs to update their status when notified or to check their progress.
-    } else {
-      // Failed
+    } catch (Services_Zencoder_Exception $e) {
+      // If were here, an error occured
       echo "Fail :(\n\n";
       echo "Errors:\n";
-      foreach($encoding_job->errors as $error) {
-        echo $error."\n";
-      }
+      foreach ($e->errors as $error) echo $error."\n";
+      echo "Full exception dump:\n\n";
+      print_r($e);
     }
 
     echo "\nAll Job Attributes:\n";
