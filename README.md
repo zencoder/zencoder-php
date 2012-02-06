@@ -80,7 +80,7 @@ and pass it as the parameters for a new ZencoderJob object. Execute the script o
       // If were here, an error occured
       echo "Fail :(\n\n";
       echo "Errors:\n";
-      foreach ($e->errors as $error) echo $error."\n";
+      foreach ($e->getErrors() as $error) echo $error."\n";
       echo "Full exception dump:\n\n";
       print_r($e);
     }
