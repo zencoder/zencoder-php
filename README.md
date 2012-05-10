@@ -60,16 +60,16 @@ and pass it as the parameters for a new ZencoderJob object. Execute the script o
       $zencoder = new Services_Zencoder('93h630j1dsyshjef620qlkavnmzui3');
 
       // New Encoding Job
-      $encoding_job = $zencoder->jobs->create('
-        {
-          "input": "s3://bucket-name/file-name.avi",
-          "outputs": [
-            {
-              "label": "web"
-            }
-          ]
-        }
-      ');
+      $encoding_job = $zencoder->jobs->create(
+        array(
+          "input" => "s3://bucket-name/file-name.avi",
+          "outputs" => array(
+            array(
+              "label" => "web"
+            )
+          )
+        )
+      );
 
       // Success if we got here
       echo "w00t! \n\n";
