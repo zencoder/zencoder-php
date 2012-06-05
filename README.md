@@ -131,7 +131,7 @@ Create a script to receive notifications, and upload it to a location on your se
     $notification = $zencoder->notifications->parseIncoming();
 
     // Check output/job state
-    if($notification->output->state == "finished") {
+    if($notification->job->outputs[0]->state == "finished") {
       echo "w00t!\n";
 
       // If you're encoding to multiple outputs and only care when all of the outputs are finished
@@ -139,12 +139,12 @@ Create a script to receive notifications, and upload it to a location on your se
       if($notification->job->state == "finished") {
         echo "Dubble w00t!";
       }
-    } elseif ($notification->output->state == "cancelled") {
+    } elseif ($notification->job->outputs[0]->state == "cancelled") {
       echo "Cancelled!\n";
     } else {
       echo "Fail!\n";
-      echo $notification->output->error_message."\n";
-      echo $notification->output->error_link;
+      echo $notification->job->outputs[0]->error_message."\n";
+      echo $notification->job->outputs[0]->error_link;
     }
 
     ?>
@@ -177,6 +177,7 @@ Your [notifications page](https://app.zencoder.com/notifications) will come in h
 
 VERSIONS
 ---------
+    Version 2.1.0 - 2012-06-05    Adding support for job-level notifications & merging output with job in notification object
     Version 2.0.2 - 2012-01-11    Fixed job creation response object, added documentation to variables
     Version 2.0.1 - 2012-01-10    Added ability to get error info from API
     Version 2.0   - 2012-01-02    Complete refactoring of library

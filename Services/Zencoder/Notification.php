@@ -5,19 +5,13 @@
  * @category Services
  * @package  Services_Zencoder
  * @author   Michael Christopher <m@zencoder.com>
- * @version  Release: 2.0.2
+ * @version  Release: 2.1.0
  * @license  http://creativecommons.org/licenses/MIT/MIT
  * @link     http://github.com/zencoder/zencoder-php
  */
 
 class Services_Zencoder_Notification extends Services_Zencoder_Object
 {
-    /**
-    * The output that the notification references
-    * 
-    * @var Services_Zencoder_Output
-    */
-    public $output;
     /**
     * The job that the notification references
     * 
@@ -27,7 +21,13 @@ class Services_Zencoder_Notification extends Services_Zencoder_Object
 
     public function __construct($params)
     {
-        if(!empty($params["output"])) $this->output = new Services_Zencoder_Output($params["output"]);
-        if(!empty($params["job"])) $this->job = new Services_Zencoder_Job($params["job"]);
+        if(empty($params->job)) $params->job = new stdClass();
+        if(!empty($params->input)) $params->job->input_media_file = $params->input;
+        if(!empty($params->outputs) && is_array($params->outputs)) {
+            foreach ($params->outputs as $output) $params->job->outputs[] = $output;
+        } else {
+            if(!empty($params->output)) $params->job->outputs[] = $params->output;
+        }
+        $this->job = new Services_Zencoder_Job($params->job);
     }
 }

@@ -72,16 +72,16 @@ and pass it as the parameters for a new ZencoderJob object. Execute the script o
       $zencoder = new Services_Zencoder('93h630j1dsyshjef620qlkavnmzui3');
 
       // New Encoding Job
-      $encoding_job = $zencoder-&gt;jobs-&gt;create('
-        {
-          &quot;input&quot;: &quot;s3://bucket-name/file-name.avi&quot;,
-          &quot;outputs&quot;: [
-            {
-              &quot;label&quot;: &quot;web&quot;
-            }
-          ]
-        }
-      ');
+      $encoding_job = $zencoder-&gt;jobs-&gt;create(
+        array(
+          &quot;input&quot; =&gt; &quot;s3://bucket-name/file-name.avi&quot;,
+          &quot;outputs&quot; =&gt; array(
+            array(
+              &quot;label&quot; =&gt; &quot;web&quot;
+            )
+          )
+        )
+      );
 
       // Success if we got here
       echo &quot;w00t! \n\n&quot;;
@@ -92,7 +92,7 @@ and pass it as the parameters for a new ZencoderJob object. Execute the script o
       // If were here, an error occured
       echo &quot;Fail :(\n\n&quot;;
       echo &quot;Errors:\n&quot;;
-      foreach ($e-&gt;errors as $error) echo $error.&quot;\n&quot;;
+      foreach ($e-&gt;getErrors() as $error) echo $error.&quot;\n&quot;;
       echo &quot;Full exception dump:\n\n&quot;;
       print_r($e);
     }
@@ -143,7 +143,7 @@ Create a script to receive notifications, and upload it to a location on your se
     $notification = $zencoder-&gt;notifications-&gt;parseIncoming();
 
     // Check output/job state
-    if($notification-&gt;output-&gt;state == &quot;finished&quot;) {
+    if($notification-&gt;job-&gt;outputs[0]-&gt;state == &quot;finished&quot;) {
       echo &quot;w00t!\n&quot;;
 
       // If you're encoding to multiple outputs and only care when all of the outputs are finished
@@ -151,12 +151,12 @@ Create a script to receive notifications, and upload it to a location on your se
       if($notification-&gt;job-&gt;state == &quot;finished&quot;) {
         echo &quot;Dubble w00t!&quot;;
       }
-    } elseif ($notification-&gt;output-&gt;state == &quot;cancelled&quot;) {
+    } elseif ($notification-&gt;job-&gt;outputs[0]-&gt;state == &quot;cancelled&quot;) {
       echo &quot;Cancelled!\n&quot;;
     } else {
       echo &quot;Fail!\n&quot;;
-      echo $notification-&gt;output-&gt;error_message.&quot;\n&quot;;
-      echo $notification-&gt;output-&gt;error_link;
+      echo $notification-&gt;job-&gt;outputs[0]-&gt;error_message.&quot;\n&quot;;
+      echo $notification-&gt;job-&gt;outputs[0]-&gt;error_link;
     }
 
     ?&gt;
@@ -189,6 +189,7 @@ Your [notifications page](https://app.zencoder.com/notifications) will come in h
 
 VERSIONS
 ---------
+    Version 2.1.0 - 2012-06-05    Adding support for job-level notifications &amp; merging output with job in notification object
     Version 2.0.2 - 2012-01-11    Fixed job creation response object, added documentation to variables
     Version 2.0.1 - 2012-01-10    Added ability to get error info from API
     Version 2.0   - 2012-01-02    Complete refactoring of library
@@ -200,7 +201,7 @@ VERSIONS
     Version 1.0   - 2010-04-02    Jobs and Notifications.
 </pre>
 	<p class="notes" id="credit">
-		Documentation generated on Mon, 16 Jan 2012 11:22:31 -0800 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.4</a>
+		Documentation generated on Tue, 05 Jun 2012 15:03:10 -0700 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.4</a>
 	</p>
 	</body>
 </html>

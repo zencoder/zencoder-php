@@ -5,7 +5,7 @@
  * @category Services
  * @package  Services_Zencoder
  * @author   Michael Christopher <m@zencoder.com>
- * @version  Release: 2.0.2
+ * @version  Release: 2.1.0
  * @license  http://creativecommons.org/licenses/MIT/MIT
  * @link     http://github.com/zencoder/zencoder-php
  */

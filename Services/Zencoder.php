@@ -5,7 +5,7 @@
  * @category Services
  * @package  Services_Zencoder
  * @author   Michael Christopher <m@zencoder.com>
- * @version  Release: 2.0.2
+ * @version  Release: 2.1.0
  * @license  http://creativecommons.org/licenses/MIT/MIT
  * @link     http://github.com/zencoder/zencoder-php
  * @access   private
@@ -25,14 +25,14 @@ spl_autoload_register('Services_Zencoder_autoload');
  * @category Services
  * @package  Services_Zencoder
  * @author   Michael Christopher <m@zencoder.com>
- * @version  Release: 2.0.2
+ * @version  Release: 2.1.0
  * @license  http://creativecommons.org/licenses/MIT/MIT
  * @link     http://github.com/zencoder/zencoder-php
  */
 
 class Services_Zencoder extends Services_Zencoder_Base
 {
-    const USER_AGENT = 'ZencoderPHP v2.0.2';
+    const USER_AGENT = 'ZencoderPHP v2.1.0';
 
     /**
     * Contains the HTTP communication class
