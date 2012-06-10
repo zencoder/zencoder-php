@@ -57,7 +57,7 @@ class Services_Zencoder_Http {
       CURLOPT_INFILESIZE        => -1,
       CURLOPT_POSTFIELDS        => NULL,
       CURLOPT_CONNECTTIMEOUT    => 30,
-      CURLOPT_TIMEOUT           => 30,
+      CURLOPT_TIMEOUT           => 60,
       CURLOPT_SSL_VERIFYPEER    => 1,
       CURLOPT_SSL_VERIFYHOST    => 2
     );
