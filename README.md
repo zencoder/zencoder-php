@@ -1,10 +1,10 @@
 Zencoder API PHP Library
 ==========================
 
-Author:  [Michael Christopher] (m (a) zencoder (.) c&#1;om)
-Company: [Zencoder - Online Video Encoder](http://www.zencoder.com)  
-Version: 2.0.2
-Date:    2012-01-11
+Author:  [Michael Christopher] (mchristopher (a) brightcove (.) c&#1;om)
+Company: [Zencoder - Online Video Encoder](http://www.zencoder.com)
+Version: 2.1.1
+Date:    2012-08-02
 Repository: <http://github.com/zencoder/zencoder-php/>
 
 Parts of this library are based on <http://github.com/twilio/twilio-php>
@@ -177,6 +177,7 @@ Your [notifications page](https://app.zencoder.com/notifications) will come in h
 
 VERSIONS
 ---------
+    Version 2.1.1 - 2012-08-02    Fixing issue where jobs index call didn't return jobs as individual objects
     Version 2.1.0 - 2012-06-05    Adding support for job-level notifications & merging output with job in notification object
     Version 2.0.2 - 2012-01-11    Fixed job creation response object, added documentation to variables
     Version 2.0.1 - 2012-01-10    Added ability to get error info from API
