@@ -5,6 +5,9 @@
   "keywords":["zencoder", "encoding", "encoder", "cloud"],
   "type":"library",
   "license":"MIT",
+  "require": {
+    "php": ">=5.2.0",
+  },
   "authors":[
     {
       "name":"Zencoder",
