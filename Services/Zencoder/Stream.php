@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Zencoder API client interface.
  *
@@ -10,6 +9,7 @@
  * @license  http://creativecommons.org/licenses/MIT/MIT
  * @link     http://github.com/zencoder/zencoder-php
  */
+
 class Services_Zencoder_Stream extends Services_Zencoder_Object
 {
 }
