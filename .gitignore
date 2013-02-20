@@ -2,6 +2,3 @@ test.php
 build_docs.sh
 .DS_Store
 /nbproject/private/
-.settings/
-.project
-.buildpath
