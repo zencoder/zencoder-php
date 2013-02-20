@@ -33,10 +33,12 @@ class Services_Zencoder_Job extends Services_Zencoder_Object
     
     /**
      * Services_Zencoder_Stream object containing information on the stream for
-     * LIVE transcoding
+     * live transcoding
+     * 
      * @var Services_Zencoder_Stream
      */
     public $stream;
+    
     /**
     * A copy of the raw API response for debug purposes
     * 
