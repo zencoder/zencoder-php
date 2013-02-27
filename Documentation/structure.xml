@@ -1,0 +1,1579 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project version="2.0.0a12" title="">
+  <file path="Zencoder/Account.php" hash="0e4bc3a731f27488e75810b9170ed815" package="Default">
+    <class final="false" abstract="false" namespace="global" line="13" package="Services\Zencoder">
+      <extends>\Services_Zencoder_Object</extends>
+      <name>Services_Zencoder_Account</name>
+      <full_name>\Services_Zencoder_Account</full_name>
+      <docblock line="2">
+        <description>Zencoder API client interface.</description>
+        <long-description></long-description>
+        <tag line="2" name="category" description="Services"/>
+        <tag line="2" name="package" description="Services_Zencoder"/>
+        <tag line="2" name="author" description="Michael Christopher &lt;m@zencoder.com&gt;"/>
+        <tag line="2" name="license" description="http://creativecommons.org/licenses/MIT/MIT MIT"/>
+        <tag line="2" name="version" description="Release: 2.1.2"/>
+        <tag line="2" name="link" description="http://github.com/zencoder/zencoder-php" link="http://github.com/zencoder/zencoder-php"/>
+      </docblock>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file Zencoder/Account.php</error>
+    </parse_markers>
+  </file>
+  <file path="Zencoder/Accounts.php" hash="b7aaefe17ca124f4d01c7a5c9aa00468" package="Default">
+    <class final="false" abstract="false" namespace="global" line="13" package="Services\Zencoder">
+      <extends>\Services_Zencoder_Base</extends>
+      <name>Services_Zencoder_Accounts</name>
+      <full_name>\Services_Zencoder_Accounts</full_name>
+      <docblock line="2">
+        <description>Zencoder API client interface.</description>
+        <long-description></long-description>
+        <tag line="2" name="category" description="Services"/>
+        <tag line="2" name="package" description="Services_Zencoder"/>
+        <tag line="2" name="author" description="Michael Christopher &lt;m@zencoder.com&gt;"/>
+        <tag line="2" name="version" description="Release: 2.1.2"/>
+        <tag line="2" name="license" description="http://creativecommons.org/licenses/MIT/MIT"/>
+        <tag line="2" name="link" description="http://github.com/zencoder/zencoder-php" link="http://github.com/zencoder/zencoder-php"/>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="23" package="Services\Zencoder">
+        <name>create</name>
+        <full_name>create</full_name>
+        <docblock line="15">
+          <description>Create a Zencoder account</description>
+          <long-description></long-description>
+          <tag line="15" name="param" description="Array of attributes to use when creating the account" type="array" variable="$account">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="15" name="param" description="Optional overrides" type="array" variable="$params">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="15" name="return" description="The object representation of the resource" type="\Services_Zencoder_Account">
+            <type by_reference="false">\Services_Zencoder_Account</type>
+          </tag>
+        </docblock>
+        <argument line="23">
+          <name>$account</name>
+          <default>NULL</default>
+          <type/>
+        </argument>
+        <argument line="23">
+          <name>$params</name>
+          <default>array()</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="42" package="Services\Zencoder">
+        <name>details</name>
+        <full_name>details</full_name>
+        <docblock line="35">
+          <description>Return details of your Zencoder account</description>
+          <long-description></long-description>
+          <tag line="35" name="param" description="Optional overrides" type="array" variable="$params">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="35" name="return" description="The object representation of the resource" type="\Services_Zencoder_Account">
+            <type by_reference="false">\Services_Zencoder_Account</type>
+          </tag>
+        </docblock>
+        <argument line="42">
+          <name>$params</name>
+          <default>array()</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="53" package="Services\Zencoder">
+        <name>integration</name>
+        <full_name>integration</full_name>
+        <docblock line="46">
+          <description>Put your account into integration mode</description>
+          <long-description></long-description>
+          <tag line="46" name="param" description="Optional overrides" type="array" variable="$params">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="46" name="return" description="If the operation was successful" type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+        <argument line="53">
+          <name>$params</name>
+          <default>array()</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="64" package="Services\Zencoder">
+        <name>live</name>
+        <full_name>live</full_name>
+        <docblock line="57">
+          <description>Put your account into live mode</description>
+          <long-description></long-description>
+          <tag line="57" name="param" description="Optional overrides" type="array" variable="$params">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="57" name="return" description="If the operation was successful" type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+        <argument line="64">
+          <name>$params</name>
+          <default>array()</default>
+          <type/>
+        </argument>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file Zencoder/Accounts.php</error>
+    </parse_markers>
+  </file>
+  <file path="Zencoder/Base.php" hash="477724eed478cd067110c2fb26999e9d" package="Default">
+    <class final="false" abstract="true" namespace="global" line="13" package="Services\Zencoder">
+      <extends/>
+      <implements>\Services_Zencoder_HttpProxy</implements>
+      <name>Services_Zencoder_Base</name>
+      <full_name>\Services_Zencoder_Base</full_name>
+      <docblock line="2">
+        <description>Zencoder API client interface.</description>
+        <long-description></long-description>
+        <tag line="2" name="category" description="Services"/>
+        <tag line="2" name="package" description="Services_Zencoder"/>
+        <tag line="2" name="author" description="Michael Christopher &lt;m@zencoder.com&gt;"/>
+        <tag line="2" name="version" description="Release: 2.1.2"/>
+        <tag line="2" name="license" description="http://creativecommons.org/licenses/MIT/MIT"/>
+        <tag line="2" name="link" description="http://github.com/zencoder/zencoder-php" link="http://github.com/zencoder/zencoder-php"/>
+      </docblock>
+      <property final="false" static="false" visibility="protected" line="17" namespace="global" package="Default">
+        <name>$proxy</name>
+        <default></default>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="19" package="Services\Zencoder">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+        <argument line="19">
+          <name>$proxy</name>
+          <default></default>
+          <type>\Services_Zencoder_HttpProxy</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="24" package="Services\Zencoder">
+        <name>createData</name>
+        <full_name>createData</full_name>
+        <argument line="24">
+          <name>$path</name>
+          <default></default>
+          <type/>
+        </argument>
+        <argument line="24">
+          <name>$body</name>
+          <default>""</default>
+          <type/>
+        </argument>
+        <argument line="24">
+          <name>$opts</name>
+          <default>array()</default>
+          <type>array</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="29" package="Services\Zencoder">
+        <name>retrieveData</name>
+        <full_name>retrieveData</full_name>
+        <argument line="29">
+          <name>$path</name>
+          <default></default>
+          <type/>
+        </argument>
+        <argument line="29">
+          <name>$params</name>
+          <default>array()</default>
+          <type>array</type>
+        </argument>
+        <argument line="29">
+          <name>$opts</name>
+          <default>array()</default>
+          <type>array</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="34" package="Services\Zencoder">
+        <name>updateData</name>
+        <full_name>updateData</full_name>
+        <argument line="34">
+          <name>$path</name>
+          <default></default>
+          <type/>
+        </argument>
+        <argument line="34">
+          <name>$body</name>
+          <default>""</default>
+          <type/>
+        </argument>
+        <argument line="34">
+          <name>$opts</name>
+          <default>array()</default>
+          <type>array</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="39" package="Services\Zencoder">
+        <name>deleteData</name>
+        <full_name>deleteData</full_name>
+        <argument line="39">
+          <name>$path</name>
+          <default></default>
+          <type/>
+        </argument>
+        <argument line="39">
+          <name>$opts</name>
+          <default>array()</default>
+          <type>array</type>
+        </argument>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file Zencoder/Base.php</error>
+      <error line="17" code="50018">No DocBlock was found for property $proxy</error>
+      <error line="19" code="50010">No DocBlock was found for method __construct()</error>
+      <error line="24" code="50010">No DocBlock was found for method createData()</error>
+      <error line="29" code="50010">No DocBlock was found for method retrieveData()</error>
+      <error line="34" code="50010">No DocBlock was found for method updateData()</error>
+      <error line="39" code="50010">No DocBlock was found for method deleteData()</error>
+    </parse_markers>
+  </file>
+  <file path="Zencoder/Error.php" hash="7881d9ecbbc853048813ad248fa33bf2" package="Default">
+    <class final="false" abstract="false" namespace="global" line="13" package="Services\Zencoder">
+      <extends>\Services_Zencoder_Object</extends>
+      <name>Services_Zencoder_Error</name>
+      <full_name>\Services_Zencoder_Error</full_name>
+      <docblock line="2">
+        <description>Zencoder API client interface.</description>
+        <long-description></long-description>
+        <tag line="2" name="category" description="Services"/>
+        <tag line="2" name="package" description="Services_Zencoder"/>
+        <tag line="2" name="author" description="Michael Christopher &lt;m@zencoder.com&gt;"/>
+        <tag line="2" name="version" description="Release: 2.1.2"/>
+        <tag line="2" name="license" description="http://creativecommons.org/licenses/MIT/MIT"/>
+        <tag line="2" name="link" description="http://github.com/zencoder/zencoder-php" link="http://github.com/zencoder/zencoder-php"/>
+      </docblock>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file Zencoder/Error.php</error>
+    </parse_markers>
+  </file>
+  <file path="Zencoder/Exception.php" hash="f0764e293f39e9327b26303bab2deb54" package="Default">
+    <class final="false" abstract="false" namespace="global" line="13" package="Services\Zencoder">
+      <extends>\ErrorException</extends>
+      <name>Services_Zencoder_Exception</name>
+      <full_name>\Services_Zencoder_Exception</full_name>
+      <docblock line="2">
+        <description>Zencoder API client interface.</description>
+        <long-description></long-description>
+        <tag line="2" name="category" description="Services"/>
+        <tag line="2" name="package" description="Services_Zencoder"/>
+        <tag line="2" name="author" description="Michael Christopher &lt;m@zencoder.com&gt;"/>
+        <tag line="2" name="version" description="Release: 2.1.2"/>
+        <tag line="2" name="license" description="http://creativecommons.org/licenses/MIT/MIT"/>
+        <tag line="2" name="link" description="http://github.com/zencoder/zencoder-php" link="http://github.com/zencoder/zencoder-php"/>
+      </docblock>
+      <property final="false" static="false" visibility="protected" line="15" namespace="global" package="Default">
+        <name>$context</name>
+        <default></default>
+      </property>
+      <property final="false" static="false" visibility="protected" line="16" namespace="global" package="Default">
+        <name>$errors</name>
+        <default></default>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="18" package="Services\Zencoder">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+        <argument line="18">
+          <name>$message</name>
+          <default></default>
+          <type/>
+        </argument>
+        <argument line="18">
+          <name>$errors</name>
+          <default>null</default>
+          <type/>
+        </argument>
+        <argument line="18">
+          <name>$code</name>
+          <default>null</default>
+          <type/>
+        </argument>
+        <argument line="18">
+          <name>$severity</name>
+          <default>E_ERROR</default>
+          <type/>
+        </argument>
+        <argument line="18">
+          <name>$filename</name>
+          <default>null</default>
+          <type/>
+        </argument>
+        <argument line="19">
+          <name>$lineno</name>
+          <default>null</default>
+          <type/>
+        </argument>
+        <argument line="19">
+          <name>$context</name>
+          <default>array()</default>
+          <type>array</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="32" package="Services\Zencoder">
+        <name>getContext</name>
+        <full_name>getContext</full_name>
+        <docblock line="25">
+          <description>Return array that points to the active symbol table at the point the error
+occurred.</description>
+          <long-description>&lt;p&gt;In other words, it will contain an array of every variable that
+existed in the scope the error was triggered in.&lt;/p&gt;</long-description>
+          <tag line="25" name="return" description="" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="43" package="Services\Zencoder">
+        <name>getErrors</name>
+        <full_name>getErrors</full_name>
+        <docblock line="37">
+          <description>Return array containing any errors returned from the code that threw the
+exception.</description>
+          <long-description></long-description>
+          <tag line="37" name="return" description="" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file Zencoder/Exception.php</error>
+      <error line="15" code="50018">No DocBlock was found for property $context</error>
+      <error line="16" code="50018">No DocBlock was found for property $errors</error>
+      <error line="18" code="50010">No DocBlock was found for method __construct()</error>
+    </parse_markers>
+  </file>
+  <file path="Zencoder/Http.php" hash="d1396ad8e9ae036062b25ba91d945990" package="Default">
+    <class final="false" abstract="false" namespace="global" line="13" package="Services\Zencoder">
+      <extends>\Services_Zencoder_Exception</extends>
+      <name>Services_Zencoder_HttpException</name>
+      <full_name>\Services_Zencoder_HttpException</full_name>
+      <docblock line="2">
+        <description>Zencoder API client interface.</description>
+        <long-description></long-description>
+        <tag line="2" name="category" description="Services"/>
+        <tag line="2" name="package" description="Services_Zencoder"/>
+        <tag line="2" name="author" description="Michael Christopher &lt;m@zencoder.com&gt;"/>
+        <tag line="2" name="version" description="Release: 2.1.2"/>
+        <tag line="2" name="license" description="http://creativecommons.org/licenses/MIT/MIT"/>
+        <tag line="2" name="link" description="http://github.com/zencoder/zencoder-php" link="http://github.com/zencoder/zencoder-php"/>
+      </docblock>
+    </class>
+    <class final="false" abstract="false" namespace="global" line="42" package="Services\Zencoder">
+      <extends/>
+      <name>Services_Zencoder_Http</name>
+      <full_name>\Services_Zencoder_Http</full_name>
+      <docblock line="17">
+        <description>Based on TinyHttp from https://gist.github.com/618157 and
+Services_Twilio_TinyHttp from https://github.com/twilio/twilio-php/blob/master/Services/Twilio/TinyHttp.php</description>
+        <long-description>&lt;p&gt;Copyright 2010 Neuman Vong. All rights reserved.&lt;/p&gt;
+
+&lt;p&gt;Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Redistributions of source code must retain the above copyright notice,
+this list of conditions and the following disclaimer.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Redistributions in binary form must reproduce the above copyright
+notice, this list of conditions and the following disclaimer in the
+documentation and/or other materials provided with the distribution.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;</long-description>
+        <tag line="17" name="category" description="Services"/>
+        <tag line="17" name="package" description="Services_Zencoder"/>
+        <tag line="17" name="author" description="Michael Christopher &lt;m@zencoder.com&gt;"/>
+        <tag line="17" name="version" description="Release: 2.1.0"/>
+        <tag line="17" name="license" description="http://creativecommons.org/licenses/MIT/MIT"/>
+        <tag line="17" name="link" description="http://github.com/zencoder/zencoder-php" link="http://github.com/zencoder/zencoder-php"/>
+        <tag line="17" name="access" description="private"/>
+      </docblock>
+      <property final="false" static="false" visibility="protected" line="44" namespace="global" package="Default">
+        <name>$api_key</name>
+        <default></default>
+      </property>
+      <property final="false" static="false" visibility="protected" line="44" namespace="global" package="Default">
+        <name>$scheme</name>
+        <default></default>
+      </property>
+      <property final="false" static="false" visibility="protected" line="44" namespace="global" package="Default">
+        <name>$host</name>
+        <default></default>
+      </property>
+      <property final="false" static="false" visibility="protected" line="44" namespace="global" package="Default">
+        <name>$debug</name>
+        <default></default>
+      </property>
+      <property final="false" static="false" visibility="protected" line="44" namespace="global" package="Default">
+        <name>$curlopts</name>
+        <default></default>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="46" package="Services\Zencoder">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+        <argument line="46">
+          <name>$uri</name>
+          <default>''</default>
+          <type/>
+        </argument>
+        <argument line="46">
+          <name>$kwargs</name>
+          <default>array()</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="53" package="Services\Zencoder">
+        <name>__call</name>
+        <full_name>__call</full_name>
+        <argument line="53">
+          <name>$name</name>
+          <default></default>
+          <type/>
+        </argument>
+        <argument line="53">
+          <name>$args</name>
+          <default></default>
+          <type/>
+        </argument>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file Zencoder/Http.php</error>
+      <error line="44" code="50018">No DocBlock was found for property $api_key</error>
+      <error line="44" code="50018">No DocBlock was found for property $scheme</error>
+      <error line="44" code="50018">No DocBlock was found for property $host</error>
+      <error line="44" code="50018">No DocBlock was found for property $debug</error>
+      <error line="44" code="50018">No DocBlock was found for property $curlopts</error>
+      <error line="46" code="50010">No DocBlock was found for method __construct()</error>
+      <error line="53" code="50010">No DocBlock was found for method __call()</error>
+    </parse_markers>
+  </file>
+  <file path="Zencoder/HttpProxy.php" hash="06b3619b6bcd10a01b76572cb2bda142" package="Default">
+    <interface namespace="global" line="13" package="Services\Zencoder">
+      <name>Services_Zencoder_HttpProxy</name>
+      <full_name>\Services_Zencoder_HttpProxy</full_name>
+      <docblock line="2">
+        <description>Zencoder API client interface.</description>
+        <long-description></long-description>
+        <tag line="2" name="category" description="Services"/>
+        <tag line="2" name="package" description="Services_Zencoder"/>
+        <tag line="2" name="author" description="Michael Christopher &lt;m@zencoder.com&gt;"/>
+        <tag line="2" name="version" description="Release: 2.1.2"/>
+        <tag line="2" name="license" description="http://creativecommons.org/licenses/MIT/MIT"/>
+        <tag line="2" name="link" description="http://github.com/zencoder/zencoder-php" link="http://github.com/zencoder/zencoder-php"/>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="15" package="Services\Zencoder">
+        <name>createData</name>
+        <full_name>createData</full_name>
+        <argument line="15">
+          <name>$key</name>
+          <default></default>
+          <type/>
+        </argument>
+        <argument line="15">
+          <name>$body</name>
+          <default>""</default>
+          <type/>
+        </argument>
+        <argument line="15">
+          <name>$opts</name>
+          <default>array()</default>
+          <type>array</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="16" package="Services\Zencoder">
+        <name>retrieveData</name>
+        <full_name>retrieveData</full_name>
+        <argument line="16">
+          <name>$key</name>
+          <default></default>
+          <type/>
+        </argument>
+        <argument line="16">
+          <name>$params</name>
+          <default>array()</default>
+          <type>array</type>
+        </argument>
+        <argument line="16">
+          <name>$opts</name>
+          <default>array()</default>
+          <type>array</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="17" package="Services\Zencoder">
+        <name>updateData</name>
+        <full_name>updateData</full_name>
+        <argument line="17">
+          <name>$key</name>
+          <default></default>
+          <type/>
+        </argument>
+        <argument line="17">
+          <name>$body</name>
+          <default>""</default>
+          <type/>
+        </argument>
+        <argument line="17">
+          <name>$opts</name>
+          <default>array()</default>
+          <type>array</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="18" package="Services\Zencoder">
+        <name>deleteData</name>
+        <full_name>deleteData</full_name>
+        <argument line="18">
+          <name>$key</name>
+          <default></default>
+          <type/>
+        </argument>
+        <argument line="18">
+          <name>$opts</name>
+          <default>array()</default>
+          <type>array</type>
+        </argument>
+      </method>
+    </interface>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file Zencoder/HttpProxy.php</error>
+      <error line="15" code="50010">No DocBlock was found for method createData()</error>
+      <error line="16" code="50010">No DocBlock was found for method retrieveData()</error>
+      <error line="17" code="50010">No DocBlock was found for method updateData()</error>
+      <error line="18" code="50010">No DocBlock was found for method deleteData()</error>
+    </parse_markers>
+  </file>
+  <file path="Zencoder/Input.php" hash="1f1b35507e13322833b9071c13cae95a" package="Default">
+    <class final="false" abstract="false" namespace="global" line="13" package="Services\Zencoder">
+      <extends>\Services_Zencoder_Object</extends>
+      <name>Services_Zencoder_Input</name>
+      <full_name>\Services_Zencoder_Input</full_name>
+      <docblock line="2">
+        <description>Zencoder API client interface.</description>
+        <long-description></long-description>
+        <tag line="2" name="category" description="Services"/>
+        <tag line="2" name="package" description="Services_Zencoder"/>
+        <tag line="2" name="author" description="Michael Christopher &lt;m@zencoder.com&gt;"/>
+        <tag line="2" name="license" description="http://creativecommons.org/licenses/MIT/MIT MIT"/>
+        <tag line="2" name="version" description="Release: 2.1.2"/>
+        <tag line="2" name="link" description="http://github.com/zencoder/zencoder-php" link="http://github.com/zencoder/zencoder-php"/>
+      </docblock>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file Zencoder/Input.php</error>
+    </parse_markers>
+  </file>
+  <file path="Zencoder/Inputs.php" hash="2831ea6769b3b5ffdeeb103c58054277" package="Default">
+    <class final="false" abstract="false" namespace="global" line="13" package="Services\Zencoder">
+      <extends>\Services_Zencoder_Base</extends>
+      <name>Services_Zencoder_Inputs</name>
+      <full_name>\Services_Zencoder_Inputs</full_name>
+      <docblock line="2">
+        <description>Zencoder API client interface.</description>
+        <long-description></long-description>
+        <tag line="2" name="category" description="Services"/>
+        <tag line="2" name="package" description="Services_Zencoder"/>
+        <tag line="2" name="author" description="Michael Christopher &lt;m@zencoder.com&gt;"/>
+        <tag line="2" name="version" description="Release: 2.1.2"/>
+        <tag line="2" name="license" description="http://creativecommons.org/licenses/MIT/MIT"/>
+        <tag line="2" name="link" description="http://github.com/zencoder/zencoder-php" link="http://github.com/zencoder/zencoder-php"/>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="23" package="Services\Zencoder">
+        <name>details</name>
+        <full_name>details</full_name>
+        <docblock line="15">
+          <description>Return details of a specific input</description>
+          <long-description></long-description>
+          <tag line="15" name="param" description="ID of the input file you want details for" type="integer" variable="$input_id">
+            <type by_reference="false">integer</type>
+          </tag>
+          <tag line="15" name="param" description="Optional overrides" type="array" variable="$params">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="15" name="return" description="The object representation of the resource" type="\Services_Zencoder_Input">
+            <type by_reference="false">\Services_Zencoder_Input</type>
+          </tag>
+        </docblock>
+        <argument line="23">
+          <name>$input_id</name>
+          <default></default>
+          <type/>
+        </argument>
+        <argument line="23">
+          <name>$params</name>
+          <default>array()</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="35" package="Services\Zencoder">
+        <name>progress</name>
+        <full_name>progress</full_name>
+        <docblock line="27">
+          <description>Return progress of a specific input</description>
+          <long-description></long-description>
+          <tag line="27" name="param" description="ID of the input file you want progress for" type="integer" variable="$input_id">
+            <type by_reference="false">integer</type>
+          </tag>
+          <tag line="27" name="param" description="Optional overrides" type="array" variable="$params">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="27" name="return" description="The object representation of the resource" type="\Services_Zencoder_Progress">
+            <type by_reference="false">\Services_Zencoder_Progress</type>
+          </tag>
+        </docblock>
+        <argument line="35">
+          <name>$input_id</name>
+          <default></default>
+          <type/>
+        </argument>
+        <argument line="35">
+          <name>$params</name>
+          <default>array()</default>
+          <type/>
+        </argument>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file Zencoder/Inputs.php</error>
+    </parse_markers>
+  </file>
+  <file path="Zencoder/Job.php" hash="4855a8066449ee9169dde53cba88c43a" package="Default">
+    <class final="false" abstract="false" namespace="global" line="13" package="Services\Zencoder">
+      <extends>\Services_Zencoder_Object</extends>
+      <name>Services_Zencoder_Job</name>
+      <full_name>\Services_Zencoder_Job</full_name>
+      <docblock line="2">
+        <description>Zencoder API client interface.</description>
+        <long-description></long-description>
+        <tag line="2" name="category" description="Services"/>
+        <tag line="2" name="package" description="Services_Zencoder"/>
+        <tag line="2" name="author" description="Michael Christopher &lt;m@zencoder.com&gt;"/>
+        <tag line="2" name="version" description="Release: 2.1.2"/>
+        <tag line="2" name="license" description="http://creativecommons.org/licenses/MIT/MIT"/>
+        <tag line="2" name="link" description="http://github.com/zencoder/zencoder-php" link="http://github.com/zencoder/zencoder-php"/>
+      </docblock>
+      <property final="false" static="false" visibility="public" line="20" namespace="global" package="Default">
+        <name>$outputs</name>
+        <default>array()</default>
+        <docblock line="15">
+          <description>Array of the outputs on the job</description>
+          <long-description></long-description>
+          <tag line="15" name="var" description="" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="public" line="26" namespace="global" package="Default">
+        <name>$thumbnails</name>
+        <default>array()</default>
+        <docblock line="21">
+          <description>Array of the thumbnails on the job</description>
+          <long-description></long-description>
+          <tag line="21" name="var" description="" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="public" line="32" namespace="global" package="Default">
+        <name>$input</name>
+        <default></default>
+        <docblock line="27">
+          <description>Services_Zencoder_Input object containing information on the input file</description>
+          <long-description></long-description>
+          <tag line="27" name="var" description="" type="\Services_Zencoder_Input">
+            <type by_reference="false">\Services_Zencoder_Input</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="public" line="40" namespace="global" package="Default">
+        <name>$stream</name>
+        <default></default>
+        <docblock line="34">
+          <description>Services_Zencoder_Stream object containing information on the stream for
+live transcoding</description>
+          <long-description></long-description>
+          <tag line="34" name="var" description="" type="\Services_Zencoder_Stream">
+            <type by_reference="false">\Services_Zencoder_Stream</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="protected" line="47" namespace="global" package="Default">
+        <name>$raw_response</name>
+        <default></default>
+        <docblock line="42">
+          <description>A copy of the raw API response for debug purposes</description>
+          <long-description></long-description>
+          <tag line="42" name="var" description="" type="mixed">
+            <type by_reference="false">mixed</type>
+          </tag>
+        </docblock>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="54" package="Services\Zencoder">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+        <docblock line="49">
+          <description>Create a new Services_Zencoder_Job object.</description>
+          <long-description></long-description>
+          <tag line="49" name="param" description="API response" type="mixed" variable="$params">
+            <type by_reference="false">mixed</type>
+          </tag>
+        </docblock>
+        <argument line="54">
+          <name>$params</name>
+          <default></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="private" namespace="global" line="60" package="Services\Zencoder">
+        <name>_update_attributes</name>
+        <full_name>_update_attributes</full_name>
+        <argument line="60">
+          <name>$attributes</name>
+          <default>array()</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="private" namespace="global" line="79" package="Services\Zencoder">
+        <name>_create_thumbnails</name>
+        <full_name>_create_thumbnails</full_name>
+        <argument line="79">
+          <name>$thumbnails</name>
+          <default>array()</default>
+          <type/>
+        </argument>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file Zencoder/Job.php</error>
+      <error line="60" code="50010">No DocBlock was found for method _update_attributes()</error>
+      <error line="79" code="50010">No DocBlock was found for method _create_thumbnails()</error>
+    </parse_markers>
+  </file>
+  <file path="Zencoder/Jobs.php" hash="0a16e178307afc7b7a15c23fc42673c2" package="Default">
+    <class final="false" abstract="false" namespace="global" line="13" package="Services\Zencoder">
+      <extends>\Services_Zencoder_Base</extends>
+      <name>Services_Zencoder_Jobs</name>
+      <full_name>\Services_Zencoder_Jobs</full_name>
+      <docblock line="2">
+        <description>Zencoder API client interface.</description>
+        <long-description></long-description>
+        <tag line="2" name="category" description="Services"/>
+        <tag line="2" name="package" description="Services_Zencoder"/>
+        <tag line="2" name="author" description="Michael Christopher &lt;m@zencoder.com&gt;"/>
+        <tag line="2" name="version" description="Release: 2.1.2"/>
+        <tag line="2" name="license" description="http://creativecommons.org/licenses/MIT/MIT"/>
+        <tag line="2" name="link" description="http://github.com/zencoder/zencoder-php" link="http://github.com/zencoder/zencoder-php"/>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="23" package="Services\Zencoder">
+        <name>create</name>
+        <full_name>create</full_name>
+        <docblock line="15">
+          <description>Create a new job</description>
+          <long-description></long-description>
+          <tag line="15" name="param" description="Array of attributes to use when creating the job" type="array" variable="$job">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="15" name="param" description="Optional overrides" type="array" variable="$params">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="15" name="return" description="The object representation of the resource" type="\Services_Zencoder_Job">
+            <type by_reference="false">\Services_Zencoder_Job</type>
+          </tag>
+        </docblock>
+        <argument line="23">
+          <name>$job</name>
+          <default>NULL</default>
+          <type/>
+        </argument>
+        <argument line="23">
+          <name>$params</name>
+          <default>array()</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="47" package="Services\Zencoder">
+        <name>index</name>
+        <full_name>index</full_name>
+        <docblock line="39">
+          <description>List all jobs on your account</description>
+          <long-description></long-description>
+          <tag line="39" name="param" description="Array of filters to use when loading index" type="array" variable="$args">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="39" name="param" description="Optional overrides" type="array" variable="$params">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="39" name="return" description="An array of Services_Zencoder_Job objects" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+        <argument line="47">
+          <name>$args</name>
+          <default>array()</default>
+          <type/>
+        </argument>
+        <argument line="47">
+          <name>$params</name>
+          <default>array()</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="62" package="Services\Zencoder">
+        <name>details</name>
+        <full_name>details</full_name>
+        <docblock line="54">
+          <description>Return details of a specific job</description>
+          <long-description></long-description>
+          <tag line="54" name="param" description="ID of the job you want details for" type="integer" variable="$job_id">
+            <type by_reference="false">integer</type>
+          </tag>
+          <tag line="54" name="param" description="Optional overrides" type="array" variable="$params">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="54" name="return" description="The object representation of the resource" type="\Services_Zencoder_Job">
+            <type by_reference="false">\Services_Zencoder_Job</type>
+          </tag>
+        </docblock>
+        <argument line="62">
+          <name>$job_id</name>
+          <default></default>
+          <type/>
+        </argument>
+        <argument line="62">
+          <name>$params</name>
+          <default>array()</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="74" package="Services\Zencoder">
+        <name>progress</name>
+        <full_name>progress</full_name>
+        <docblock line="66">
+          <description>Return progress of a specific job</description>
+          <long-description></long-description>
+          <tag line="66" name="param" description="ID of the job you want progress for" type="integer" variable="$job_id">
+            <type by_reference="false">integer</type>
+          </tag>
+          <tag line="66" name="param" description="Optional overrides" type="array" variable="$params">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="66" name="return" description="The object representation of the resource" type="\Services_Zencoder_Progress">
+            <type by_reference="false">\Services_Zencoder_Progress</type>
+          </tag>
+        </docblock>
+        <argument line="74">
+          <name>$job_id</name>
+          <default></default>
+          <type/>
+        </argument>
+        <argument line="74">
+          <name>$params</name>
+          <default>array()</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="86" package="Services\Zencoder">
+        <name>resubmit</name>
+        <full_name>resubmit</full_name>
+        <docblock line="78">
+          <description>Resubmit a job</description>
+          <long-description></long-description>
+          <tag line="78" name="param" description="ID of the job you want to resubmit" type="integer" variable="$job_id">
+            <type by_reference="false">integer</type>
+          </tag>
+          <tag line="78" name="param" description="Optional overrides" type="array" variable="$params">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="78" name="return" description="If the operation was successful" type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+        <argument line="86">
+          <name>$job_id</name>
+          <default></default>
+          <type/>
+        </argument>
+        <argument line="86">
+          <name>$params</name>
+          <default>array()</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="98" package="Services\Zencoder">
+        <name>cancel</name>
+        <full_name>cancel</full_name>
+        <docblock line="90">
+          <description>Cancel a job</description>
+          <long-description></long-description>
+          <tag line="90" name="param" description="ID of the job you want to cancel" type="integer" variable="$job_id">
+            <type by_reference="false">integer</type>
+          </tag>
+          <tag line="90" name="param" description="Optional overrides" type="array" variable="$params">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="90" name="return" description="If the operation was successful" type="bool">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+        <argument line="98">
+          <name>$job_id</name>
+          <default></default>
+          <type/>
+        </argument>
+        <argument line="98">
+          <name>$params</name>
+          <default>array()</default>
+          <type/>
+        </argument>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file Zencoder/Jobs.php</error>
+    </parse_markers>
+  </file>
+  <file path="Zencoder/Notification.php" hash="df913db675ddc7dd0dde9be3bf45d90c" package="Default">
+    <class final="false" abstract="false" namespace="global" line="13" package="Services\Zencoder">
+      <extends>\Services_Zencoder_Object</extends>
+      <name>Services_Zencoder_Notification</name>
+      <full_name>\Services_Zencoder_Notification</full_name>
+      <docblock line="2">
+        <description>Zencoder API client interface.</description>
+        <long-description></long-description>
+        <tag line="2" name="category" description="Services"/>
+        <tag line="2" name="package" description="Services_Zencoder"/>
+        <tag line="2" name="author" description="Michael Christopher &lt;m@zencoder.com&gt;"/>
+        <tag line="2" name="version" description="Release: 2.1.2"/>
+        <tag line="2" name="license" description="http://creativecommons.org/licenses/MIT/MIT"/>
+        <tag line="2" name="link" description="http://github.com/zencoder/zencoder-php" link="http://github.com/zencoder/zencoder-php"/>
+      </docblock>
+      <property final="false" static="false" visibility="public" line="20" namespace="global" package="Default">
+        <name>$job</name>
+        <default></default>
+        <docblock line="15">
+          <description>The job that the notification references</description>
+          <long-description></long-description>
+          <tag line="15" name="var" description="" type="\Services_Zencoder_Job">
+            <type by_reference="false">\Services_Zencoder_Job</type>
+          </tag>
+        </docblock>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="22" package="Services\Zencoder">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+        <argument line="22">
+          <name>$params</name>
+          <default></default>
+          <type/>
+        </argument>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file Zencoder/Notification.php</error>
+      <error line="22" code="50010">No DocBlock was found for method __construct()</error>
+    </parse_markers>
+  </file>
+  <file path="Zencoder/Notifications.php" hash="b1dc81cb1c2b930f037c8eef248629ff" package="Default">
+    <class final="false" abstract="false" namespace="global" line="13" package="Services\Zencoder">
+      <extends>\Services_Zencoder_Base</extends>
+      <name>Services_Zencoder_Notifications</name>
+      <full_name>\Services_Zencoder_Notifications</full_name>
+      <docblock line="2">
+        <description>Zencoder API client interface.</description>
+        <long-description></long-description>
+        <tag line="2" name="category" description="Services"/>
+        <tag line="2" name="package" description="Services_Zencoder"/>
+        <tag line="2" name="author" description="Michael Christopher &lt;m@zencoder.com&gt;"/>
+        <tag line="2" name="version" description="Release: 2.1.2"/>
+        <tag line="2" name="license" description="http://creativecommons.org/licenses/MIT/MIT"/>
+        <tag line="2" name="link" description="http://github.com/zencoder/zencoder-php" link="http://github.com/zencoder/zencoder-php"/>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="20" package="Services\Zencoder">
+        <name>parseIncoming</name>
+        <full_name>parseIncoming</full_name>
+        <docblock line="15">
+          <description>Parse and process incoming notifications from Zencoder</description>
+          <long-description></long-description>
+          <tag line="15" name="return" description="Parsed notification data" type="\Services_Zencoder_Notification">
+            <type by_reference="false">\Services_Zencoder_Notification</type>
+          </tag>
+        </docblock>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file Zencoder/Notifications.php</error>
+    </parse_markers>
+  </file>
+  <file path="Zencoder/Object.php" hash="9cce8e62d01b786a4ca5ecd486cf19d0" package="Default">
+    <class final="false" abstract="false" namespace="global" line="13" package="Services\Zencoder">
+      <extends/>
+      <name>Services_Zencoder_Object</name>
+      <full_name>\Services_Zencoder_Object</full_name>
+      <docblock line="2">
+        <description>Zencoder API client interface.</description>
+        <long-description></long-description>
+        <tag line="2" name="category" description="Services"/>
+        <tag line="2" name="package" description="Services_Zencoder"/>
+        <tag line="2" name="author" description="Michael Christopher &lt;m@zencoder.com&gt;"/>
+        <tag line="2" name="version" description="Release: 2.1.2"/>
+        <tag line="2" name="license" description="http://creativecommons.org/licenses/MIT/MIT"/>
+        <tag line="2" name="link" description="http://github.com/zencoder/zencoder-php" link="http://github.com/zencoder/zencoder-php"/>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="15" package="Services\Zencoder">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+        <argument line="15">
+          <name>$params</name>
+          <default></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="private" namespace="global" line="20" package="Services\Zencoder">
+        <name>_update_attributes</name>
+        <full_name>_update_attributes</full_name>
+        <argument line="20">
+          <name>$attributes</name>
+          <default>array()</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="global" line="27" package="Services\Zencoder">
+        <name>_create_outputs</name>
+        <full_name>_create_outputs</full_name>
+        <argument line="27">
+          <name>$outputs</name>
+          <default>array()</default>
+          <type/>
+        </argument>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file Zencoder/Object.php</error>
+      <error line="15" code="50010">No DocBlock was found for method __construct()</error>
+      <error line="20" code="50010">No DocBlock was found for method _update_attributes()</error>
+      <error line="27" code="50010">No DocBlock was found for method _create_outputs()</error>
+    </parse_markers>
+  </file>
+  <file path="Zencoder/Output.php" hash="02eac73c4907d3fcfb7c0f548f68583f" package="Default">
+    <class final="false" abstract="false" namespace="global" line="13" package="Services\Zencoder">
+      <extends>\Services_Zencoder_Object</extends>
+      <name>Services_Zencoder_Output</name>
+      <full_name>\Services_Zencoder_Output</full_name>
+      <docblock line="2">
+        <description>Zencoder API client interface.</description>
+        <long-description></long-description>
+        <tag line="2" name="category" description="Services"/>
+        <tag line="2" name="package" description="Services_Zencoder"/>
+        <tag line="2" name="author" description="Michael Christopher &lt;m@zencoder.com&gt;"/>
+        <tag line="2" name="version" description="Release: 2.1.2"/>
+        <tag line="2" name="license" description="http://creativecommons.org/licenses/MIT/MIT"/>
+        <tag line="2" name="link" description="http://github.com/zencoder/zencoder-php" link="http://github.com/zencoder/zencoder-php"/>
+      </docblock>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file Zencoder/Output.php</error>
+    </parse_markers>
+  </file>
+  <file path="Zencoder/Outputs.php" hash="78f030a4a5b047e236ec1005eff62ad6" package="Default">
+    <class final="false" abstract="false" namespace="global" line="13" package="Services\Zencoder">
+      <extends>\Services_Zencoder_Base</extends>
+      <name>Services_Zencoder_Outputs</name>
+      <full_name>\Services_Zencoder_Outputs</full_name>
+      <docblock line="2">
+        <description>Zencoder API client interface.</description>
+        <long-description></long-description>
+        <tag line="2" name="category" description="Services"/>
+        <tag line="2" name="package" description="Services_Zencoder"/>
+        <tag line="2" name="author" description="Michael Christopher &lt;m@zencoder.com&gt;"/>
+        <tag line="2" name="version" description="Release: 2.1.2"/>
+        <tag line="2" name="license" description="http://creativecommons.org/licenses/MIT/MIT"/>
+        <tag line="2" name="link" description="http://github.com/zencoder/zencoder-php" link="http://github.com/zencoder/zencoder-php"/>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="23" package="Services\Zencoder">
+        <name>details</name>
+        <full_name>details</full_name>
+        <docblock line="15">
+          <description>Return details of a specific output</description>
+          <long-description></long-description>
+          <tag line="15" name="param" description="ID of the output file you want details for" type="integer" variable="$output_id">
+            <type by_reference="false">integer</type>
+          </tag>
+          <tag line="15" name="param" description="Optional overrides" type="array" variable="$params">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="15" name="return" description="The object representation of the resource" type="\Services_Zencoder_Output">
+            <type by_reference="false">\Services_Zencoder_Output</type>
+          </tag>
+        </docblock>
+        <argument line="23">
+          <name>$output_id</name>
+          <default></default>
+          <type/>
+        </argument>
+        <argument line="23">
+          <name>$params</name>
+          <default>array()</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="35" package="Services\Zencoder">
+        <name>progress</name>
+        <full_name>progress</full_name>
+        <docblock line="27">
+          <description>Return progress of a specific output</description>
+          <long-description></long-description>
+          <tag line="27" name="param" description="ID of the output file you want progress for" type="integer" variable="$output_id">
+            <type by_reference="false">integer</type>
+          </tag>
+          <tag line="27" name="param" description="Optional overrides" type="array" variable="$params">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="27" name="return" description="The object representation of the resource" type="\Services_Zencoder_Progress">
+            <type by_reference="false">\Services_Zencoder_Progress</type>
+          </tag>
+        </docblock>
+        <argument line="35">
+          <name>$output_id</name>
+          <default></default>
+          <type/>
+        </argument>
+        <argument line="35">
+          <name>$params</name>
+          <default>array()</default>
+          <type/>
+        </argument>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file Zencoder/Outputs.php</error>
+    </parse_markers>
+  </file>
+  <file path="Zencoder/Progress.php" hash="1b6f6831ed559977abd2a9bef78502df" package="Default">
+    <class final="false" abstract="false" namespace="global" line="13" package="Services\Zencoder">
+      <extends>\Services_Zencoder_Object</extends>
+      <name>Services_Zencoder_Progress</name>
+      <full_name>\Services_Zencoder_Progress</full_name>
+      <docblock line="2">
+        <description>Zencoder API client interface.</description>
+        <long-description></long-description>
+        <tag line="2" name="category" description="Services"/>
+        <tag line="2" name="package" description="Services_Zencoder"/>
+        <tag line="2" name="author" description="Michael Christopher &lt;m@zencoder.com&gt;"/>
+        <tag line="2" name="license" description="http://creativecommons.org/licenses/MIT/MIT MIT"/>
+        <tag line="2" name="version" description="Release: 2.1.2"/>
+        <tag line="2" name="link" description="http://github.com/zencoder/zencoder-php" link="http://github.com/zencoder/zencoder-php"/>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="15" package="Services\Zencoder">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+        <argument line="15">
+          <name>$params</name>
+          <default></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="private" namespace="global" line="20" package="Services\Zencoder">
+        <name>_updateAttributes</name>
+        <full_name>_updateAttributes</full_name>
+        <argument line="20">
+          <name>$attributes</name>
+          <default>array()</default>
+          <type/>
+        </argument>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file Zencoder/Progress.php</error>
+      <error line="15" code="50010">No DocBlock was found for method __construct()</error>
+      <error line="20" code="50010">No DocBlock was found for method _updateAttributes()</error>
+    </parse_markers>
+  </file>
+  <file path="Zencoder/Stream.php" hash="16b4cf6c8fc7abe234a8e7b7fbfe62c4" package="Default">
+    <class final="false" abstract="false" namespace="global" line="13" package="Services\Zencoder">
+      <extends>\Services_Zencoder_Object</extends>
+      <name>Services_Zencoder_Stream</name>
+      <full_name>\Services_Zencoder_Stream</full_name>
+      <docblock line="2">
+        <description>Zencoder API client interface.</description>
+        <long-description></long-description>
+        <tag line="2" name="category" description="Services"/>
+        <tag line="2" name="package" description="Services_Zencoder"/>
+        <tag line="2" name="author" description="Carles Galan Cladera &lt;cgcladera@gmail.com&gt;"/>
+        <tag line="2" name="version" description="Release: 2.1.2"/>
+        <tag line="2" name="license" description="http://creativecommons.org/licenses/MIT/MIT"/>
+        <tag line="2" name="link" description="http://github.com/zencoder/zencoder-php" link="http://github.com/zencoder/zencoder-php"/>
+      </docblock>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file Zencoder/Stream.php</error>
+    </parse_markers>
+  </file>
+  <file path="Zencoder/Thumbnail.php" hash="11ba6f19039dfde0be356efe7439fa52" package="Default">
+    <class final="false" abstract="false" namespace="global" line="13" package="Services\Zencoder">
+      <extends>\Services_Zencoder_Object</extends>
+      <name>Services_Zencoder_Thumbnail</name>
+      <full_name>\Services_Zencoder_Thumbnail</full_name>
+      <docblock line="2">
+        <description>Zencoder API client interface.</description>
+        <long-description></long-description>
+        <tag line="2" name="category" description="Services"/>
+        <tag line="2" name="package" description="Services_Zencoder"/>
+        <tag line="2" name="author" description="Michael Christopher &lt;m@zencoder.com&gt;"/>
+        <tag line="2" name="version" description="Release: 2.1.2"/>
+        <tag line="2" name="license" description="http://creativecommons.org/licenses/MIT/MIT"/>
+        <tag line="2" name="link" description="http://github.com/zencoder/zencoder-php" link="http://github.com/zencoder/zencoder-php"/>
+      </docblock>
+    </class>
+    <parse_markers>
+      <error line="0" code="50007">No page-level DocBlock was found in file Zencoder/Thumbnail.php</error>
+    </parse_markers>
+  </file>
+  <file path="Zencoder.php" hash="ace48986f65f7adf81c63fb513b93f3c" package="Services\Zencoder">
+    <docblock line="2">
+      <description>Zencoder API client interface.</description>
+      <long-description></long-description>
+      <tag line="2" name="category" description="Services"/>
+      <tag line="2" name="package" description="Services_Zencoder"/>
+      <tag line="2" name="author" description="Michael Christopher &lt;m@zencoder.com&gt;"/>
+      <tag line="2" name="version" description="Release: 2.1.2"/>
+      <tag line="2" name="license" description="http://creativecommons.org/licenses/MIT/MIT"/>
+      <tag line="2" name="link" description="http://github.com/zencoder/zencoder-php" link="http://github.com/zencoder/zencoder-php"/>
+      <tag line="2" name="access" description="private"/>
+    </docblock>
+    <include line="19" type="Include" package="Default">
+      <name/>
+    </include>
+    <function namespace="global" line="14" package="Services\Zencoder">
+      <name>Services_Zencoder_autoload</name>
+      <full_name>\Services_Zencoder_autoload</full_name>
+      <argument line="14">
+        <name>$className</name>
+        <default></default>
+        <type/>
+      </argument>
+    </function>
+    <class final="false" abstract="false" namespace="global" line="34" package="Services\Zencoder">
+      <extends>\Services_Zencoder_Base</extends>
+      <name>Services_Zencoder</name>
+      <full_name>\Services_Zencoder</full_name>
+      <docblock line="23">
+        <description>Zencoder API client interface.</description>
+        <long-description></long-description>
+        <tag line="23" name="category" description="Services"/>
+        <tag line="23" name="package" description="Services_Zencoder"/>
+        <tag line="23" name="author" description="Michael Christopher &lt;m@zencoder.com&gt;"/>
+        <tag line="23" name="version" description="Release: 2.1.2"/>
+        <tag line="23" name="license" description="http://creativecommons.org/licenses/MIT/MIT"/>
+        <tag line="23" name="link" description="http://github.com/zencoder/zencoder-php" link="http://github.com/zencoder/zencoder-php"/>
+      </docblock>
+      <constant namespace="global" line="36" package="Services\Zencoder">
+        <name>USER_AGENT</name>
+        <full_name>USER_AGENT</full_name>
+        <value>'ZencoderPHP v2.1.2'</value>
+      </constant>
+      <property final="false" static="false" visibility="protected" line="43" namespace="global" package="Default">
+        <name>$http</name>
+        <default></default>
+        <docblock line="38">
+          <description>Contains the HTTP communication class</description>
+          <long-description></long-description>
+          <tag line="38" name="var" description="" type="\Services_Zencoder_Http">
+            <type by_reference="false">\Services_Zencoder_Http</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="protected" line="49" namespace="global" package="Default">
+        <name>$version</name>
+        <default></default>
+        <docblock line="44">
+          <description>Contains the default API version</description>
+          <long-description></long-description>
+          <tag line="44" name="var" description="" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="public" line="58" namespace="global" package="Default">
+        <name>$accounts</name>
+        <default></default>
+        <docblock line="51">
+          <description>Provides access the Zencoder Accounts API</description>
+          <long-description>&lt;p&gt;Valid functions: create, details, integration, live&lt;/p&gt;</long-description>
+          <tag line="51" name="var" description="" type="\Services_Zencoder_Accounts">
+            <type by_reference="false">\Services_Zencoder_Accounts</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="public" line="66" namespace="global" package="Default">
+        <name>$inputs</name>
+        <default></default>
+        <docblock line="59">
+          <description>Provides access the Zencoder Inputs API</description>
+          <long-description>&lt;p&gt;Valid functions: details, progress&lt;/p&gt;</long-description>
+          <tag line="59" name="var" description="" type="\Services_Zencoder_Inputs">
+            <type by_reference="false">\Services_Zencoder_Inputs</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="public" line="74" namespace="global" package="Default">
+        <name>$jobs</name>
+        <default></default>
+        <docblock line="67">
+          <description>Provides access the Zencoder Jobs API</description>
+          <long-description>&lt;p&gt;Valid functions: create, index, details, progress, resubmit, cancel&lt;/p&gt;</long-description>
+          <tag line="67" name="var" description="" type="\Services_Zencoder_Jobs">
+            <type by_reference="false">\Services_Zencoder_Jobs</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="public" line="82" namespace="global" package="Default">
+        <name>$notifications</name>
+        <default></default>
+        <docblock line="75">
+          <description>Provides access the Zencoder Notifications API</description>
+          <long-description>&lt;p&gt;Valid functions: parseIncoming&lt;/p&gt;</long-description>
+          <tag line="75" name="var" description="" type="\Services_Zencoder_Notifications">
+            <type by_reference="false">\Services_Zencoder_Notifications</type>
+          </tag>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="public" line="90" namespace="global" package="Default">
+        <name>$outputs</name>
+        <default></default>
+        <docblock line="83">
+          <description>Provides access the Zencoder Outputs API</description>
+          <long-description>&lt;p&gt;Valid functions: details, progress&lt;/p&gt;</long-description>
+          <tag line="83" name="var" description="" type="\Services_Zencoder_Outputs">
+            <type by_reference="false">\Services_Zencoder_Outputs</type>
+          </tag>
+        </docblock>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="100" package="Services\Zencoder">
+        <name>__construct</name>
+        <full_name>__construct</full_name>
+        <docblock line="92">
+          <description>Initialize the Services_Zencoder class and sub-classes.</description>
+          <long-description></long-description>
+          <tag line="92" name="param" description="API Key" type="string" variable="$api_key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="92" name="param" description="API version" type="string" variable="$api_version">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="92" name="param" description="API host" type="string" variable="$api_host">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="92" name="param" description="Enable debug mode" type="bool" variable="$debug">
+            <type by_reference="false">bool</type>
+          </tag>
+        </docblock>
+        <argument line="101">
+          <name>$api_key</name>
+          <default>NULL</default>
+          <type/>
+        </argument>
+        <argument line="102">
+          <name>$api_version</name>
+          <default>'v2'</default>
+          <type/>
+        </argument>
+        <argument line="103">
+          <name>$api_host</name>
+          <default>'https://app.zencoder.com'</default>
+          <type/>
+        </argument>
+        <argument line="104">
+          <name>$debug</name>
+          <default>false</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="141" package="Services\Zencoder">
+        <name>retrieveData</name>
+        <full_name>retrieveData</full_name>
+        <docblock line="132">
+          <description>GET the resource at the specified path.</description>
+          <long-description></long-description>
+          <tag line="132" name="param" description="Path to the resource" type="string" variable="$path">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="132" name="param" description="Query string parameters" type="array" variable="$params">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="132" name="param" description="Optional overrides" type="array" variable="$opts">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="132" name="return" description="The object representation of the resource" type="object">
+            <type by_reference="false">object</type>
+          </tag>
+        </docblock>
+        <argument line="141">
+          <name>$path</name>
+          <default></default>
+          <type/>
+        </argument>
+        <argument line="141">
+          <name>$params</name>
+          <default>array()</default>
+          <type>array</type>
+        </argument>
+        <argument line="141">
+          <name>$opts</name>
+          <default>array()</default>
+          <type>array</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="158" package="Services\Zencoder">
+        <name>deleteData</name>
+        <full_name>deleteData</full_name>
+        <docblock line="150">
+          <description>DELETE the resource at the specified path.</description>
+          <long-description></long-description>
+          <tag line="150" name="param" description="Path to the resource" type="string" variable="$path">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="150" name="param" description="Optional overrides" type="array" variable="$opts">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="150" name="return" description="The object representation of the resource" type="object">
+            <type by_reference="false">object</type>
+          </tag>
+        </docblock>
+        <argument line="158">
+          <name>$path</name>
+          <default></default>
+          <type/>
+        </argument>
+        <argument line="158">
+          <name>$opts</name>
+          <default>array()</default>
+          <type>array</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="172" package="Services\Zencoder">
+        <name>createData</name>
+        <full_name>createData</full_name>
+        <docblock line="163">
+          <description>POST to the resource at the specified path.</description>
+          <long-description></long-description>
+          <tag line="163" name="param" description="Path to the resource" type="string" variable="$path">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="163" name="param" description="Raw body to post" type="string" variable="$body">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="163" name="param" description="Optional overrides" type="array" variable="$opts">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="163" name="return" description="The object representation of the resource" type="object">
+            <type by_reference="false">object</type>
+          </tag>
+        </docblock>
+        <argument line="172">
+          <name>$path</name>
+          <default></default>
+          <type/>
+        </argument>
+        <argument line="172">
+          <name>$body</name>
+          <default>""</default>
+          <type/>
+        </argument>
+        <argument line="172">
+          <name>$opts</name>
+          <default>array()</default>
+          <type>array</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="global" line="195" package="Services\Zencoder">
+        <name>updateData</name>
+        <full_name>updateData</full_name>
+        <docblock line="186">
+          <description>PUT to the resource at the specified path.</description>
+          <long-description></long-description>
+          <tag line="186" name="param" description="Path to the resource" type="string" variable="$path">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="186" name="param" description="Raw body to post" type="string" variable="$body">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="186" name="param" description="Optional overrides" type="array" variable="$opts">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="186" name="return" description="The object representation of the resource" type="object">
+            <type by_reference="false">object</type>
+          </tag>
+        </docblock>
+        <argument line="195">
+          <name>$path</name>
+          <default></default>
+          <type/>
+        </argument>
+        <argument line="195">
+          <name>$body</name>
+          <default>""</default>
+          <type/>
+        </argument>
+        <argument line="195">
+          <name>$opts</name>
+          <default>array()</default>
+          <type>array</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="private" namespace="global" line="209" package="Services\Zencoder">
+        <name>_getApiPath</name>
+        <full_name>_getApiPath</full_name>
+        <argument line="209">
+          <name>$opts</name>
+          <default>array()</default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="private" namespace="global" line="220" package="Services\Zencoder">
+        <name>_processResponse</name>
+        <full_name>_processResponse</full_name>
+        <argument line="220">
+          <name>$response</name>
+          <default></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="private" namespace="global" line="239" package="Services\Zencoder">
+        <name>_processJsonResponse</name>
+        <full_name>_processJsonResponse</full_name>
+        <argument line="239">
+          <name>$status</name>
+          <default></default>
+          <type/>
+        </argument>
+        <argument line="239">
+          <name>$headers</name>
+          <default></default>
+          <type/>
+        </argument>
+        <argument line="239">
+          <name>$body</name>
+          <default></default>
+          <type/>
+        </argument>
+      </method>
+    </class>
+    <parse_markers>
+      <error line="14" code="50009">No DocBlock was found for function \Services_Zencoder_autoload()</error>
+      <error line="209" code="50010">No DocBlock was found for method _getApiPath()</error>
+      <error line="220" code="50010">No DocBlock was found for method _processResponse()</error>
+      <error line="239" code="50010">No DocBlock was found for method _processJsonResponse()</error>
+    </parse_markers>
+  </file>
+  <package name="Default" full_name="Default"/>
+  <package name="Services" full_name="Services">
+    <package name="Zencoder" full_name="Services\Zencoder"/>
+  </package>
+  <namespace name="global" full_name="global"/>
+  <marker count="0">todo</marker>
+  <marker count="0">fixme</marker>
+  <deprecated count="0"/>
+</project>

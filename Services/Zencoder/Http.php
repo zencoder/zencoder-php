@@ -5,12 +5,14 @@
  * @category Services
  * @package  Services_Zencoder
  * @author   Michael Christopher <m@zencoder.com>
- * @version  Release: 2.1.1
+ * @version  Release: 2.1.2
  * @license  http://creativecommons.org/licenses/MIT/MIT
  * @link     http://github.com/zencoder/zencoder-php
  */
 
-class Services_Zencoder_HttpException extends Services_Zencoder_Exception {}
+class Services_Zencoder_HttpException extends Services_Zencoder_Exception
+{
+}
 
   /**
    * Based on TinyHttp from https://gist.github.com/618157 and
@@ -37,7 +39,8 @@ class Services_Zencoder_HttpException extends Services_Zencoder_Exception {}
    * @access   private
    */
 
-class Services_Zencoder_Http {
+class Services_Zencoder_Http
+{
   protected $api_key, $scheme, $host, $debug, $curlopts;
 
   public function __construct($uri = '', $kwargs = array()) {

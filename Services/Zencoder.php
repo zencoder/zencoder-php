@@ -5,13 +5,14 @@
  * @category Services
  * @package  Services_Zencoder
  * @author   Michael Christopher <m@zencoder.com>
- * @version  Release: 2.1.1
+ * @version  Release: 2.1.2
  * @license  http://creativecommons.org/licenses/MIT/MIT
  * @link     http://github.com/zencoder/zencoder-php
  * @access   private
  */
 
-function Services_Zencoder_autoload($className) {
+function Services_Zencoder_autoload($className)
+{
     if (substr($className, 0, 17) != 'Services_Zencoder') {return false;}
     $file = str_replace('_', '/', $className);
     $file = str_replace('Services/', '', $file);
@@ -25,14 +26,14 @@ spl_autoload_register('Services_Zencoder_autoload');
  * @category Services
  * @package  Services_Zencoder
  * @author   Michael Christopher <m@zencoder.com>
- * @version  Release: 2.1.1
+ * @version  Release: 2.1.2
  * @license  http://creativecommons.org/licenses/MIT/MIT
  * @link     http://github.com/zencoder/zencoder-php
  */
 
 class Services_Zencoder extends Services_Zencoder_Base
 {
-    const USER_AGENT = 'ZencoderPHP v2.1.1';
+    const USER_AGENT = 'ZencoderPHP v2.1.2';
 
     /**
     * Contains the HTTP communication class
@@ -150,7 +151,6 @@ class Services_Zencoder extends Services_Zencoder_Base
     * DELETE the resource at the specified path.
     *
     * @param string $path   Path to the resource
-    * @param array  $params Query string parameters
     * @param array  $opts   Optional overrides
     *
     * @return object The object representation of the resource
@@ -164,7 +164,7 @@ class Services_Zencoder extends Services_Zencoder_Base
     * POST to the resource at the specified path.
     *
     * @param string $path   Path to the resource
-    * @param array  $params Query string parameters
+    * @param string $body   Raw body to post
     * @param array  $opts   Optional overrides
     *
     * @return object The object representation of the resource
@@ -187,7 +187,7 @@ class Services_Zencoder extends Services_Zencoder_Base
     * PUT to the resource at the specified path.
     *
     * @param string $path   Path to the resource
-    * @param array  $params Query string parameters
+    * @param string $body   Raw body to post
     * @param array  $opts   Optional overrides
     *
     * @return object The object representation of the resource
