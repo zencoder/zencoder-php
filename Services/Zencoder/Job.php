@@ -30,6 +30,15 @@ class Services_Zencoder_Job extends Services_Zencoder_Object
     * @var Services_Zencoder_Input
     */
     public $input;
+    
+    /**
+     * Services_Zencoder_Stream object containing information on the stream for
+     * live transcoding
+     * 
+     * @var Services_Zencoder_Stream
+     */
+    public $stream;
+    
     /**
     * A copy of the raw API response for debug purposes
     * 
@@ -57,6 +66,8 @@ class Services_Zencoder_Job extends Services_Zencoder_Object
                 $this->_create_thumbnails($attr_value);
             } elseif ($attr_name == "input_media_file" && is_object($attr_value)) {
                 $this->input = new Services_Zencoder_Input($attr_value);
+            } elseif ($attr_name == "stream" && is_object($attr_value)){
+                $this->stream = new Services_Zencoder_Stream($attr_value);
             } elseif (is_array($attr_value) || is_object($attr_value)) {
                 $this->_update_attributes($attr_value);
             } elseif (empty($this->$attr_name)) {
