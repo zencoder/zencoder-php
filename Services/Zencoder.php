@@ -88,6 +88,14 @@ class Services_Zencoder extends Services_Zencoder_Base
     * @var Services_Zencoder_Outputs
     */
     public $outputs;
+    /**
+    * Provides access to the Zencoder Reports API
+    *
+    * Valid functions: vod, live, minutes, all
+    *
+    * @var Services_Zencoder_Reports
+    */
+    public $reports;
 
     /**
     * Initialize the Services_Zencoder class and sub-classes.
@@ -135,6 +143,7 @@ class Services_Zencoder extends Services_Zencoder_Base
         $this->jobs = new Services_Zencoder_Jobs($this);
         $this->notifications = new Services_Zencoder_Notifications($this);
         $this->outputs = new Services_Zencoder_Outputs($this);
+        $this->reports = new Services_Zencoder_Reports($this);
     }
 
     /**
