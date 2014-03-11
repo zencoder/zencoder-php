@@ -30,6 +30,8 @@ called:
     $zencoder->inputs->details($input_id);
     $zencoder->outputs->details($output_id);
     $zencoder->notifications->parseIncoming();
+	$zencoder->reports->vod($array);
+	$zencoder->reports->all($array);
 
 Any errors will throw a Services_Zencoder_Exception. You can call getErrors() on an exception
 and it will return any errors received from the Zencoder API.
@@ -174,6 +176,78 @@ Then submit the job to test if it works.
 ### Step 3
 Modify the above script to meet your needs.  
 Your [notifications page](https://app.zencoder.com/notifications) will come in handy.
+
+REPORTS
+----------------------
+The ZencoderReports class is used to get reports over the zencoder api.
+See [reports api doc](https://app.zencoder.com/docs/api/reports) for required/optional parameters.
+
+### Get usage for VOD
+Create a script to get usage for VOD
+
+#### Example
+    <?php
+
+    // Make sure this points to a copy of Zencoder.php on the same server as this script.
+    require_once('Services/Zencoder.php');
+
+    // Initialize the Services_Zencoder class
+    $zencoder = new Services_Zencoder('93h630j1dsyshjef620qlkavnmzui3');
+
+    // Get reports
+	$params = array(
+		'from' => '2014-02-01',
+		'to' => '2014-02-28',
+	)
+    $reports = $zencoder->reports->vod($params);
+	// for live reports you just call the 'live' method i.e $reports = $zencoder->reports->live($params) ($params is optional)
+
+	if ($reports->statistics) {
+		foreach ($reports->statistics as $statistic) {
+			print_r($statistic);
+		}
+		print_r($reports->total);
+	} else {
+		echo "no statistics found";
+	}
+
+    ?>
+
+### Get usage for VOD & Live
+Get reports containing a breakdown of VOD and live-streaming usage.
+
+**see return structure at:** 
+<https://app.zencoder.com/docs/api/reports/all>
+
+#### Example
+    <?php
+
+    // Make sure this points to a copy of Zencoder.php on the same server as this script.
+    require_once('Services/Zencoder.php');
+
+    // Initialize the Services_Zencoder class
+    $zencoder = new Services_Zencoder('93h630j1dsyshjef620qlkavnmzui3');
+
+    // Get reports
+	$params = array(
+		'from' => '2014-02-01',
+		'to' => '2014-02-28',
+	)
+    $reports = $zencoder->reports->all($params);
+
+	// $reports->statistics if not empty will be an array with keys 'vod' and 'live' (same for $reports->total)
+
+	if (!empty($reports->statistics['vod'])) {
+		foreach ($reports->statistics['vod'] as $statistic) {
+			print_r($statistic);
+		}
+		print_r($reports->total['vod']);
+	} else {
+		echo "no vod statistics found";
+	}
+
+    ?>
+
 
 VERSIONS
 ---------
