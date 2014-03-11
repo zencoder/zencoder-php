@@ -30,8 +30,8 @@ called:
     $zencoder->inputs->details($input_id);
     $zencoder->outputs->details($output_id);
     $zencoder->notifications->parseIncoming();
-	$zencoder->reports->vod($array);
-	$zencoder->reports->all($array);
+    $zencoder->reports->vod($array);
+    $zencoder->reports->all($array);
 
 Any errors will throw a Services_Zencoder_Exception. You can call getErrors() on an exception
 and it will return any errors received from the Zencoder API.
