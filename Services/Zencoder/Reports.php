@@ -15,7 +15,7 @@ class Services_Zencoder_Reports extends Services_Zencoder_Base {
 	/**
 	 * A list of valid 'methods' to be trapped in __call()
 	 *
-	 * @link @link https://app.zencoder.com/docs/api/reports/
+	 * @link https://app.zencoder.com/docs/api/reports/
 	 * @var array
 	 */
 	protected $methods = array('vod', 'live', 'minutes', 'all');
