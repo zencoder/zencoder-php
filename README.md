@@ -9,7 +9,7 @@ Repository: <http://github.com/zencoder/zencoder-php/>
 
 The Zencoder CA chain certificate has been removed from the library as the bundled cert will be expiring on July 26 2014,
 and should not be required as PHP/curl should be able to use the built in CA chain. 
-Please contact us at (help (a) zencoder (.) c&#1;om) with an issues.
+Please contact us at help@zencoder.com with an issues.
 
 
 Author:  [Michael Christopher] (mchristopher (a) brightcove (.) c&#1;om)
