@@ -3,7 +3,7 @@ Zencoder API PHP Library
 
 Author:  [Zac Shenker] (zshenker (a) brightcove (.) c&#1;om)
 Company: [Brightcove/Zencoder](http://www.zencoder.com)
-Version: 2.1.3
+Version: 2.2.0
 Date:    2014-07-24
 Repository: <http://github.com/zencoder/zencoder-php/>
 
