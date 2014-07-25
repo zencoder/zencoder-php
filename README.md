@@ -1,6 +1,17 @@
 Zencoder API PHP Library
 ==========================
 
+Author:  [Zac Shenker] (zshenker (a) brightcove (.) c&#1;om)
+Company: [Brightcove/Zencoder](http://www.zencoder.com)
+Version: 2.1.3
+Date:    2014-07-24
+Repository: <http://github.com/zencoder/zencoder-php/>
+
+The Zencoder CA chain certificate has been removed from the library as the bundled cert will be expiring on July 26 2014,
+and should not be required as PHP/curl should be able to use the built in CA chain. 
+Please contact us at (help (a) zencoder (.) c&#1;om) with an issues.
+
+
 Author:  [Michael Christopher] (mchristopher (a) brightcove (.) c&#1;om)
 Company: [Zencoder - Online Video Encoder](http://www.zencoder.com)
 Version: 2.1.1
