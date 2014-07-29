@@ -5,7 +5,7 @@ Author:  [Nathan Sutton] (nsutton (a) brightcove (.) c&#1;om)
 
 Company: [Brightcove/Zencoder](http://www.zencoder.com)
 
-Version: 0.2.1
+Version: 2.2.2
 
 Date:    2014-07-29
 
@@ -241,7 +241,8 @@ Your [notifications page](https://app.zencoder.com/notifications) will come in h
 VERSIONS
 ---------
 
-    Version 2.2.1 - 2014-07-29    Surrport setting CURLOPT_CAPATH and CURLOPT_CAINFO on cURL connections.
+    Version 2.2.2 - 2014-07-29    Fixed a bug where api_key was set as api_version in the http connection options
+    Version 2.2.1 - 2014-07-29    Support setting CURLOPT_CAPATH and CURLOPT_CAINFO on cURL connections.
     Version 2.2.0 - 2014-07-24    Removing the bundled CA chain to address expiring intermediate certificate
     Version 2.1.1 - 2012-08-02    Fixing issue where jobs index call didn't return jobs as individual objects
     Version 2.1.0 - 2012-06-05    Adding support for job-level notifications & merging output with job in notification object
