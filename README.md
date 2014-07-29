@@ -5,7 +5,7 @@ Author:  [Nathan Sutton] (nsutton (a) brightcove (.) c&#1;om)
 
 Company: [Brightcove/Zencoder](http://www.zencoder.com)
 
-Version: 2.2.2
+Version: 2.2.3
 
 Date:    2014-07-29
 
@@ -241,6 +241,7 @@ Your [notifications page](https://app.zencoder.com/notifications) will come in h
 VERSIONS
 ---------
 
+    Version 2.2.3 - 2014-07-29    Fixed the versions listed in the user agent and throughout the code
     Version 2.2.2 - 2014-07-29    Fixed a bug where api_key was set as api_version in the http connection options
     Version 2.2.1 - 2014-07-29    Support setting CURLOPT_CAPATH and CURLOPT_CAINFO on cURL connections.
     Version 2.2.0 - 2014-07-24    Removing the bundled CA chain to address expiring intermediate certificate
