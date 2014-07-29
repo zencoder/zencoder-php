@@ -121,7 +121,7 @@ class Services_Zencoder extends Services_Zencoder_Base
 
         $this->version = $api_version;
 
-        $http_options = array("api_version" => $api_key, "debug" => $debug, "curlopts" => array(CURLOPT_USERAGENT => self::USER_AGENT));
+        $http_options = array("api_key" => $api_key, "debug" => $debug, "curlopts" => array(CURLOPT_USERAGENT => self::USER_AGENT));
         if (isset($ca_path)) {
           $http_options["curlopts"][CURLOPT_CAPATH] = realpath($ca_path);
         }
