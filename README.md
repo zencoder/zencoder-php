@@ -1,6 +1,27 @@
 Zencoder API PHP Library
 ==========================
 
+Author:  [Nathan Sutton] (nsutton (a) brightcove (.) c&#1;om)
+
+Company: [Brightcove/Zencoder](http://www.zencoder.com)
+
+Version: 0.2.1
+
+Date:    2014-07-29
+
+Repository: <http://github.com/zencoder/zencoder-php/>
+
+To help address problems where users cannot modify php.ini to point cURL to their system CA bundle path, or are using a PHP release before 5.3.7, we have extended this library to allow users to set CURLOPT\_CAPATH and CURLOPT\_CAINFO on the cURL connection used to submit requests.
+
+```php
+$zencoder = new Services_Zencoder($my_api_key, 'v2', 'https://app.zencoder.com', false, $my_curlopt_capath, $my_curlopt_cainfo);
+```
+
+See also the constructor for `Services_Zencoder` for more information on the available arguments.
+
+See [the cURL CA bundle extraction page](http://curl.haxx.se/docs/caextract.html) for information on obtaining a CA bundle. We recommend using the HTTPS link to download the CA bundle.
+
+
 Author:  [Zac Shenker] (zshenker (a) brightcove (.) c&#1;om)
 
 Company: [Brightcove/Zencoder](http://www.zencoder.com)
@@ -220,6 +241,7 @@ Your [notifications page](https://app.zencoder.com/notifications) will come in h
 VERSIONS
 ---------
 
+    Version 2.2.1 - 2014-07-29    Surrport setting CURLOPT_CAPATH and CURLOPT_CAINFO on cURL connections.
     Version 2.2.0 - 2014-07-24    Removing the bundled CA chain to address expiring intermediate certificate
     Version 2.1.1 - 2012-08-02    Fixing issue where jobs index call didn't return jobs as individual objects
     Version 2.1.0 - 2012-06-05    Adding support for job-level notifications & merging output with job in notification object
