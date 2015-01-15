@@ -100,10 +100,17 @@ class Services_Zencoder_Http
       if ($curl = curl_init()) {
         if (curl_setopt_array($curl, $opts)) {
           if ($response = curl_exec($curl)) {
-            $parts = explode("\r\n\r\n", $response, 3);
-            list($head, $body) = ($parts[0] == 'HTTP/1.1 100 Continue')
-              ? array($parts[1], $parts[2])
-              : array($parts[0], $parts[1]);
+            list($head, $body) = explode("\r\n\r\n", $response, 2);
+            $parts = explode("\r\n\r\n", $response);
+            foreach ($parts as $i => $part) {
+              if ($i >= count($parts) - 2) {
+                break; // don't bother continuing if there's no head or body candidate to come
+              }
+              if ($part == 'HTTP/1.1 100 Continue') {
+                $head = $parts[$i + 1];
+                $body = implode("\r\n\r\n", array_slice($parts, $i + 2));
+              }
+            }
             $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
             if ($this->debug) {
               error_log(
