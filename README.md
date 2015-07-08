@@ -66,6 +66,7 @@ Once you have created the object, you can use it to interact with the API. For f
 see the Documentation folder, but here is a quick overview of some of the functions that can be
 called:
 
+<<<<<<< HEAD
 ```php
 $zencoder->accounts->create($array);
 $zencoder->jobs->create($array);
@@ -74,6 +75,17 @@ $zencoder->inputs->details($input_id);
 $zencoder->outputs->details($output_id);
 $zencoder->notifications->parseIncoming();
 ```
+=======
+    $zencoder->accounts->create($array);
+    $zencoder->jobs->create($array);
+    $zencoder->jobs->progress($job_id);
+    $zencoder->inputs->details($input_id);
+    $zencoder->outputs->details($output_id);
+    $zencoder->notifications->parseIncoming();
+    $zencoder->reports->vod($array);
+    $zencoder->reports->live($array);
+    $zencoder->reports->all($array);
+>>>>>>> 237615a70bdc699185d4abd8d2ce2f9743284bce
 
 Any errors will throw a Services_Zencoder_Exception. You can call getErrors() on an exception
 and it will return any errors received from the Zencoder API.
