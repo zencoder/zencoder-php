@@ -244,8 +244,8 @@ REPORTS
 The ZencoderReports class is used to get reports over the zencoder api.
 See [reports api doc](https://app.zencoder.com/docs/api/reports) for required/optional parameters.
 
-### Get usage for VOD
-Create a script to get usage for VOD
+### Get usage for ALL reports
+Create a script to get reports for a specified date range
 
 #### Example
 ```php
@@ -258,8 +258,8 @@ Create a script to get usage for VOD
 
     // Get reports
     $params = array(
-	'from' => '2014-02-01',
-	'to' => '2014-02-28',
+        'from' => '2014-02-01',
+        'to' => '2014-02-28',
     )
 
     // 'all' can be replaced by 'vod' or 'live' acccording to entry points in docs
@@ -267,12 +267,12 @@ Create a script to get usage for VOD
 
     // Each reports object should have a 'statistics' and 'total' base element
     if ($report->statistics) {
-	foreach ($report->statistics as $statistic) {
-		print_r($statistic);
-	}
-	print_r($report->total);
+        foreach ($report->statistics as $statistic) {
+            print_r($statistic);
+        }
+        print_r($report->total);
     } else {
-	echo "no statistics found";
+        echo "no statistics found";
     }
 
 ```
