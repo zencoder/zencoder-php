@@ -261,17 +261,19 @@ Create a script to get usage for VOD
 	'from' => '2014-02-01',
 	'to' => '2014-02-28',
     )
+
     // 'all' can be replaced by 'vod' or 'live' acccording to entry points in docs
-    $reports = $zencoder->reports->details('all', $params);
-	// Each reports object should have a 'statistics' and 'total' base element
-	if ($reports->statistics) {
-		foreach ($reports->statistics as $statistic) {
-			print_r($statistic);
-		}
-		print_r($reports->total);
-	} else {
-		echo "no statistics found";
+    $report = $zencoder->reports->details('all', $params);
+
+    // Each reports object should have a 'statistics' and 'total' base element
+    if ($report->statistics) {
+	foreach ($report->statistics as $statistic) {
+		print_r($statistic);
 	}
+	print_r($report->total);
+    } else {
+	echo "no statistics found";
+    }
 
 ```
 
