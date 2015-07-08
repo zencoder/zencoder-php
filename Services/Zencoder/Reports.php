@@ -26,7 +26,7 @@ class Services_Zencoder_Reports extends Services_Zencoder_Base {
 	 *
 	 * @return Services_Zencoder_Report The object representation of the resource
 	 */
-	public function details($report_type, $params = array(), $opts = array()) {
+	public function details($report_type = 'all', $params = array(), $opts = array()) {
 		return new Services_Zencoder_Report($this->proxy->retrieveData("reports/$report_type", $params, $opts));
 	}
 
