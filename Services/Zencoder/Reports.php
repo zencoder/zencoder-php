@@ -12,47 +12,22 @@
  */
 class Services_Zencoder_Reports extends Services_Zencoder_Base
 {
-    /**
-     * A list of valid 'methods' to be trapped in __call()
-     *
-     * @link https://app.zencoder.com/docs/api/reports/
-     * @var array
-     */
-    protected $methods = array('vod', 'live', 'minutes', 'all');
-
-    /**
-     * Return all reports for VOD
+	/**
+     * Get details about different types of reports
      *
      * @link https://app.zencoder.com/docs/api/reports
      *
-     * @param string $method The method name indicates the type of report we want to get
-     * @param array $args A list of arguments for the overriden methods. Each methods takes 2 arguements.
-     * 					  The first being an associative array of query string parameters and the second
-     * 					  an associative array of option overrides
-     * 
-     * @throws Services_Zencoder_Exception
+     * @param string $report_type The type of report to get. The following are currently supported over the api
+	 *							  - 'all' : Returns all reports, both VOD and LIVE
+	 *							  - 'vod' : Returns VOD reports
+	 *							  - 'live': Return LIVE reports
+     * @param array $params An associated array of optional query parameters per requested report type
+	 * @param array $opts Optional overrides
      *
      * @return Services_Zencoder_Report The object representation of the resource
      */
-    public function __call($method, $args) {
-        if (!in_array($method, $this->methods)) {
-            throw new Services_Zencoder_Exception("Unsupported method call '$method' for Services_Zencoder_Reports");
-        }
-
-        // initialize query string parameters and optional overrides
-        $params = $opts = array();
-
-        // set query string parameters
-        if (isset($args[0]) && is_array($args[0])) {
-            $params = $args[0];
-        }
-
-        // set optional overrides
-        if (isset($args[1]) && is_array($args[1])) {
-            $opts = $args[1];
-        }
-
-        return new Services_Zencoder_Report($this->proxy->retrieveData("reports/$method", $params, $opts), $method);
-    }
+	public function details($report_type, $params = array(), $opts = array()) {
+		return new Services_Zencoder_Report($this->proxy->retrieveData("reports/$report_type", $params, $opts));
+	}
 
 }
