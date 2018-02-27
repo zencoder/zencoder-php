@@ -53,7 +53,7 @@ For more details on v2 of the Zencoder API visit
 <http://blog.zencoder.com/2012/01/05/announcing-zencoder-api-v2/>
 
 For more details on the Zencoder API requirements visit
-<http://app.zencoder.com/docs/api>
+<https://support.brightcove.com/zencoder>
 
 To start working with the library, create a new instance of the Services_Zencoder class, passing
 your API Key as the 1st parameter.
@@ -82,8 +82,8 @@ and it will return any errors received from the Zencoder API.
 ENCODING JOB
 ------------
 
-The ZencoderJob object creates an encoding job using [cURL](http://zencoder.com/docs/glossary/curl/)
-to send [JSON](http://zencoder.com/docs/glossary/json/) formatted parameters to Zencoder's encoding API.
+The ZencoderJob object creates an encoding job using cURL
+to send JSON formatted parameters to Zencoder's encoding API.
 
 ### Step 1
 
