@@ -98,4 +98,16 @@ class Services_Zencoder_Jobs extends Services_Zencoder_Base
   public function cancel($job_id, $params = array()) {
     return $this->proxy->updateData("jobs/$job_id/cancel", "", $params);
   }
+
+  /**
+   * Finish a live job
+   *
+   * @param integer  $job_id  ID of the live job you want to finish
+   * @param array    $params  Optional overrides
+   *
+   * @return bool If the operation was successful
+   */
+  public function finish($job_id, $params = array()) {
+    return $this->proxy->updateData("jobs/$job_id/finish", "", $params);
+  }
 }
