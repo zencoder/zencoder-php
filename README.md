@@ -125,7 +125,7 @@ try {
   echo "Output ID: ".$encoding_job->outputs['web']->id."\n";
   // Store Job/Output IDs to update their status when notified or to check their progress.
 } catch (Services_Zencoder_Exception $e) {
-  // If were here, an error occured
+  // If were here, an error occurred
   echo "Fail :(\n\n";
   echo "Errors:\n";
   foreach ($e->getErrors() as $error) echo $error."\n";
