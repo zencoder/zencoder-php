@@ -231,9 +231,16 @@ class Services_Zencoder extends Services_Zencoder_Base
         if ( $status == 204 || (($status == 200 || $status == 201) && trim($body) == "")) {
             return TRUE;
         }
+
+        // http/1.0 and http/1.1
         if (empty($headers['Content-Type'])) {
-            throw new Services_Zencoder_Exception('Response header is missing Content-Type', $body);
+            // http/2
+            if (empty($headers['content-type'])) {
+                throw new Services_Zencoder_Exception('Response header is missing Content-Type', $body);
+            }
+            $headers['Content-Type'] = $headers['content-type'];
         }
+
         switch ($headers['Content-Type']) {
             case 'application/json':
             case 'application/json; charset=utf-8':
