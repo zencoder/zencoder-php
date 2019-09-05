@@ -1,6 +1,6 @@
 {
   "name": "zencoder/zencoder-php",
-  "homepage": "http://github.com/zencoder/zencoder-php",
+  "homepage": "https://github.com/zencoder/zencoder-php",
   "description":"Zencoder integration library for PHP",
   "keywords":["zencoder", "encoding", "encoder", "cloud"],
   "type":"library",
@@ -16,7 +16,7 @@
   "authors":[
     {
       "name":"Zencoder",
-      "homepage":"http://zencoder.com"
+      "homepage":"https://zencoder.com"
     }
   ]
 }
