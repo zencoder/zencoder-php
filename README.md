@@ -1,6 +1,17 @@
 Zencoder API PHP Library
 ==========================
 
+Company: [Brightcove/Zencoder](http://www.zencoder.com)
+
+Version: 2.2.4
+
+Date:    2019-09-05
+
+Repository: <http://github.com/zencoder/zencoder-php/>
+
+HTTP headers are handled in a case-insensitve manner so that they are compatible with HTTP2.
+
+
 Author:  [Nathan Sutton] (nsutton (a) brightcove (.) c&#1;om)
 
 Company: [Brightcove/Zencoder](http://www.zencoder.com)
