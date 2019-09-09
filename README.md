@@ -252,6 +252,7 @@ Your [notifications page](https://app.zencoder.com/notifications) will come in h
 VERSIONS
 ---------
 
+    Version 2.2.4 - 2019-09-05    HTTP headers are handled in a case-insensitve manner so that they are compatible with HTTP2.
     Version 2.2.3 - 2014-07-29    Fixed the versions listed in the user agent and throughout the code
     Version 2.2.2 - 2014-07-29    Fixed a bug where api_key was set as api_version in the http connection options
     Version 2.2.1 - 2014-07-29    Support setting CURLOPT_CAPATH and CURLOPT_CAINFO on cURL connections.
