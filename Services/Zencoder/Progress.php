@@ -20,9 +20,9 @@ class Services_Zencoder_Progress extends Services_Zencoder_Object
     private function _updateAttributes($attributes = array())
     {
         foreach ($attributes as $attr_name => $attr_value) {
-            if ($attr_name == "outputs" && is_array($attr_value)) {
+            if ($attr_name == "outputs" && \is_array($attr_value)) {
                 $this->_create_outputs($attr_value);
-            } elseif ($attr_name == "input" && is_object($attr_value)) {
+            } elseif ($attr_name == "input" && \is_object($attr_value)) {
                 $this->input = new Services_Zencoder_Input($attr_value);
             } elseif (empty($this->$attr_name)) {
                 $this->$attr_name = $attr_value;

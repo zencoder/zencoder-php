@@ -23,7 +23,7 @@ class Services_Zencoder_Notification extends Services_Zencoder_Object
     {
         if(empty($params->job)) $params->job = new stdClass();
         if(!empty($params->input)) $params->job->input_media_file = $params->input;
-        if(!empty($params->outputs) && is_array($params->outputs)) {
+        if(!empty($params->outputs) && \is_array($params->outputs)) {
             foreach ($params->outputs as $output) $params->job->outputs[] = $output;
         } else {
             if(!empty($params->output)) $params->job->outputs[] = $params->output;

@@ -18,7 +18,7 @@ class Services_Zencoder_Exception extends ErrorException
     function __construct($message, $errors = null, $code = null, $severity = E_ERROR, $filename = null,
                          $lineno = null, array $context = array()) {
         parent::__construct($message, $code, $severity, $filename, $lineno);
-        $this->errors = ($decode = json_decode($errors)) ? new Services_Zencoder_Error($decode->errors) : $errors;
+        $this->errors = ($decode = \json_decode($errors)) ? new Services_Zencoder_Error($decode->errors) : $errors;
         $this->context = $context;
     }
 

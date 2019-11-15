@@ -21,10 +21,10 @@ class Services_Zencoder_Jobs extends Services_Zencoder_Base
    * @return Services_Zencoder_Job The object representation of the resource
    */
   public function create($job = NULL, $params = array()) {
-    if(is_string($job)) {
-      $json = trim($job);
-    } else if(is_array($job)) {
-      $json = json_encode($job);
+    if(\is_string($job)) {
+      $json = \trim($job);
+    } else if(\is_array($job)) {
+      $json = \json_encode($job);
     } else {
       throw new Services_Zencoder_Exception(
         'Job parameters required to create job.');

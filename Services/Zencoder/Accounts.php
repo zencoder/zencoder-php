@@ -21,10 +21,10 @@ class Services_Zencoder_Accounts extends Services_Zencoder_Base
    * @return Services_Zencoder_Account The object representation of the resource
    */
   public function create($account = NULL, $params = array()) {
-    if(is_string($account)) {
-      $json = trim($account);
-    } else if(is_array($account)) {
-      $json = json_encode($account);
+    if(\is_string($account)) {
+      $json = \trim($account);
+    } else if(\is_array($account)) {
+      $json = \json_encode($account);
     } else {
       throw new Services_Zencoder_Exception(
         'Account parameters required to create account.');

@@ -44,7 +44,7 @@ class Services_Zencoder_Http
   protected $api_key, $scheme, $host, $debug, $curlopts;
 
   public function __construct($uri = '', $kwargs = array()) {
-    foreach (parse_url($uri) as $name => $value) $this->$name = $value;
+    foreach (\parse_url($uri) as $name => $value) $this->$name = $value;
     $this->api_key = isset($kwargs['api_key']) ? $kwargs['api_key'] : NULL;
     $this->debug = isset($kwargs['debug']) ? !!$kwargs['debug'] : NULL;
     $this->curlopts = isset($kwargs['curlopts']) ? $kwargs['curlopts'] : array();
@@ -78,12 +78,12 @@ class Services_Zencoder_Http
       break;
     case 'put':
       $opts[CURLOPT_PUT] = TRUE;
-      if (strlen($req_body)) {
-        if ($buf = fopen('php://memory', 'w+')) {
-          fwrite($buf, $req_body);
-          fseek($buf, 0);
+      if (\strlen($req_body)) {
+        if ($buf = \fopen('php://memory', 'w+')) {
+          \fwrite($buf, $req_body);
+          \fseek($buf, 0);
           $opts[CURLOPT_INFILE] = $buf;
-          $opts[CURLOPT_INFILESIZE] = strlen($req_body);
+          $opts[CURLOPT_INFILESIZE] = \strlen($req_body);
         } else throw new Services_Zencoder_HttpException('Unable to open memory buffer');
       } else {
         $opts[CURLOPT_INFILESIZE] = 0;
@@ -97,36 +97,36 @@ class Services_Zencoder_Http
       break;
     }
     try {
-      if ($curl = curl_init()) {
-        if (curl_setopt_array($curl, $opts)) {
-          if ($response = curl_exec($curl)) {
-            $parts = explode("\r\n\r\n", $response, 3);
+      if ($curl = \curl_init()) {
+        if (\curl_setopt_array($curl, $opts)) {
+          if ($response = \curl_exec($curl)) {
+            $parts = \explode("\r\n\r\n", $response, 3);
             list($head, $body) = ($parts[0] == 'HTTP/1.1 100 Continue')
               ? array($parts[1], $parts[2])
               : array($parts[0], $parts[1]);
-            $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+            $status = \curl_getinfo($curl, CURLINFO_HTTP_CODE);
             if ($this->debug) {
-              error_log(
-                curl_getinfo($curl, CURLINFO_HEADER_OUT) .
+              \error_log(
+                \curl_getinfo($curl, CURLINFO_HEADER_OUT) .
                 $req_body
               );
             }
-            $header_lines = explode("\r\n", $head);
-            array_shift($header_lines);
+            $header_lines = \explode("\r\n", $head);
+            \array_shift($header_lines);
             foreach ($header_lines as $line) {
-              list($key, $value) = explode(":", $line, 2);
+              list($key, $value) = \explode(":", $line, 2);
               // Ensure headers are lowercase per https://tools.ietf.org/html/rfc2616#section-4.2
-              $headers[strtolower($key)] = trim($value);
+              $headers[\strtolower($key)] = \trim($value);
             }
-            curl_close($curl);
-            if (isset($buf) && is_resource($buf)) fclose($buf);
+            \curl_close($curl);
+            if (isset($buf) && \is_resource($buf)) \fclose($buf);
             return array($status, $headers, $body);
-          } else throw new Services_Zencoder_HttpException(curl_error($curl));
-        } else throw new Services_Zencoder_HttpException(curl_error($curl));
+          } else throw new Services_Zencoder_HttpException(\curl_error($curl));
+        } else throw new Services_Zencoder_HttpException(\curl_error($curl));
       } else throw new Services_Zencoder_HttpException('Unable to initialize cURL');
     } catch (Services_Zencoder_HttpException $e) {
-      if (is_resource($curl)) curl_close($curl);
-      if (isset($buf) && is_resource($buf)) fclose($buf);
+      if (\is_resource($curl)) \curl_close($curl);
+      if (isset($buf) && \is_resource($buf)) \fclose($buf);
       throw $e;
     }
   }

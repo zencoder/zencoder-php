@@ -13,12 +13,12 @@
 
 function Services_Zencoder_autoload($className)
 {
-    if (substr($className, 0, 17) != 'Services_Zencoder') {return false;}
-    $file = str_replace('_', '/', $className);
-    $file = str_replace('Services/', '', $file);
-    return include dirname(__FILE__) . "/$file.php";
+    if (\substr($className, 0, 17) != 'Services_Zencoder') {return false;}
+    $file = \str_replace('_', '/', $className);
+    $file = \str_replace('Services/', '', $file);
+    return include \dirname(__FILE__) . "/$file.php";
 }
-spl_autoload_register('Services_Zencoder_autoload');
+\spl_autoload_register('Services_Zencoder_autoload');
 
 /**
  * Zencoder API client interface.
@@ -109,13 +109,13 @@ class Services_Zencoder extends Services_Zencoder_Base
     )
     {
         // Check that library dependencies are met
-        if (strnatcmp(phpversion(),'5.2.0') < 0) {
+        if (\strnatcmp(\phpversion(),'5.2.0') < 0) {
             throw new Services_Zencoder_Exception('PHP version 5.2 or higher is required.');
         }
-        if (!function_exists('json_encode')) {
+        if (!\function_exists('json_encode')) {
             throw new Services_Zencoder_Exception('JSON support must be enabled.');
         }
-        if (!function_exists('curl_init')) {
+        if (!\function_exists('curl_init')) {
             throw new Services_Zencoder_Exception('cURL extension must be enabled.');
         }
 
@@ -123,10 +123,10 @@ class Services_Zencoder extends Services_Zencoder_Base
 
         $http_options = array("api_key" => $api_key, "debug" => $debug, "curlopts" => array(CURLOPT_USERAGENT => self::USER_AGENT));
         if (isset($ca_path)) {
-          $http_options["curlopts"][CURLOPT_CAPATH] = realpath($ca_path);
+          $http_options["curlopts"][CURLOPT_CAPATH] = \realpath($ca_path);
         }
         if (isset($ca_file)) {
-          $http_options["curlopts"][CURLOPT_CAINFO] = realpath($ca_file);
+          $http_options["curlopts"][CURLOPT_CAINFO] = \realpath($ca_file);
         }
 
         $this->http = new Services_Zencoder_Http($api_host, $http_options);
@@ -151,7 +151,7 @@ class Services_Zencoder extends Services_Zencoder_Base
         return empty($params)
             ? $this->_processResponse($this->http->get($this->_getApiPath($opts) . $path))
             : $this->_processResponse(
-                $this->http->get($this->_getApiPath($opts) . $path . "?" . http_build_query($params, '', '&'))
+                $this->http->get($this->_getApiPath($opts) . $path . "?" . \http_build_query($params, '', '&'))
             );
     }
 
@@ -228,7 +228,7 @@ class Services_Zencoder extends Services_Zencoder_Base
     private function _processResponse($response)
     {
         list($status, $headers, $body) = $response;
-        if ( $status == 204 || (($status == 200 || $status == 201) && trim($body) == "")) {
+        if ( $status == 204 || (($status == 200 || $status == 201) && \trim($body) == "")) {
             return TRUE;
         }
         if (empty($headers['content-type'])) {
@@ -246,7 +246,7 @@ class Services_Zencoder extends Services_Zencoder_Base
 
     private function _processJsonResponse($status, $headers, $body)
     {
-        $decoded = json_decode($body);
+        $decoded = \json_decode($body);
         if ($status >= 200 && $status < 300) {
             return $decoded;
         }
